@@ -2,288 +2,68 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Unicode 字符分类 - 官方标准17.0版</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Unicode字符浏览器</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+Mono:wght@400&family=Noto+Sans+JP:wght@400&family=Noto+Sans+Emoji:wght@400&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #888888;
-            font-family: "Microsoft YaHei", "微软雅黑", "SimSun", "宋体", 'Courier New', Courier, monospace, 'Noto Sans Mono', 'Noto Sans SC', 'Noto Sans JP', 'Noto Sans Emoji', sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-        #container {
-            display: flex;
-            gap: 20px;
-        }
-        #sidebar {
-            width: 280px;
-            height: 85vh;
-            overflow-y: auto;
-            background: #555;
-            padding: 10px;
-        }
-        .section-title {
-            color: #fff;
-            font-weight: bold;
-            margin: 15px 0 5px 0;
-            padding: 5px;
-            background: #444;
-            font-family: "Microsoft YaHei", "微软雅黑", "SimSun", "宋体", 'Noto Sans SC', sans-serif;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        .category-btn {
-            display: block;
-            width: 100%;
-            padding: 6px 8px;
-            margin: 2px 0;
-            background: #333;
-            color: white;
-            border: none;
-            cursor: pointer;
-            text-align: left;
-            font-size: 12px;
-            font-family: "Microsoft YaHei", "微软雅黑", "SimSun", "宋体", 'Noto Sans SC', sans-serif;
-        }
-        .category-btn:hover {
-            background: #444;
-        }
-        #display {
-            flex: 1;
-            background: #555;
-            padding: 20px;
-            min-height: 85vh;
-            overflow-y: auto;
-        }
-        .char-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, 50px);
-            gap: 5px;
-        }
-        .char-item {
-            width: 50px;
-            height: 50px;
-            background: #666;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            cursor: pointer;
-            color: white;
-            border: 1px solid #777;
-            font-family: "Microsoft YaHei", "微软雅黑", "SimSun", "宋体", 'Noto Sans Mono', 'Noto Sans SC', 'Noto Sans JP', 'Noto Sans Emoji', monospace;
-        }
-        .char-item:hover {
-            background: #777;
-        }
-        /* 颜文字2:3比例格子 */
-        .kaomoji-item {
-            aspect-ratio: 2/3;
-            min-width: 60px;
-            padding: 8px;
-            font-size: 14px;
-            white-space: normal;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1.4;
-        }
-        .load-more-btn {
-            display: block;
-            width: 100%;
-            max-width: 300px;
-            margin: 20px auto;
-            padding: 12px;
-            background: #444;
-            color: white;
-            border: 1px solid #666;
-            cursor: pointer;
-            font-size: 14px;
-            font-family: "Microsoft YaHei", "微软雅黑", "SimSun", "宋体", 'Noto Sans SC', sans-serif;
-        }
-        .load-more-btn:hover {
-            background: #555;
-        }
-        .load-more-btn:disabled {
-            background: #333;
-            color: #666;
-            cursor: not-allowed;
-        }
-        h2 {
-            color: white;
-            margin-top: 0;
-            font-size: 18px;
-            font-family: "Microsoft YaHei", "微软雅黑", "SimSun", "宋体", 'Noto Sans SC', sans-serif;
-        }
-        .info {
-            color: #ccc;
-            font-size: 12px;
-            margin-bottom: 15px;
-            font-family: "Microsoft YaHei", "微软雅黑", "SimSun", "宋体", 'Noto Sans SC', sans-serif;
-        }
-        /* 编码选择器样式 */
-        .encoding-panel {
-            background: #444;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-        }
-        .encoding-label {
-            color: white;
-            font-size: 14px;
-            margin-bottom: 8px;
-            display: block;
-        }
-        .encoding-select {
-            width: 100%;
-            padding: 8px;
-            background: #333;
-            color: white;
-            border: 1px solid #666;
-            font-family: "Microsoft YaHei", "微软雅黑", "SimSun", "宋体", 'Noto Sans Mono', monospace;
-            font-size: 13px;
-        }
-        .encoding-result {
-            background: #222;
-            padding: 12px;
-            margin-top: 10px;
-            border-radius: 3px;
-            font-family: 'Courier New', 'Noto Sans Mono', monospace;
-            color: #0f0;
-            font-size: 13px;
-            word-break: break-all;
-            display: none;
-        }
-        .encoding-result.visible {
-            display: block;
-        }
-        .encoding-result-title {
-            color: #aaa;
-            font-size: 12px;
-            margin-bottom: 5px;
-            font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
-        }
-        .char-info {
-            color: #fff;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
+        body{background:#888;font-family:"Microsoft YaHei","微软雅黑","SimSun","宋体",'Courier New',monospace,'Noto Sans Mono','Noto Sans SC','Noto Sans JP','Noto Sans Emoji',sans-serif;margin:0;padding:20px}
+        #container{display:flex;gap:20px}
+        #sidebar{width:280px;height:85vh;overflow-y:auto;background:#555;padding:10px}
+        .section-title{color:#fff;font-weight:bold;margin:15px 0 5px;padding:5px;background:#444;position:sticky;top:0;z-index:10}
+        .category-btn{display:block;width:100%;padding:6px 8px;margin:2px 0;background:#333;color:white;border:none;cursor:pointer;text-align:left;font-size:12px}
+        .category-btn:hover{background:#444}
+        #display{flex:1;background:#555;padding:20px;min-height:85vh;overflow-y:auto}
+        .char-grid{display:grid;grid-template-columns:repeat(auto-fill,50px);gap:5px}
+        .char-item{width:50px;height:50px;background:#666;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;color:white;border:1px solid #777}
+        .char-item:hover{background:#777}
+        .fancy-char-item{font-size:28px}
+        .kaomoji-item{aspect-ratio:2/3;min-width:60px;padding:8px;font-size:14px;white-space:normal;text-align:center;line-height:1.4}
+        .load-more-btn{display:block;width:100%;max-width:300px;margin:20px auto;padding:12px;background:#444;color:white;border:1px solid #666;cursor:pointer;font-size:14px}
+        .load-more-btn:hover{background:#555}
+        .load-more-btn:disabled{background:#333;color:#666;cursor:not-allowed}
+        h2{color:white;margin-top:0;font-size:18px}
+        .info{color:#ccc;font-size:12px;margin-bottom:15px}
+        .encoding-panel{background:#444;padding:15px;margin-bottom:15px;border-radius:5px}
+        .encoding-label{color:white;font-size:14px;margin-bottom:8px;display:block}
+        .encoding-select{width:100%;padding:8px;background:#333;color:white;border:1px solid #666;font-family:'Noto Sans Mono',monospace;font-size:13px}
+        .encoding-result{background:#222;padding:12px;margin-top:10px;border-radius:3px;font-family:'Courier New',monospace;color:#0f0;font-size:13px;word-break:break-all;display:none}
+        .encoding-result.visible{display:block}
+        .encoding-result-title{color:#aaa;font-size:12px;margin-bottom:5px}
+        .char-info{color:#fff;margin-bottom:10px;font-size:14px}
     </style>
 </head>
 <body>
     <div id="container">
         <div id="sidebar">
-            <div class="section-title">★ 经典怀旧分类</div>
-            <div id="classic-categories"></div>
-            
-            <div class="section-title">📜 欧洲文字</div>
-            <div id="european-scripts"></div>
-            
-            <div class="section-title">🌍 非洲文字</div>
-            <div id="african-scripts"></div>
-            
-            <div class="section-title">🏛️ 西亚文字</div>
-            <div id="westasian-scripts"></div>
-            
-            <div class="section-title">🐎 中亚文字</div>
-            <div id="centralasian-scripts"></div>
-            
-            <div class="section-title">🪷 南亚文字</div>
-            <div id="southasian-scripts"></div>
-            
-            <div class="section-title">🌴 东南亚文字</div>
-            <div id="southeastasian-scripts"></div>
-            
-            <div class="section-title">🏯 东亚文字</div>
-            <div id="eastasian-scripts"></div>
-            
-            <div class="section-title">🦅 美洲文字</div>
-            <div id="american-scripts"></div>
-            
-            <div class="section-title">✦ 符号与标点</div>
-            <div id="symbols-punctuation"></div>
-            
-            <div class="section-title">⚙️ 特殊区域</div>
-            <div id="specials"></div>
+            <div class="section-title">★ 经典分类</div><div id="classic"></div>
+            <div class="section-title">✨ 特色符号</div><div id="special"></div>
+            <div class="section-title">📐 Unicode平面</div><div id="plane"></div>
+            <div class="section-title">📜 欧洲文字</div><div id="european"></div>
+            <div class="section-title">🌍 非洲文字</div><div id="african"></div>
+            <div class="section-title">🏛️ 西亚文字</div><div id="westasian"></div>
+            <div class="section-title">🐎 中亚文字</div><div id="centralasian"></div>
+            <div class="section-title">🪷 南亚文字</div><div id="southasian"></div>
+            <div class="section-title">🌴 东南亚文字</div><div id="southeastasian"></div>
+            <div class="section-title">🏯 东亚文字</div><div id="eastasian"></div>
+            <div class="section-title">🦅 美洲文字</div><div id="american"></div>
+            <div class="section-title">✦ 符号标点</div><div id="symbols"></div>
+            <div class="section-title">⚙️ 特殊区域</div><div id="specials"></div>
         </div>
         <div id="display">
             <div class="encoding-panel">
-                <label class="encoding-label">🔤 选择编码格式：</label>
+                <label class="encoding-label">🔤 选择编码：</label>
                 <select class="encoding-select" id="encoding-select" onchange="updateEncoding()">
-                    <optgroup label="Unicode 系列">
-                        <option value="UTF-8">UTF-8</option>
-                        <option value="UTF-8-BOM">UTF-8 BOM</option>
-                        <option value="UTF-16">UTF-16</option>
-                        <option value="UTF-16BE">UTF-16BE</option>
-                        <option value="UTF-16LE">UTF-16LE</option>
-                        <option value="UTF-32">UTF-32</option>
-                        <option value="UTF-7">UTF-7</option>
-                    </optgroup>
-                    <optgroup label="中文编码">
-                        <option value="GB18030">GB18030</option>
-                        <option value="GB2312">GB2312</option>
-                        <option value="Big5">Big5</option>
-                    </optgroup>
-                    <optgroup label="日文编码">
-                        <option value="Shift_JIS">Shift_JIS</option>
-                        <option value="EUC-JP">EUC-JP</option>
-                        <option value="ISO-2022-JP">ISO-2022-JP</option>
-                        <option value="ISO-2022-JP-1">ISO-2022-JP-1</option>
-                        <option value="ISO-2022-JP-2">ISO-2022-JP-2</option>
-                    </optgroup>
-                    <optgroup label="韩文编码">
-                        <option value="EUC-KR">EUC-KR</option>
-                        <option value="cp1363">cp1363</option>
-                        <option value="KSC_5601">KSC_5601</option>
-                        <option value="ISO-2022-KR">ISO-2022-KR</option>
-                    </optgroup>
-                    <optgroup label="ISO-8859 系列">
-                        <option value="ISO-8859-1">ISO-8859-1 (Latin-1)</option>
-                        <option value="ISO-8859-2">ISO-8859-2 (Latin-2)</option>
-                        <option value="ISO-8859-3">ISO-8859-3 (Latin-3)</option>
-                        <option value="ISO-8859-4">ISO-8859-4 (Latin-4)</option>
-                        <option value="ISO-8859-5">ISO-8859-5 (Cyrillic)</option>
-                        <option value="ISO-8859-6">ISO-8859-6 (Arabic)</option>
-                        <option value="ISO-8859-7">ISO-8859-7 (Greek)</option>
-                        <option value="ISO-8859-8">ISO-8859-8 (Hebrew)</option>
-                        <option value="ISO-8859-9">ISO-8859-9 (Turkish)</option>
-                        <option value="ISO-8859-10">ISO-8859-10 (Nordic)</option>
-                        <option value="ISO-8859-13">ISO-8859-13 (Baltic)</option>
-                        <option value="ISO-8859-15">ISO-8859-15 (Latin-9)</option>
-                    </optgroup>
-                    <optgroup label="IBM / DOS 编码">
-                        <option value="IBM850">IBM850</option>
-                        <option value="cp851">cp851</option>
-                        <option value="IBM857">IBM857</option>
-                        <option value="IBM00858">IBM00858</option>
-                        <option value="IBM860">IBM860</option>
-                        <option value="IBM861">IBM861</option>
-                        <option value="IBM862">IBM862</option>
-                        <option value="IBM863">IBM863</option>
-                        <option value="IBM864">IBM864</option>
-                        <option value="IBM865">IBM865</option>
-                        <option value="IBM866">IBM866</option>
-                        <option value="IBM868">IBM868</option>
-                        <option value="IBM869">IBM869</option>
-                    </optgroup>
-                    <optgroup label="其他编码">
-                        <option value="US-ASCII">US-ASCII</option>
-                        <option value="KOI8-R">KOI8-R</option>
-                        <option value="macintosh">macintosh</option>
-                        <option value="x-mac-greek">x-mac-greek</option>
-                        <option value="x-mac-cyrillic">x-mac-cyrillic</option>
-                        <option value="x-mac-centraleurroman">x-mac-centraleurroman</option>
-                        <option value="x-mac-turkish">x-mac-turkish</option>
-                    </optgroup>
+                    <optgroup label="Unicode系列"><option value="UTF-8">UTF-8</option><option value="UTF-8-BOM">UTF-8 BOM</option><option value="UTF-16">UTF-16</option><option value="UTF-16BE">UTF-16BE</option><option value="UTF-16LE">UTF-16LE</option><option value="UTF-32">UTF-32</option><option value="UTF-7">UTF-7</option></optgroup>
+                    <optgroup label="中文编码"><option value="GB18030">GB18030</option><option value="GB2312">GB2312</option><option value="Big5">Big5</option></optgroup>
+                    <optgroup label="日文编码"><option value="Shift_JIS">Shift_JIS</option><option value="EUC-JP">EUC-JP</option><option value="ISO-2022-JP">ISO-2022-JP</option><option value="ISO-2022-JP-1">ISO-2022-JP-1</option><option value="ISO-2022-JP-2">ISO-2022-JP-2</option></optgroup>
+                    <optgroup label="韩文编码"><option value="EUC-KR">EUC-KR</option><option value="cp1363">cp1363</option><option value="KSC_5601">KSC_5601</option><option value="ISO-2022-KR">ISO-2022-KR</option></optgroup>
+                    <optgroup label="ISO-8859系列"><option value="ISO-8859-1">ISO-8859-1</option><option value="ISO-8859-2">ISO-8859-2</option><option value="ISO-8859-3">ISO-8859-3</option><option value="ISO-8859-4">ISO-8859-4</option><option value="ISO-8859-5">ISO-8859-5</option><option value="ISO-8859-6">ISO-8859-6</option><option value="ISO-8859-7">ISO-8859-7</option><option value="ISO-8859-8">ISO-8859-8</option><option value="ISO-8859-9">ISO-8859-9</option><option value="ISO-8859-10">ISO-8859-10</option><option value="ISO-8859-13">ISO-8859-13</option><option value="ISO-8859-15">ISO-8859-15</option></optgroup>
+                    <optgroup label="IBM/DOS编码"><option value="IBM850">IBM850</option><option value="cp851">cp851</option><option value="IBM857">IBM857</option><option value="IBM00858">IBM00858</option><option value="IBM860">IBM860</option><option value="IBM861">IBM861</option><option value="IBM862">IBM862</option><option value="IBM863">IBM863</option><option value="IBM864">IBM864</option><option value="IBM865">IBM865</option><option value="IBM866">IBM866</option><option value="IBM868">IBM868</option><option value="IBM869">IBM869</option></optgroup>
+                    <optgroup label="其他编码"><option value="US-ASCII">US-ASCII</option><option value="KOI8-R">KOI8-R</option><option value="macintosh">macintosh</option><option value="x-mac-greek">x-mac-greek</option><option value="x-mac-cyrillic">x-mac-cyrillic</option><option value="x-mac-centraleurroman">x-mac-centraleurroman</option><option value="x-mac-turkish">x-mac-turkish</option></optgroup>
                 </select>
                 <div class="encoding-result" id="encoding-result">
                     <div class="encoding-result-title">字符信息：</div>
                     <div class="char-info" id="char-info"></div>
-                    <div class="encoding-result-title" id="encoding-title">UTF-8 编码：</div>
+                    <div class="encoding-result-title" id="encoding-title">UTF-8编码：</div>
                     <div id="encoding-bytes"></div>
                 </div>
             </div>
@@ -292,903 +72,310 @@
     </div>
 
     <script>
-        // 当前选中的字符
-        let currentChar = null;
-        let currentEncoding = 'UTF-8';
+        let currentChar=null,currentEncoding='UTF-8',lazyState={index:0,cat:null,loading:false};
+        const C={classic:[
+            {name:"常用符号",chars:"、。·ˉˇ¨〃々—～‖…‘’“”〔〕〈〉《》「」『』〖〗【】±×÷∶∧∨∑∏∪∩∈∷√⊥∥∠⌒⊙∫∮≡≌≈∽∝≠≮≯≤≥∞∵∴♂♀°′″℃＄¤￠￡‰§№☆★○●◎◇◆□■△▲※→←↑↓〓"},
+            {name:"标点符号",chars:"，。、；：？！…—·ˉˇ¨‘’“”々～‖∶＂＇｀｜〔〕〈〉《》「」『』〖〗【】（）［］｛｝"},
+            {name:"特殊符号",chars:"§№☆★○●◎◇◆□■△▲※→←↑↓〓＃＆＠＼＾＿￣"},
+            {name:"表格线",chars:"─━│┃┄┅┆┇┈┉┊┋┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿╀╁╂╃╄╅╆╇╈╉╊╋╌╍╎╏═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟╠╡╢╣╤╥╦╧╨╩╪╫╬╭╮╯╰╱╲╳╴╵╶╷╸╹╺╻╼╽╾╿"},
+            {name:"数字序号",chars:"⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿⒀⒁⒂⒃⒄⒅⒆⒇①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳㈠㈡㈢㈣㈤㈥㈦㈧㈨㈩ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫ"},
+            {name:"数学符号",chars:"±×÷∶∧∨∑∏∪∩∈∷√⊥∥∠⌒⊙∫∮≡≌≈∽∝≠≮≯≤≥∞∵∴∀∃∂∅∆∇∈∉∊∋∌∍∎∏∐∑−∓∔∕∖∗∘∙√∛∜∝∞∟∠∡∢∣∤∥∦∧∨∩∪∫∬∭∮∯∰∱∲∳∴∵∶∷∸∹∺∻∼∽∾∿≀≁≂≃≄≅≆≇≈≉≊≋≌≍≎≏≐≑≒≓≔≕≖≗≘≙≚≛≜≝≞≟≠≡≢≣≤≥≦≧≨≩≪≫≬≭≮≯≰≱≲≳≴≵≶≷≸≹≺≻≼≽≾≿⊀⊁⊂⊃⊄⊅⊆⊇⊈⊉⊊⊋⊌⊍⊎⊏⊐⊑⊒⊓⊔⊕⊖⊗⊘⊙⊚⊛⊜⊝⊞⊟⊠⊡⊢⊣⊤⊥⊦⊧⊨⊩⊪⊫⊬⊭⊮⊯⊰⊱⊲⊳⊴⊵⊶⊷⊸⊹⊺⊻⊼⊽⊾⊿⋀⋁⋂⋃⋄⋅⋆⋇⋈⋉⋊⋋⋌⋍⋎⋏⋐⋑⋒⋓⋔⋕⋖⋗⋘⋙⋚⋛⋜⋝⋞⋟⋠⋡⋢⋣⋤⋥⋦⋧⋨⋩⋪⋫⋬⋭⋮⋯⋰⋱⋲⋳⋴⋵⋶⋷⋸⋹⋺⋻⋼⋽⋾⋿"},
+            {name:"单位符号",chars:"°′″℃℉＄¤￠￡‰℅§№㎎㎏㎜㎝㎞㎡㏄㏎㏑㏒㏕"},
+            {name:"拼音符号",chars:"āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜüêɑ"},
+            {name:"注音符号",chars:"ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦ"},
+            {name:"日文平假名",chars:"あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽゃゅょっ"},
+            {name:"日文片假名",chars:"アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポャュョッ"},
+            {name:"希腊字母",chars:"ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω"},
+            {name:"俄文字母",chars:"АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя"},
+            {name:"Emoji表情",type:"emoji"},
+            {name:"颜文字",type:"kaomoji"},
+            {name:"简体中文",type:"lazy",start:0x4E00,end:0x9FFF,batch:300},
+            {name:"繁体中文",type:"lazy",start:0x4E00,end:0x9FFF,batch:300},
+            {name:"GB2312常用字",type:"gb2312"},
+            {name:"GBK大字符集",type:"gbk"}
+        ],special:[
+            {name:"上标和下标",start:0x2070,end:0x209F,batch:300},
+            {name:"哥特体(常规)",start:0x1D504,end:0x1D537,batch:300,fancy:true},
+            {name:"哥特体(粗体)",start:0x1D56C,end:0x1D59F,batch:300,fancy:true},
+            {name:"手写体(常规)",start:0x1D49C,end:0x1D4CF,batch:300,fancy:true},
+            {name:"手写体(粗体)",start:0x1D4D0,end:0x1D503,batch:300,fancy:true},
+            {name:"黑体(常规)",start:0x1D5A0,end:0x1D5D3,batch:300,fancy:true},
+            {name:"黑体(粗体)",start:0x1D5D4,end:0x1D607,batch:300,fancy:true},
+            {name:"双线体",start:0x1D538,end:0x1D56B,batch:300,fancy:true},
+            {name:"单线条",start:0x1D670,end:0x1D6A3,batch:300,fancy:true},
+            {name:"圆体",start:0x1D608,end:0x1D63B,batch:300,fancy:true},
+            {name:"十二星座",chars:"♈♉♊♋♌♍♎♏♐♑♒♓"},
+            {name:"行星占星",chars:"☉☽☾★☆☿♀♂♃♄♅♆♇⚳⚴⚵⚶⚷⚸⚹⚺⚻⚼"},
+            {name:"动物Emoji",type:"lazy",start:0x1F400,end:0x1F43F,batch:300},
+            {name:"海洋生物",type:"lazy",start:0x1F980,end:0x1F99F,batch:300},
+            {name:"昆虫爬行",type:"lazy",start:0x1F9A0,end:0x1F9BF,batch:300},
+            {name:"鸟类",type:"lazy",start:0x1F414,end:0x1F429,batch:300},
+            {name:"传统动物",chars:"🐀🐁🐂🐃🐄🐅🐆🐇🐈🐉🐊🐋🐌🐍🐎🐏🐐🐑🐒🐓🐕🐖🐗🐘🐙🐚🐛🐜🐝🐞🐟🐠🐡🐢🐣🐤🐥🐦🐧🐨🐩🐪🐫🐬🐭🐮🐯🐰🐱🐲🐳🐴🐵🐶🐷🐸🐹🐺🐻🐼🐽🐾"},
+            {name:"基础几何",start:0x25A0,end:0x25FF,batch:300},
+            {name:"几何扩展",start:0x1F780,end:0x1F7FF,batch:300},
+            {name:"3D几何",chars:"⬜⬛⬝⬞⬟⬠⬡⬢⬣⬤⬥⬦⬧⬨⬩⬪⬫⬬⬭⬮⬯"},
+            {name:"化学元素",chars:"⚕⚗⚘⚙⚚⚛⚜⚝⚞⚟⚠⚡⚢⚣⚤⚥⚦⚧⚨⚩⚪⚫⚬⚭⚮⚯"},
+            {name:"炼金术",start:0x1F700,end:0x1F77F,batch:300},
+            {name:"化学结构",chars:"⌬⌭⌮⌯⌰⌱⌲⌳⌴⌵⌶⌷⌸⌹⌺⌻⌼⌽⌾⌿"},
+            {name:"如尼符文",start:0x16A0,end:0x16FF,batch:300},
+            {name:"埃及圣书体",start:0x13000,end:0x1342F,batch:300},
+            {name:"易经符号",start:0x4DC0,end:0x4DFF,batch:300},
+            {name:"太玄经",start:0x1D300,end:0x1D35F,batch:300},
+            {name:"古代符号",start:0x10190,end:0x101CF,batch:300},
+            {name:"阿拉伯数字",chars:"0123456789٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹"},
+            {name:"罗马数字",chars:"ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅬⅭⅮⅯⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅾⅿ"},
+            {name:"希伯来字母",start:0x0590,end:0x05FF,batch:300},
+            {name:"阿拉伯字母",start:0x0600,end:0x06FF,batch:300},
+            {name:"西里尔字母",start:0x0400,end:0x04FF,batch:300}
+        ],plane:[
+            {name:"平面0: BMP",start:0x0000,end:0xFFFF,batch:500,desc:"U+0000-U+FFFF，最常用字符"},
+            {name:"平面1: SMP",start:0x10000,end:0x1FFFF,batch:500,desc:"U+10000-U+1FFFF，Emoji、古文字"},
+            {name:"平面2: SIP",start:0x20000,end:0x2FFFF,batch:500,desc:"U+20000-U+2FFFF，CJK扩展B-F"},
+            {name:"平面3: TIP",start:0x30000,end:0x3FFFF,batch:500,desc:"U+30000-U+3FFFF，CJK扩展G-H"},
+            {name:"平面4: 未分配",start:0x40000,end:0x4FFFF,batch:500,desc:"U+40000-U+4FFFF"},
+            {name:"平面5: 未分配",start:0x50000,end:0x5FFFF,batch:500,desc:"U+50000-U+5FFFF"},
+            {name:"平面6: 未分配",start:0x60000,end:0x6FFFF,batch:500,desc:"U+60000-U+6FFFF"},
+            {name:"平面7: 未分配",start:0x70000,end:0x7FFFF,batch:500,desc:"U+70000-U+7FFFF"},
+            {name:"平面8: 未分配",start:0x80000,end:0x8FFFF,batch:500,desc:"U+80000-U+8FFFF"},
+            {name:"平面9: 未分配",start:0x90000,end:0x9FFFF,batch:500,desc:"U+90000-U+9FFFF"},
+            {name:"平面10: 未分配",start:0xA0000,end:0xAFFFF,batch:500,desc:"U+A0000-U+AFFFF"},
+            {name:"平面11: 未分配",start:0xB0000,end:0xBFFFF,batch:500,desc:"U+B0000-U+BFFFF"},
+            {name:"平面12: 未分配",start:0xC0000,end:0xCFFFF,batch:500,desc:"U+C0000-U+CFFFF"},
+            {name:"平面13: 未分配",start:0xD0000,end:0xDFFFF,batch:500,desc:"U+D0000-U+DFFFF"},
+            {name:"平面14: SSP",start:0xE0000,end:0xEFFFF,batch:500,desc:"U+E0000-U+EFFFF，特殊用途"},
+            {name:"平面15: PUA-A",start:0xF0000,end:0xFFFFF,batch:500,desc:"U+F0000-U+FFFFF，私用区A"},
+            {name:"平面16: PUA-B",start:0x100000,end:0x10FFFF,batch:500,desc:"U+100000-U+10FFFF，私用区B"}
+        ],blocks:{
+            european:[{n:"基本拉丁",s:0,e:127,b:300},{n:"拉丁-1补充",s:128,e:255,b:300},{n:"拉丁扩展A",s:256,e:383,b:300},{n:"拉丁扩展B",s:384,e:591,b:300},{n:"拉丁扩展C",s:11360,e:11391,b:300},{n:"拉丁扩展D",s:42784,e:42991,b:300},{n:"拉丁扩展E",s:43824,e:43887,b:300},{n:"拉丁扩展F",s:67456,e:67519,b:300},{n:"拉丁扩展G",s:122624,e:122879,b:300},{n:"拉丁扩展附加",s:7680,e:7935,b:300},{n:"国际音标",s:592,e:687,b:300},{n:"语音扩展",s:7424,e:7551,b:300},{n:"语音扩展补充",s:7552,e:7615,b:300},{n:"空格修饰",s:688,e:767,b:300},{n:"修饰音调",s:42752,e:42783,b:300},{n:"上标下标",s:8304,e:8351,b:300},{n:"组合附加",s:768,e:879,b:300},{n:"组合附加扩展",s:6832,e:6911,b:300},{n:"组合附加补充",s:7616,e:7679,b:300},{n:"希腊字母",s:880,e:1023,b:300},{n:"希腊扩展",s:7936,e:8191,b:300},{n:"古希腊数字",s:65856,e:65935,b:300},{n:"西里尔字母",s:1024,e:1279,b:300},{n:"西里尔补充",s:1280,e:1327,b:300},{n:"西里尔扩展A",s:11744,e:11775,b:300},{n:"西里尔扩展B",s:42560,e:42655,b:300},{n:"西里尔扩展C",s:7296,e:7311,b:300},{n:"西里尔扩展D",s:122928,e:123023,b:300},{n:"亚美尼亚",s:1328,e:1423,b:300},{n:"格鲁吉亚",s:4256,e:4351,b:300},{n:"格鲁吉亚扩展",s:7312,e:7359,b:300},{n:"格鲁吉亚补充",s:11520,e:11567,b:300},{n:"格拉哥里",s:11264,e:11359,b:300},{n:"哥特字母",s:66352,e:66383,b:300},{n:"欧甘字母",s:5760,e:5791,b:300},{n:"古意大利",s:66304,e:66351,b:300},{n:"如尼字母",s:5792,e:5887,b:300},{n:"线性A",s:67072,e:67455,b:300},{n:"线性B音节",s:65536,e:65663,b:300},{n:"线性B表意",s:65664,e:65791,b:300},{n:"爱琴海数字",s:65792,e:65855,b:300}],
+            african:[{n:"埃及圣书体",s:77824,e:78895,b:300},{n:"埃及圣书体A",s:78896,e:78943,b:300},{n:"科普特",s:11392,e:11519,b:300},{n:"科普特历数",s:66272,e:66303,b:300},{n:"埃塞俄比亚",s:4608,e:4991,b:300},{n:"埃塞俄比亚补充",s:4992,e:5023,b:300},{n:"埃塞俄比亚扩展",s:11648,e:11743,b:300},{n:"埃塞俄比亚扩展A",s:43776,e:43823,b:300},{n:"埃塞俄比亚扩展B",s:124896,e:124927,b:300},{n:"提非纳",s:11568,e:11647,b:300},{n:"N'Ko",s:1984,e:2047,b:300},{n:"瓦伊",s:42240,e:42559,b:300},{n:"奥斯马尼亚",s:66688,e:66735,b:300},{n:"巴穆姆",s:42656,e:42751,b:300},{n:"巴穆姆补充",s:92160,e:92735,b:300},{n:"曼德语",s:124928,e:125071,b:300},{n:"梅德法伊德林",s:93760,e:93855,b:300},{n:"阿德拉姆",s:125184,e:125279,b:300}],
+            westasian:[{n:"阿拉伯字母",s:1536,e:1791,b:300},{n:"阿拉伯补充",s:1872,e:1919,b:300},{n:"阿拉伯扩展A",s:2208,e:2303,b:300},{n:"阿拉伯扩展B",s:2160,e:2191,b:300},{n:"阿拉伯扩展C",s:69216,e:69247,b:300},{n:"阿拉伯表现A",s:64336,e:65023,b:300},{n:"阿拉伯表现B",s:65136,e:65279,b:300},{n:"希伯来",s:1424,e:1535,b:300},{n:"希伯来表现",s:64285,e:64335,b:300},{n:"叙利亚",s:1792,e:1871,b:300},{n:"撒马利亚",s:2048,e:2111,b:300},{n:"曼达",s:2112,e:2143,b:300},{n:"腓尼基",s:67840,e:67871,b:300},{n:"阿拉米",s:67648,e:67679,b:300},{n:"纳巴泰",s:67712,e:67759,b:300},{n:"帕尔米拉",s:67680,e:67711,b:300},{n:"楔形文字",s:73728,e:74751,b:300},{n:"楔形数字",s:74752,e:74879,b:300},{n:"乌加里特",s:66432,e:66463,b:300},{n:"古波斯",s:66464,e:66527,b:300},{n:"安纳托利亚",s:82944,e:83583,b:300}],
+            centralasian:[{n:"蒙古字母",s:6144,e:6319,b:300},{n:"蒙古补充",s:71264,e:71295,b:300},{n:"藏文",s:3840,e:4095,b:300},{n:"八思巴",s:43072,e:43135,b:300},{n:"索永布",s:72192,e:72271,b:300},{n:"札那巴札尔",s:72272,e:72367,b:300},{n:"古突厥",s:68608,e:68687,b:300},{n:"古回鹘",s:69376,e:69423,b:300},{n:"粟特",s:69424,e:69487,b:300},{n:"古粟特",s:69488,e:69551,b:300},{n:"摩尼教",s:68288,e:68351,b:300},{n:"象雄",s:71168,e:71263,b:300}],
+            southasian:[{n:"天城文",s:2304,e:2431,b:300},{n:"天城文扩展",s:7376,e:7679,b:300},{n:"天城文扩展A",s:72448,e:72543,b:300},{n:"孟加拉",s:2432,e:2559,b:300},{n:"古吉拉特",s:2688,e:2815,b:300},{n:"古木基",s:2560,e:2687,b:300},{n:"奥里亚",s:2816,e:2943,b:300},{n:"泰米尔",s:2944,e:3071,b:300},{n:"泰卢固",s:3072,e:3199,b:300},{n:"卡纳达",s:3200,e:3327,b:300},{n:"马拉雅拉姆",s:3328,e:3455,b:300},{n:"僧伽罗",s:3456,e:3583,b:300},{n:"泰文",s:3584,e:3711,b:300},{n:"老挝文",s:3712,e:3839,b:300},{n:"缅甸文",s:4096,e:4255,b:300},{n:"缅甸扩展A",s:43616,e:43647,b:300},{n:"缅甸扩展B",s:43488,e:43519,b:300},{n:"缅甸扩展C",s:66560,e:66623,b:300},{n:"梵文扩展",s:7376,e:7679,b:300},{n:"婆罗米",s:69632,e:69759,b:300},{n:"悉昙文",s:71040,e:71167,b:300},{n:"夏拉达",s:70016,e:70111,b:300},{n:"塔克里",s:71296,e:71375,b:300},{n:"古吉拉特扩展",s:70144,e:70223,b:300},{n:"卡纳达扩展",s:70320,e:70399,b:300},{n:"马拉雅拉姆扩展",s:70400,e:70527,b:300},{n:"僧伽罗扩展",s:70112,e:70143,b:300},{n:"泰米尔补充",s:73664,e:73727,b:300}],
+            southeastasian:[{n:"高棉文",s:6016,e:6143,b:300},{n:"高棉符号",s:6624,e:6655,b:300},{n:"泰文",s:3584,e:3711,b:300},{n:"老挝文",s:3712,e:3839,b:300},{n:"缅甸文",s:4096,e:4255,b:300},{n:"新傣仂文",s:6528,e:6591,b:300},{n:"傣哪文",s:6480,e:6527,b:300},{n:"傣文",s:43648,e:43743,b:300},{n:"占文",s:108032,e:108255,b:300},{n:"巴厘文",s:6912,e:7039,b:300},{n:"爪哇文",s:43392,e:43487,b:300},{n:"巽他文",s:7040,e:7103,b:300},{n:"巽他补充",s:7360,e:7375,b:300},{n:"布吉斯文",s:6656,e:6687,b:300},{n:"巴塔克文",s:7104,e:7167,b:300},{n:"雷姜文",s:6688,e:6831,b:300},{n:"他加禄文",s:5888,e:5919,b:300},{n:"汉奴诺文",s:5920,e:5951,b:300},{n:"布希德文",s:5952,e:5983,b:300},{n:"塔格巴努瓦文",s:5984,e:6015,b:300}],
+            eastasian:[{n:"CJK统一汉字",s:19968,e:40959,b:300},{n:"CJK扩展A",s:13312,e:19903,b:300},{n:"CJK扩展B",s:131072,e:173791,b:300},{n:"CJK扩展C",s:173824,e:177983,b:300},{n:"CJK扩展D",s:177984,e:178207,b:300},{n:"CJK扩展E",s:178208,e:183983,b:300},{n:"CJK扩展F",s:183984,e:191471,b:300},{n:"CJK扩展G",s:196608,e:201551,b:300},{n:"CJK扩展H",s:201552,e:205743,b:300},{n:"CJK扩展I",s:191472,e:192095,b:300},{n:"CJK扩展J",s:205744,e:205823,b:300},{n:"CJK兼容汉字",s:63744,e:64255,b:300},{n:"CJK兼容补充",s:194560,e:195103,b:300},{n:"康熙部首",s:12032,e:12255,b:300},{n:"部首补充",s:11904,e:12031,b:300},{n:"CJK笔画",s:12736,e:12783,b:300},{n:"表意描述",s:12272,e:12287,b:300},{n:"CJK符号标点",s:12288,e:12351,b:300},{n:"表意符号标点",s:94176,e:94207,b:300},{n:"平假名",s:12352,e:12447,b:300},{n:"片假名",s:12448,e:12543,b:300},{n:"假名补充",s:110592,e:110847,b:300},{n:"假名扩展A",s:110848,e:110895,b:300},{n:"假名扩展B",s:110576,e:110591,b:300},{n:"小假名扩展",s:110896,e:110951,b:300},{n:"注音符号",s:12544,e:12591,b:300},{n:"注音扩展",s:12704,e:12735,b:300},{n:"谚文字母",s:4352,e:4607,b:300},{n:"谚文兼容",s:12592,e:12687,b:300},{n:"谚文音节",s:44032,e:55203,b:300},{n:"彝文音节",s:40960,e:42127,b:300},{n:"彝文部首",s:42128,e:42191,b:300},{n:"傈僳文",s:42192,e:42239,b:300},{n:"女书",s:110960,e:111359,b:300},{n:"西夏文",s:94208,e:100351,b:300},{n:"西夏组件",s:100352,e:101119,b:300},{n:"契丹小字",s:101120,e:101631,b:300},{n:"苗文",s:93952,e:94095,b:300}],
+            american:[{n:"切罗基",s:5024,e:5119,b:300},{n:"切罗基补充",s:43888,e:43967,b:300},{n:"德塞雷特",s:66560,e:66623,b:300},{n:"奥塞奇",s:66736,e:66815,b:300},{n:"加拿大原住民",s:5120,e:5759,b:300},{n:"加拿大扩展",s:6320,e:6399,b:300},{n:"加拿大扩展A",s:72368,e:72383,b:300},{n:"玛雅数字",s:119520,e:119551,b:300}],
+            symbols:[{n:"常用标点",s:8192,e:8303,b:300},{n:"补充标点",s:11776,e:11903,b:300},{n:"CJK兼容形式",s:65072,e:65103,b:300},{n:"半角全角",s:65280,e:65519,b:300},{n:"小型变体",s:65104,e:65135,b:300},{n:"垂直形式",s:65040,e:65055,b:300},{n:"字母符号",s:8448,e:8527,b:300},{n:"数字形式",s:8528,e:8591,b:300},{n:"带圈字母数字",s:9312,e:9471,b:300},{n:"带圈补充",s:127232,e:127487,b:300},{n:"带圈CJK月份",s:12800,e:13055,b:300},{n:"带圈表意补充",s:127488,e:127743,b:300},{n:"数学运算符",s:8704,e:8959,b:300},{n:"补充数学",s:10752,e:11007,b:300},{n:"杂项数学A",s:10176,e:10223,b:300},{n:"杂项数学B",s:10624,e:10751,b:300},{n:"数学字母数字",s:119808,e:120831,b:300},{n:"阿拉伯数学",s:126464,e:126719,b:300},{n:"箭头",s:8592,e:8703,b:300},{n:"补充箭头A",s:10224,e:10239,b:300},{n:"补充箭头B",s:10496,e:10623,b:300},{n:"补充箭头C",s:129024,e:129279,b:300},{n:"杂项符号箭头",s:11008,e:11263,b:300},{n:"几何图形",s:9632,e:9727,b:300},{n:"几何扩展",s:128896,e:129023,b:300},{n:"制表符",s:9472,e:9631,b:300},{n:"块元素",s:9600,e:9631,b:300},{n:"杂项技术",s:8960,e:9215,b:300},{n:"控制图片",s:9216,e:9279,b:300},{n:"OCR",s:9280,e:9311,b:300},{n:"APL符号",s:9014,e:9082,b:300},{n:"货币符号",s:8352,e:8447,b:300},{n:"炼金术",s:128768,e:128895,b:300},{n:"古代符号",s:65936,e:65999,b:300},{n:"游戏符号",s:126976,e:127023,b:300},{n:"麻将牌",s:126976,e:127023,b:300},{n:"多米诺",s:127024,e:127135,b:300},{n:"扑克牌",s:127136,e:127231,b:300},{n:"国际象棋",s:129536,e:129647,b:300},{n:"易经符号",s:19904,e:19967,b:300},{n:"太玄经",s:119552,e:119647,b:300},{n:"盲文",s:10240,e:10495,b:300},{n:"音乐符号",s:119040,e:119295,b:300},{n:"古希腊音乐",s:119296,e:119375,b:300},{n:"拜占庭音乐",s:118784,e:119039,b:300},{n:"旗帜",s:127488,e:127743,b:300},{n:"表情符号",s:128512,e:128591,b:300},{n:"装饰物品",s:127744,e:128511,b:300},{n:"交通地图",s:128640,e:128767,b:300},{n:"补充象形",s:129280,e:129791,b:300},{n:"象形扩展A",s:129648,e:129791,b:300},{n:"杂项符号",s:9728,e:9983,b:300},{n:"装饰符号",s:9984,e:10175,b:300},{n:"装饰丁巴特",s:128592,e:128639,b:300},{n:"传统计算",s:119648,e:119679,b:300},{n:"遗留计算",s:129792,e:130047,b:300}],
+            specials:[{n:"私用区PUA",s:57344,e:63743,b:300},{n:"PUA-A",s:983040,e:1048575,b:300},{n:"PUA-B",s:1048576,e:1114111,b:300},{n:"变体选择器",s:65024,e:65039,b:300},{n:"变体选择器补充",s:917760,e:917999,b:300},{n:"标签",s:917504,e:917631,b:300},{n:"特殊",s:65520,e:65535,b:300}]
+        }};
+        const emojiRanges=[{n:"表情",s:128512,e:128591},{n:"物品",s:127744,e:128511},{n:"交通",s:128640,e:128767},{n:"补充",s:129280,e:129791},{n:"国旗",s:127488,e:127743}];
+        const kaomojis=["w(ﾟДﾟ)w","(ノへ￣、)","(￣_,￣ )","ヽ(✿ﾟ▽ﾟ)ノ","(๑•̀ㅂ•́)و✧","(￣ε(#￣)☆╰╮o(￣皿￣///)","（づ￣3￣）づ╭❤～","Σ( ° △ °|||)︴","(～￣(OO)￣)ブ","凸(艹皿艹 )","(* ￣3)(ε￣ *)","(*￣rǒ￣)","┗|｀O′|┛ 嗷~~","φ(≧ω≦*)♪","︿(￣︶￣)︿","(u‿ฺu✿ฺ)","Hi~ o(*￣▽￣*)ブ","♪(^∇^*)","o(*≧▽≦)ツ┏━┓","╰(*°▽°*)╯","（○｀ 3′○）","o(*^＠^*)o","(#`O′)","(°ー°〃)","○|￣|_ =3","o(￣ヘ￣o＃)","（＝。＝）","~~( ﹁ ﹁ ) ~~~","(ーー゛)","(ー`´ー)","o(一︿一+)o","o(≧口≦)o","ㄟ( ▔, ▔ )ㄏ","(o_ _)ﾉ","(⊙﹏⊙)","(ˉ▽￣～) 切~~","（＊￣（エ）￣）","┑(￣Д ￣)┍","(＠_＠;)","━┳━ ━┳━","(☆´益`)c","（´Д`）","┗( T﹏T )┛","(。﹏。*)","o( =•ω•= )m","≡ω≡","(*￣(エ)￣)","(✿◡‿◡)","(*/ω＼*)","┭┮﹏┭┮","ヾ(￣▽￣)Bye~Bye~","( ﹁ ﹁ ) ~→","Ψ(￣∀￣)Ψ","✧(≖ ◡ ≖✿)","━━(￣ー￣*|||━━","ヽ(*。>Д<)o゜","┌(。Д。)┐","○|￣|_","o(￣▽￣)ｄ","(；′⌒`)","X﹏X","ヾ(≧▽≦*)o","o(*≧▽≦)ツ","(o゜▽゜)o☆[BINGO!]","～(￣▽￣～)(～￣▽￣)～","o(*￣▽￣*)o","(￣▽￣)～■干杯□～(￣▽￣)","φ(゜▽゜*)♪","╰(￣▽￣)╭","*´∀`)´∀`)*´∀`)*´∀`)","(｡･∀･)ﾉﾞ","ヾ(≧∇≦*)ゝ","（゜▽＾*））","(*^▽^*)","(´▽`ʃ♡ƪ)","○( ＾皿＾)っHiahiahia…","(( へ(へ´∀`)へ","^O^","( ＾∀＾）／欢迎＼( ＾∀＾）","ヾ(￣ー￣)X(^▽^)ゞ","...φ(0￣*)啦啦啦_φ(*￣0￣)","(๑´ㅂ`๑)","(≧∀≦)ゞ","(๑¯∀¯๑)","o(*￣︶￣*)o","ε(*´･∀･｀)зﾞ","( ﾟ∀ﾟ) ﾉ♡","(^&^)/","o(*≧▽≦)ツ┏━┓","(～￣▽￣)～","(/≧▽≦)/","(☆▽☆)","*★,°*:.☆(￣▽￣)/$:*.°★*","ㄟ(≧◇≦)ㄏ","ヽ(ﾟ∀ﾟ*)ﾉ━━━ｩ♪","( *︾▽︾)","☆⌒(*＾-゜)v THX!!","♪(´∇`*)","||ヽ(*￣▽￣*)ノミ|Ю","~(～￣▽￣)～","(p≧w≦q)","(＾－＾)V","(＾Ｕ＾)ノ~ＹＯ","(o゜▽゜)o☆","(((o(*ﾟ▽ﾟ*)o)))","(￣︶￣)↗","(o>ε(o>ｕ(≧∩≦)","o(^▽^)o","(>▽<)","ヾ(≧O≦)〃嗷~","(っ*´Д`)っ","ヾ(´∀`o)+","不＞(￣ε￣ = ￣3￣)","( *￣▽￣)((≧︶≦*)","...(*￣０￣)ノ[等等我…]","o(￣ε￣*)","(￣┰￣*)","（*＾-＾*）","(≧∇≦)ﾉ","～( TロT)σ","(/0￣)o","n(*≧▽≦*)n","(～o￣▽￣)～o ~。。。","=￣ω￣=","（´v｀）","ο(=•ω＜=)ρ⌒☆","ヾ(´･ω･｀)ﾉ","ヾ(^▽^*)))","ｍ(o・ω・o)ｍ","ε = = (づ′▽`)づ","(～o￣3￣)～","(。・・)ノ","(ノω<。)ノ))☆.。","(/ω＼*)……… (/ω•＼*)","┬┴┤_•)","(ﾉ*･ω･)ﾉ","（o´・ェ・｀o）","谢啦!!☆⌒(*＾-゜)v","( ╯▽╰)","o(〃'▽'〃)o","^(*￣(oo)￣)^","ZZzz…(。-ω-)..ooO","Ｏ(≧口≦)Ｏ","（*゜ー゜*）","(￣△￣；)","(。_。)","(⊙ˍ⊙)","Σ(っ °Д °;)っ","Σ(｀д′*ノ)ノ","⊙▽⊙","_( ﾟДﾟ)ﾉ","~(￣0￣)/","(￣m￣）","wow~ ⊙o⊙","(*Φ皿Φ*)","(・∀・(・∀・(・∀・*)","(○´･д･)ﾉ","o((⊙﹏⊙))o.","┏┛墓┗┓...","┐(T.T ) ( T.T) ノ","||o(*°▽°*)o|Ю","▄︻┻┳═一…… ☆（>○<）","(⊙x⊙;)","￣へ￣","（＃￣～￣＃）","(*￣︿￣)","ヽ（≧□≦）ノ","___*( ￣皿￣)/#____","→)╥﹏╥)","(ﾟДﾟ*)ﾉ","┻━┻︵╰(‵□′)╯︵┻━┻","(〃＞目＜)","(///￣皿￣)○～","───Ｃε(┬﹏┬)3","怒ε=怒ε=( o｀ω′)ノ","(╬￣皿￣)＝○＃(￣＃)３￣)","(-__-)=@))> o<)","▄︻┻┳═一∵∴∷∶∵","（｀へ´）","( ｀д′)","z(-_-z)).....((s-_-)s","(σ｀д′)σ","～（□`）～","＼(゜ロ＼)(／ロ゜)／","( >ρ<)","ヽ(゜▽゜ )－C<(ˍ ˍ*)>","(╯‵□′)╯炸弹！•••*～●","ˋ( ° ▽、° ) (o(￣▽￣///(斩!!)","W(￣_￣)W","(╬▔皿▔)","（╯‵□′）╯︵┴─┴","┴─┴︵╰（‵□′╰）","（︶^︶）=凸","（╯－_－）╯╧╧","┴┴︵╰（‵□′）╯︵┴┴","(╬￣皿￣)凸","-________-''","╮（╯＿╰）╭",".....((/- -)/","╮(╯▽╰)╭","((*・∀・）ゞ→→","( ＿ ＿)ノ｜","╮（﹀_﹀）╭","◐▽◑","┌|*´∀｀|┘","(・-・*)","(￣▽￣ = ￣︿￣)","..( ＿ ＿)ノ｜壁","o(′益`)o","( -'`-; )","~%?…,# *'☆&℃?","(-@y@)","(((φ(◎ロ◎;)φ)))","(=′ー`)","o(￣┰￣*)ゞ","（。・＿・。）ﾉ","（＞人＜；）","( ￣ ￣)σ…( ＿ ＿)ノ｜壁","…〒_〒…‵ｏ′-一┳═┻︻▄","〈（_ _）〉","Orz","囧rz","（ﾉ´д｀）","U•ェ•*U","（￣。。￣）","(°°)～ (°°)～","m( =∩王∩= )m","o(=•ェ•=)m","ヽ(=^･ω･^=)丿","~o( =∩ω∩= )m","--(˙˙)--","( ఠൠఠ )ﾉ","_(:驴」∠)_","_(:马」∠)_","(+(工)+╬)","(￣(●●)￣)","(:◎)≡","(..)nnn","≡[。。]≡","(/▽＼)","(′▽`〃)","o(*////▽////*)q","つ﹏⊂","◕ฺ‿◕ฺ✿ฺ)","(#／。＼#)","(*/ω＼*))","(￣ ‘i ￣;)","||Φ|(|T|Д|T|)|Φ||","(;´༎ຶД༎ຶ`)","ε(┬┬﹏┬┬)3","〒▽〒","o(TヘTo)","╥﹏╥...","(个_个)","o(╥﹏╥)o","(*￣3￣)╭","(ToT)/~~~","!(*￣(￣ *) Kiss","(*╯3╰) Mua","o(*￣3￣)o","(っ´Ι`)っ","(*￣;(￣ *)","（*＾3＾）/～☆","（＠ーεー＠）","～(^з^)-☆","(+.+)(-.-)(_ _) ..zzZZ","(_ _)( - . - )(~O~)( - . - )","(￣o￣) . z Z","(p.-)(p.-)(p.-)","(o-ωｑ)).oO","(つω｀)～","☆{{{Д}}} ☆!!","※=○☆(＿＿*)Ｚｚｚ","￣O￣)ノ","(∪｡∪)｡｡｡zzz","（)´д`(）","(。＿ ＿)。ZZzzzz…","(ㄏ￣▽￣)ㄏbyeㄟ(￣▽￣ㄟ)","₍₍ ◝( ﾟ∀ ﾟ )◟⁾⁾不送","( ´･･)ﾉ(._.`)","『家』 ～o(▽｀ o) =3","＼（＾∀＾）メ（＾∀＾）ノ","（＾∀＾●）ﾉｼ","(*￣▽￣)(￣▽:;.…::;","(。・_・)/~~~","┏(＾0＾)┛","( ﾟдﾟ)つBye","(o´ω`o)ﾉ","（ ゜ρ゜)ノ","\@^０^@)/★","(o≖◡≖)","(๐॔˃̶ᗜ˂̶๐॓)","ʅ（´◔౪◔）ʃ","(‾◡◝)","( ͡° ͜ʖ ͡°)","┌( ´_ゝ` )┐","(´ｰ∀ｰ`)","(☆-ｖ-)","(－∀＝)","(◡ᴗ◡✿)","*(੭*ˊᵕˋ)੭*ଘ","ψ(｀∇´)ψ","(((((ヾ( o=^•ェ•)o ┏━┓","(*￣ω￣)","(╯▽╰ )好香~~","(￣～￣) 嚼！","0＾）吞！","( *^-^)ρ(^0^* )","( *⊙~⊙)","（￣ー￣（＿ ＿（￣ー￣","（￣ー￣）ノ~~","( σ'ω')σ","(＠￣ー￣＠)","┗|*｀0′*|┛","o(*^▽^*)┛","(oﾟvﾟ)ノ","|(•_•) |•_•) |_•) |•) | )","(ﾟｰﾟ)","ヾ(＠⌒ー⌒＠)ノ","´･∀･)乂(･∀･｀","(。・∀・)ノ","↑↑↓↓←→←→ＢＡ...┗( -o-)┛","┏┛墓┗┓...(((m -__-)m","━((*′д｀)爻(′д｀*))━!!!!","ヽ(￣︿￣ )—C<(ˍ ˍ*)>","||o(*°▽°*)o|Ю [有人吗?]","……]((o_ _)'彡☆","|(*′口`)","(lll￢ω￢)","_〆(´Д｀ )","ε=ε=ε=(~￣▽￣)~","━━∑(￣□￣*|||━━","…（⊙＿⊙；）…","ε=ε=ε=┏(゜ロ゜;)┛","d=====(￣▽￣*)b","＜（＾－＾）＞","[]~(￣▽￣)~*","(*￣▽)u┌┐ ｄ(▽￣*)","(ง •_•)ง","ヾ(●゜ⅴ゜)ﾉ","（。＾▽＾）","ヽ(￣ω￣(￣ω￣〃)ゝ","（；´д｀）ゞ","(＞﹏＜)","_____λ......___丬 ～～","( *^-^)ρ(*╯^╰)","(┬＿┬)↘","(#｀-_ゝ-)","（。－_－。）","(ρ_・).。","(′д｀ )…彡…彡","( ′ 3`) sigh~","[喝西北风]( ′Д`)彡","(￫ܫ￩)","(❤´艸｀❤)","（〃｀ 3′〃）","ᕕ( ᐛ )ᕗ","=└(┐卍^o^)卍","ԅ(¯﹃¯ԅ)","(☄⊙ω⊙)☄","( ‵▽′)ψ","ლ(•̀ _ •́ ლ)","(눈_눈)","( *・ω・)✄╰ひ╯","咳咳＞＜","(．． )…","( ˘•ω•˘ )ง⁽˙³˙⁾","（¯﹃¯）","b（￣▽￣）d","（～￣▽￣～）","（￣ c￣）y-～","\"▔□▔)/\"▔□▔)/","(✧◡✧)"];
 
-        // ==========================================
-        // 经典怀旧分类定义（复刻微软输入法）
-        // ==========================================
-        const classicCategories = [
-            { name: "常用符号", chars: "、。·ˉˇ¨〃々—～‖…‘’“”〔〕〈〉《》「」『』〖〗【】±×÷∶∧∨∑∏∪∩∈∷√⊥∥∠⌒⊙∫∮≡≌≈∽∝≠≮≯≤≥∞∵∴♂♀°′″℃＄¤￠￡‰§№☆★○●◎◇◆□■△▲※→←↑↓〓" },
-            { name: "标点符号", chars: "，。、；：？！…—·ˉˇ¨‘’“”々～‖∶＂＇｀｜〔〕〈〉《》「」『』〖〗【】（）［］｛｝" },
-            { name: "特殊符号", chars: "§№☆★○●◎◇◆□■△▲※→←↑↓〓＃＆＠＼＾＿￣" },
-            { name: "表格线", chars: "─━│┃┄┅┆┇┈┉┊┋┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿╀╁╂╃╄╅╆╇╈╉╊╋╌╍╎╏═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟╠╡╢╣╤╥╦╧╨╩╪╫╬╭╮╯╰╱╲╳╴╵╶╷╸╹╺╻╼╽╾╿" },
-            { name: "数字序号", chars: "⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿⒀⒁⒂⒃⒄⒅⒆⒇①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳㈠㈡㈢㈣㈤㈥㈦㈧㈨㈩ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫ" },
-            { name: "数学符号", chars: "±×÷∶∧∨∑∏∪∩∈∷√⊥∥∠⌒⊙∫∮≡≌≈∽∝≠≮≯≤≥∞∵∴∀∃∂∅∆∇∈∉∊∋∌∍∎∏∐∑−∓∔∕∖∗∘∙√∛∜∝∞∟∠∡∢∣∤∥∦∧∨∩∪∫∬∭∮∯∰∱∲∳∴∵∶∷∸∹∺∻∼∽∾∿≀≁≂≃≄≅≆≇≈≉≊≋≌≍≎≏≐≑≒≓≔≕≖≗≘≙≚≛≜≝≞≟≠≡≢≣≤≥≦≧≨≩≪≫≬≭≮≯≰≱≲≳≴≵≶≷≸≹≺≻≼≽≾≿⊀⊁⊂⊃⊄⊅⊆⊇⊈⊉⊊⊋⊌⊍⊎⊏⊐⊑⊒⊓⊔⊕⊖⊗⊘⊙⊚⊛⊜⊝⊞⊟⊠⊡⊢⊣⊤⊥⊦⊧⊨⊩⊪⊫⊬⊭⊮⊯⊰⊱⊲⊳⊴⊵⊶⊷⊸⊹⊺⊻⊼⊽⊾⊿⋀⋁⋂⋃⋄⋅⋆⋇⋈⋉⋊⋋⋌⋍⋎⋏⋐⋑⋒⋓⋔⋕⋖⋗⋘⋙⋚⋛⋜⋝⋞⋟⋠⋡⋢⋣⋤⋥⋦⋧⋨⋩⋪⋫⋬⋭⋮⋯⋰⋱⋲⋳⋴⋵⋶⋷⋸⋹⋺⋻⋼⋽⋾⋿" },
-            { name: "单位符号", chars: "°′″℃℉＄¤￠￡‰℅§№㎎㎏㎜㎝㎞㎡㏄㏎㏑㏒㏕" },
-            { name: "拼音符号", chars: "āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜüêɑ" },
-            { name: "注音符号", chars: "ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦ" },
-            { name: "日文平假名", chars: "あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽゃゅょっ" },
-            { name: "日文片假名", chars: "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポャュョッ" },
-            { name: "希腊字母", chars: "ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρστυφχψω" },
-            { name: "俄文字母", chars: "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя" },
-            { name: "Emoji表情", type: "emoji" },
-            { name: "颜文字(Win+.同款)", type: "kaomoji" },
-            { name: "简体中文", type: "lazy-range", start: 0x4E00, end: 0x9FFF, batchSize: 300 },
-            { name: "繁体中文", type: "lazy-range", start: 0x4E00, end: 0x9FFF, batchSize: 300 },
-            { name: "常用字（GB2312）", type: "gb2312" },
-            { name: "大字符集汉字（GBK）", type: "gbk" }
-        ];
-
-        // ==========================================
-        // Unicode 17.0 官方区块分类（来自unicode.org）
-        // ==========================================
-        const unicodeBlocks = {
-            european: [
-                { name: "基本拉丁字母(ASCII)", start: 0x0000, end: 0x007F, batchSize: 300 },
-                { name: "拉丁-1补充", start: 0x0080, end: 0x00FF, batchSize: 300 },
-                { name: "拉丁扩展-A", start: 0x0100, end: 0x017F, batchSize: 300 },
-                { name: "拉丁扩展-B", start: 0x0180, end: 0x024F, batchSize: 300 },
-                { name: "拉丁扩展-C", start: 0x2C60, end: 0x2C7F, batchSize: 300 },
-                { name: "拉丁扩展-D", start: 0xA720, end: 0xA7FF, batchSize: 300 },
-                { name: "拉丁扩展-E", start: 0xAB30, end: 0xAB6F, batchSize: 300 },
-                { name: "拉丁扩展-F", start: 0x10780, end: 0x107BF, batchSize: 300 },
-                { name: "拉丁扩展-G", start: 0x1DF00, end: 0x1DFFF, batchSize: 300 },
-                { name: "拉丁扩展附加", start: 0x1E00, end: 0x1EFF, batchSize: 300 },
-                { name: "国际音标扩展", start: 0x0250, end: 0x02AF, batchSize: 300 },
-                { name: "语音扩展", start: 0x1D00, end: 0x1D7F, batchSize: 300 },
-                { name: "语音扩展补充", start: 0x1D80, end: 0x1DBF, batchSize: 300 },
-                { name: "空格修饰字母", start: 0x02B0, end: 0x02FF, batchSize: 300 },
-                { name: "修饰音调字母", start: 0xA700, end: 0xA71F, batchSize: 300 },
-                { name: "上标和下标", start: 0x2070, end: 0x209F, batchSize: 300 },
-                { name: "组合用附加符号", start: 0x0300, end: 0x036F, batchSize: 300 },
-                { name: "组合附加符号扩展", start: 0x1AB0, end: 0x1AFF, batchSize: 300 },
-                { name: "组合附加符号补充", start: 0x1DC0, end: 0x1DFF, batchSize: 300 },
-                { name: "希腊字母", start: 0x0370, end: 0x03FF, batchSize: 300 },
-                { name: "希腊字母扩展", start: 0x1F00, end: 0x1FFF, batchSize: 300 },
-                { name: "古希腊数字", start: 0x10140, end: 0x1018F, batchSize: 300 },
-                { name: "西里尔字母", start: 0x0400, end: 0x04FF, batchSize: 300 },
-                { name: "西里尔字母补充", start: 0x0500, end: 0x052F, batchSize: 300 },
-                { name: "西里尔扩展-A", start: 0x2DE0, end: 0x2DFF, batchSize: 300 },
-                { name: "西里尔扩展-B", start: 0xA640, end: 0xA69F, batchSize: 300 },
-                { name: "西里尔扩展-C", start: 0x1C80, end: 0x1C8F, batchSize: 300 },
-                { name: "西里尔扩展-D", start: 0x1E030, end: 0x1E08F, batchSize: 300 },
-                { name: "亚美尼亚字母", start: 0x0530, end: 0x058F, batchSize: 300 },
-                { name: "格鲁吉亚字母", start: 0x10A0, end: 0x10FF, batchSize: 300 },
-                { name: "格鲁吉亚扩展", start: 0x1C90, end: 0x1CBF, batchSize: 300 },
-                { name: "格鲁吉亚补充", start: 0x2D00, end: 0x2D2F, batchSize: 300 },
-                { name: "格拉哥里字母", start: 0x2C00, end: 0x2C5F, batchSize: 300 },
-                { name: "哥特字母", start: 0x10330, end: 0x1034F, batchSize: 300 },
-                { name: "欧甘字母", start: 0x1680, end: 0x169F, batchSize: 300 },
-                { name: "古意大利字母", start: 0x10300, end: 0x1032F, batchSize: 300 },
-                { name: "如尼字母", start: 0x16A0, end: 0x16FF, batchSize: 300 },
-                { name: "线性A", start: 0x10600, end: 0x1077F, batchSize: 300 },
-                { name: "线性B音节", start: 0x10000, end: 0x1007F, batchSize: 300 },
-                { name: "线性B表意", start: 0x10080, end: 0x100FF, batchSize: 300 },
-                { name: "爱琴海数字", start: 0x10100, end: 0x1013F, batchSize: 300 }
-            ],
-            african: [
-                { name: "埃及圣书体", start: 0x13000, end: 0x1342F, batchSize: 300 },
-                { name: "埃及圣书体扩展-A", start: 0x13430, end: 0x1345F, batchSize: 300 },
-                { name: "科普特字母", start: 0x2C80, end: 0x2CFF, batchSize: 300 },
-                { name: "科普特历数", start: 0x102E0, end: 0x102FF, batchSize: 300 },
-                { name: "埃塞俄比亚字母", start: 0x1200, end: 0x137F, batchSize: 300 },
-                { name: "埃塞俄比亚补充", start: 0x1380, end: 0x139F, batchSize: 300 },
-                { name: "埃塞俄比亚扩展", start: 0x2D80, end: 0x2DDF, batchSize: 300 },
-                { name: "埃塞俄比亚扩展-A", start: 0xAB00, end: 0xAB2F, batchSize: 300 },
-                { name: "埃塞俄比亚扩展-B", start: 0x1E7E0, end: 0x1E7FF, batchSize: 300 },
-                { name: "提非纳字母", start: 0x2D30, end: 0x2D7F, batchSize: 300 },
-                { name: "N'Ko字母", start: 0x07C0, end: 0x07FF, batchSize: 300 },
-                { name: "瓦伊字母", start: 0xA500, end: 0xA63F, batchSize: 300 },
-                { name: "奥斯马尼亚字母", start: 0x10480, end: 0x104AF, batchSize: 300 },
-                { name: "巴穆姆字母", start: 0xA6A0, end: 0xA6FF, batchSize: 300 },
-                { name: "巴穆姆补充", start: 0x16800, end: 0x16A3F, batchSize: 300 },
-                { name: "曼德语文字", start: 0x1E800, end: 0x1E8DF, batchSize: 300 },
-                { name: "梅德法伊德林字母", start: 0x16E40, end: 0x16E9F, batchSize: 300 },
-                { name: "阿德拉姆字母", start: 0x1E900, end: 0x1E95F, batchSize: 300 }
-            ],
-            westasian: [
-                { name: "阿拉伯字母", start: 0x0600, end: 0x06FF, batchSize: 300 },
-                { name: "阿拉伯字母补充", start: 0x0750, end: 0x077F, batchSize: 300 },
-                { name: "阿拉伯扩展-A", start: 0x08A0, end: 0x08FF, batchSize: 300 },
-                { name: "阿拉伯扩展-B", start: 0x0870, end: 0x089F, batchSize: 300 },
-                { name: "阿拉伯扩展-C", start: 0x10E60, end: 0x10E7F, batchSize: 300 },
-                { name: "阿拉伯表现形式-A", start: 0xFB50, end: 0xFDFF, batchSize: 300 },
-                { name: "阿拉伯表现形式-B", start: 0xFE70, end: 0xFEFF, batchSize: 300 },
-                { name: "希伯来字母", start: 0x0590, end: 0x05FF, batchSize: 300 },
-                { name: "希伯来表现形式", start: 0xFB1D, end: 0xFB4F, batchSize: 300 },
-                { name: "叙利亚字母", start: 0x0700, end: 0x074F, batchSize: 300 },
-                { name: "撒马利亚字母", start: 0x0800, end: 0x083F, batchSize: 300 },
-                { name: "曼达字母", start: 0x0840, end: 0x085F, batchSize: 300 },
-                { name: "腓尼基字母", start: 0x10900, end: 0x1091F, batchSize: 300 },
-                { name: "阿拉米字母", start: 0x10840, end: 0x1085F, batchSize: 300 },
-                { name: "纳巴泰字母", start: 0x10880, end: 0x108AF, batchSize: 300 },
-                { name: "帕尔米拉字母", start: 0x10860, end: 0x1087F, batchSize: 300 },
-                { name: "楔形文字", start: 0x12000, end: 0x123FF, batchSize: 300 },
-                { name: "楔形数字和标点", start: 0x12400, end: 0x1247F, batchSize: 300 },
-                { name: "乌加里特字母", start: 0x10380, end: 0x1039F, batchSize: 300 },
-                { name: "古波斯字母", start: 0x103A0, end: 0x103DF, batchSize: 300 },
-                { name: "安纳托利亚圣书体", start: 0x14400, end: 0x1467F, batchSize: 300 }
-            ],
-            centralasian: [
-                { name: "蒙古字母", start: 0x1800, end: 0x18AF, batchSize: 300 },
-                { name: "蒙古字母补充", start: 0x11660, end: 0x1167F, batchSize: 300 },
-                { name: "藏文字母", start: 0x0F00, end: 0x0FFF, batchSize: 300 },
-                { name: "八思巴字母", start: 0xA840, end: 0xA87F, batchSize: 300 },
-                { name: "索永布字母", start: 0x11A00, end: 0x11A4F, batchSize: 300 },
-                { name: "札那巴札尔方形字母", start: 0x11A50, end: 0x11AAF, batchSize: 300 },
-                { name: "古突厥字母", start: 0x10C00, end: 0x10C4F, batchSize: 300 },
-                { name: "古回鹘字母", start: 0x10F00, end: 0x10F2F, batchSize: 300 },
-                { name: "粟特字母", start: 0x10F30, end: 0x10F6F, batchSize: 300 },
-                { name: "古粟特字母", start: 0x10F70, end: 0x10FAF, batchSize: 300 },
-                { name: "摩尼教字母", start: 0x10AC0, end: 0x10AFF, batchSize: 300 },
-                { name: "象雄字母", start: 0x11600, end: 0x1165F, batchSize: 300 }
-            ],
-            southasian: [
-                { name: "天城文", start: 0x0900, end: 0x097F, batchSize: 300 },
-                { name: "天城文扩展", start: 0x1CD0, end: 0x1CFF, batchSize: 300 },
-                { name: "天城文扩展-A", start: 0x11B00, end: 0x11B5F, batchSize: 300 },
-                { name: "孟加拉文", start: 0x0980, end: 0x09FF, batchSize: 300 },
-                { name: "古吉拉特文", start: 0x0A80, end: 0x0AFF, batchSize: 300 },
-                { name: "古木基文", start: 0x0A00, end: 0x0A7F, batchSize: 300 },
-                { name: "奥里亚文", start: 0x0B00, end: 0x0B7F, batchSize: 300 },
-                { name: "泰米尔文", start: 0x0B80, end: 0x0BFF, batchSize: 300 },
-                { name: "泰卢固文", start: 0x0C00, end: 0x0C7F, batchSize: 300 },
-                { name: "卡纳达文", start: 0x0C80, end: 0x0CFF, batchSize: 300 },
-                { name: "马拉雅拉姆文", start: 0x0D00, end: 0x0D7F, batchSize: 300 },
-                { name: "僧伽罗文", start: 0x0D80, end: 0x0DFF, batchSize: 300 },
-                { name: "泰文", start: 0x0E00, end: 0x0E7F, batchSize: 300 },
-                { name: "老挝文", start: 0x0E80, end: 0x0EFF, batchSize: 300 },
-                { name: "缅甸文", start: 0x1000, end: 0x109F, batchSize: 300 },
-                { name: "缅甸文扩展-A", start: 0xAA60, end: 0xAA7F, batchSize: 300 },
-                { name: "缅甸文扩展-B", start: 0xA9E0, end: 0xA9FF, batchSize: 300 },
-                { name: "缅甸文扩展-C", start: 0x10400, end: 0x1044F, batchSize: 300 },
-                { name: "梵文扩展", start: 0x1CD0, end: 0x1CFF, batchSize: 300 },
-                { name: "婆罗米文", start: 0x11000, end: 0x1107F, batchSize: 300 },
-                { name: "悉昙文", start: 0x11580, end: 0x115FF, batchSize: 300 },
-                { name: "夏拉达文", start: 0x11180, end: 0x111DF, batchSize: 300 },
-                { name: "塔克里文", start: 0x11680, end: 0x116CF, batchSize: 300 },
-                { name: "古吉拉特文", start: 0x11200, end: 0x1124F, batchSize: 300 },
-                { name: "卡纳达文扩展", start: 0x112B0, end: 0x112FF, batchSize: 300 },
-                { name: "马拉雅拉姆文扩展", start: 0x11300, end: 0x1137F, batchSize: 300 },
-                { name: "僧伽罗文扩展", start: 0x111E0, end: 0x111FF, batchSize: 300 },
-                { name: "泰米尔文补充", start: 0x11FC0, end: 0x11FFF, batchSize: 300 }
-            ],
-            southeastasian: [
-                { name: "高棉文", start: 0x1780, end: 0x17FF, batchSize: 300 },
-                { name: "高棉符号", start: 0x19E0, end: 0x19FF, batchSize: 300 },
-                { name: "泰文", start: 0x0E00, end: 0x0E7F, batchSize: 300 },
-                { name: "老挝文", start: 0x0E80, end: 0x0EFF, batchSize: 300 },
-                { name: "缅甸文", start: 0x1000, end: 0x109F, batchSize: 300 },
-                { name: "新傣仂文", start: 0x1980, end: 0x19DF, batchSize: 300 },
-                { name: "傣哪文", start: 0x1950, end: 0x197F, batchSize: 300 },
-                { name: "傣文", start: 0xAA80, end: 0xAADF, batchSize: 300 },
-                { name: "占文", start: 0x1AA00, end: 0x1AADF, batchSize: 300 },
-                { name: "巴厘文", start: 0x1B00, end: 0x1B7F, batchSize: 300 },
-                { name: "爪哇文", start: 0xA980, end: 0xA9DF, batchSize: 300 },
-                { name: "巽他文", start: 0x1B80, end: 0x1BBF, batchSize: 300 },
-                { name: "巽他文补充", start: 0x1CC0, end: 0x1CCF, batchSize: 300 },
-                { name: "布吉斯文", start: 0x1A00, end: 0x1A1F, batchSize: 300 },
-                { name: "巴塔克文", start: 0x1BC0, end: 0x1BFF, batchSize: 300 },
-                { name: "雷姜文", start: 0x1A20, end: 0x1AAF, batchSize: 300 },
-                { name: "他加禄文", start: 0x1700, end: 0x171F, batchSize: 300 },
-                { name: "汉奴诺文", start: 0x1720, end: 0x173F, batchSize: 300 },
-                { name: "布希德文", start: 0x1740, end: 0x175F, batchSize: 300 },
-                { name: "塔格巴努瓦文", start: 0x1760, end: 0x177F, batchSize: 300 }
-            ],
-            eastasian: [
-                { name: "CJK统一汉字", start: 0x4E00, end: 0x9FFF, batchSize: 300 },
-                { name: "CJK扩展A", start: 0x3400, end: 0x4DBF, batchSize: 300 },
-                { name: "CJK扩展B", start: 0x20000, end: 0x2A6DF, batchSize: 300 },
-                { name: "CJK扩展C", start: 0x2A700, end: 0x2B73F, batchSize: 300 },
-                { name: "CJK扩展D", start: 0x2B740, end: 0x2B81F, batchSize: 300 },
-                { name: "CJK扩展E", start: 0x2B820, end: 0x2CEAF, batchSize: 300 },
-                { name: "CJK扩展F", start: 0x2CEB0, end: 0x2EBEF, batchSize: 300 },
-                { name: "CJK扩展G", start: 0x30000, end: 0x3134F, batchSize: 300 },
-                { name: "CJK扩展H", start: 0x31350, end: 0x323AF, batchSize: 300 },
-                { name: "CJK扩展I", start: 0x2EBF0, end: 0x2EE5F, batchSize: 300 },
-                { name: "CJK扩展J", start: 0x323B0, end: 0x323FF, batchSize: 300 },
-                { name: "CJK兼容汉字", start: 0xF900, end: 0xFAFF, batchSize: 300 },
-                { name: "CJK兼容汉字补充", start: 0x2F800, end: 0x2FA1F, batchSize: 300 },
-                { name: "CJK部首/康熙部首", start: 0x2F00, end: 0x2FDF, batchSize: 300 },
-                { name: "CJK部首补充", start: 0x2E80, end: 0x2EFF, batchSize: 300 },
-                { name: "CJK笔画", start: 0x31C0, end: 0x31EF, batchSize: 300 },
-                { name: "表意文字描述字符", start: 0x2FF0, end: 0x2FFF, batchSize: 300 },
-                { name: "CJK符号和标点", start: 0x3000, end: 0x303F, batchSize: 300 },
-                { name: "表意符号和标点", start: 0x16FE0, end: 0x16FFF, batchSize: 300 },
-                { name: "平假名", start: 0x3040, end: 0x309F, batchSize: 300 },
-                { name: "片假名", start: 0x30A0, end: 0x30FF, batchSize: 300 },
-                { name: "假名补充", start: 0x1B000, end: 0x1B0FF, batchSize: 300 },
-                { name: "假名扩展-A", start: 0x1B100, end: 0x1B12F, batchSize: 300 },
-                { name: "假名扩展-B", start: 0x1AFF0, end: 0x1AFFF, batchSize: 300 },
-                { name: "小假名扩展", start: 0x1B130, end: 0x1B16F, batchSize: 300 },
-                { name: "注音符号", start: 0x3100, end: 0x312F, batchSize: 300 },
-                { name: "注音符号扩展", start: 0x31A0, end: 0x31BF, batchSize: 300 },
-                { name: "谚文字母", start: 0x1100, end: 0x11FF, batchSize: 300 },
-                { name: "谚文兼容字母", start: 0x3130, end: 0x318F, batchSize: 300 },
-                { name: "谚文音节", start: 0xAC00, end: 0xD7AF, batchSize: 300 },
-                { name: "彝文音节", start: 0xA000, end: 0xA48F, batchSize: 300 },
-                { name: "彝文部首", start: 0xA490, end: 0xA4CF, batchSize: 300 },
-                { name: "傈僳文", start: 0xA4D0, end: 0xA4FF, batchSize: 300 },
-                { name: "女书", start: 0x1B170, end: 0x1B2FF, batchSize: 300 },
-                { name: "西夏文", start: 0x17000, end: 0x187FF, batchSize: 300 },
-                { name: "西夏文组件", start: 0x18800, end: 0x18AFF, batchSize: 300 },
-                { name: "契丹小字", start: 0x18B00, end: 0x18CFF, batchSize: 300 },
-                { name: "苗文", start: 0x16F00, end: 0x16F9F, batchSize: 300 }
-            ],
-            american: [
-                { name: "切罗基字母", start: 0x13A0, end: 0x13FF, batchSize: 300 },
-                { name: "切罗基补充", start: 0xAB70, end: 0xABBF, batchSize: 300 },
-                { name: "德塞雷特字母", start: 0x10400, end: 0x1044F, batchSize: 300 },
-                { name: "奥塞奇字母", start: 0x104B0, end: 0x104FF, batchSize: 300 },
-                { name: "加拿大原住民音节文字", start: 0x1400, end: 0x167F, batchSize: 300 },
-                { name: "加拿大原住民音节扩展", start: 0x18B0, end: 0x18FF, batchSize: 300 },
-                { name: "加拿大原住民音节扩展-A", start: 0x11AB0, end: 0x11ABF, batchSize: 300 },
-                { name: "玛雅数字", start: 0x1D2E0, end: 0x1D2FF, batchSize: 300 }
-            ],
-            symbols: [
-                { name: "常用标点", start: 0x2000, end: 0x206F, batchSize: 300 },
-                { name: "补充标点", start: 0x2E00, end: 0x2E7F, batchSize: 300 },
-                { name: "CJK兼容形式", start: 0xFE30, end: 0xFE4F, batchSize: 300 },
-                { name: "半角及全角字符", start: 0xFF00, end: 0xFFEF, batchSize: 300 },
-                { name: "小型变体", start: 0xFE50, end: 0xFE6F, batchSize: 300 },
-                { name: "垂直形式", start: 0xFE10, end: 0xFE1F, batchSize: 300 },
-                { name: "字母类符号", start: 0x2100, end: 0x214F, batchSize: 300 },
-                { name: "数字形式", start: 0x2150, end: 0x218F, batchSize: 300 },
-                { name: "带圈字母数字", start: 0x2460, end: 0x24FF, batchSize: 300 },
-                { name: "带圈字母数字补充", start: 0x1F100, end: 0x1F1FF, batchSize: 300 },
-                { name: "带圈CJK字母和月份", start: 0x3200, end: 0x32FF, batchSize: 300 },
-                { name: "带圈表意补充", start: 0x1F200, end: 0x1F2FF, batchSize: 300 },
-                { name: "数学运算符", start: 0x2200, end: 0x22FF, batchSize: 300 },
-                { name: "补充数学运算符", start: 0x2A00, end: 0x2AFF, batchSize: 300 },
-                { name: "杂项数学符号-A", start: 0x27C0, end: 0x27EF, batchSize: 300 },
-                { name: "杂项数学符号-B", start: 0x2980, end: 0x29FF, batchSize: 300 },
-                { name: "数学字母数字符号", start: 0x1D400, end: 0x1D7FF, batchSize: 300 },
-                { name: "阿拉伯数学字母符号", start: 0x1EE00, end: 0x1EEFF, batchSize: 300 },
-                { name: "箭头", start: 0x2190, end: 0x21FF, batchSize: 300 },
-                { name: "补充箭头-A", start: 0x27F0, end: 0x27FF, batchSize: 300 },
-                { name: "补充箭头-B", start: 0x2900, end: 0x297F, batchSize: 300 },
-                { name: "补充箭头-C", start: 0x1F800, end: 0x1F8FF, batchSize: 300 },
-                { name: "杂项符号和箭头", start: 0x2B00, end: 0x2BFF, batchSize: 300 },
-                { name: "几何图形", start: 0x25A0, end: 0x25FF, batchSize: 300 },
-                { name: "几何图形扩展", start: 0x1F780, end: 0x1F7FF, batchSize: 300 },
-                { name: "制表符", start: 0x2500, end: 0x257F, batchSize: 300 },
-                { name: "块元素", start: 0x2580, end: 0x259F, batchSize: 300 },
-                { name: "杂项技术符号", start: 0x2300, end: 0x23FF, batchSize: 300 },
-                { name: "控制图片", start: 0x2400, end: 0x243F, batchSize: 300 },
-                { name: "光学字符识别", start: 0x2440, end: 0x245F, batchSize: 300 },
-                { name: "APL符号", start: 0x2336, end: 0x237A, batchSize: 300 },
-                { name: "货币符号", start: 0x20A0, end: 0x20CF, batchSize: 300 },
-                { name: "炼金术符号", start: 0x1F700, end: 0x1F77F, batchSize: 300 },
-                { name: "古代符号", start: 0x10190, end: 0x101CF, batchSize: 300 },
-                { name: "游戏符号", start: 0x1F000, end: 0x1F02F, batchSize: 300 },
-                { name: "麻将牌", start: 0x1F000, end: 0x1F02F, batchSize: 300 },
-                { name: "多米诺骨牌", start: 0x1F030, end: 0x1F09F, batchSize: 300 },
-                { name: "扑克牌", start: 0x1F0A0, end: 0x1F0FF, batchSize: 300 },
-                { name: "国际象棋符号", start: 0x1FA00, end: 0x1FA6F, batchSize: 300 },
-                { name: "易经符号", start: 0x4DC0, end: 0x4DFF, batchSize: 300 },
-                { name: "太玄经符号", start: 0x1D300, end: 0x1D35F, batchSize: 300 },
-                { name: "盲文图案", start: 0x2800, end: 0x28FF, batchSize: 300 },
-                { name: "音乐符号", start: 0x1D100, end: 0x1D1FF, batchSize: 300 },
-                { name: "古希腊音乐符号", start: 0x1D200, end: 0x1D24F, batchSize: 300 },
-                { name: "拜占庭音乐符号", start: 0x1D000, end: 0x1D0FF, batchSize: 300 },
-                { name: "旗帜符号", start: 0x1F1E0, end: 0x1F1FF, batchSize: 300 },
-                { name: "表情符号", start: 0x1F600, end: 0x1F64F, batchSize: 300 },
-                { name: "装饰与物品", start: 0x1F300, end: 0x1F5FF, batchSize: 300 },
-                { name: "交通与地图", start: 0x1F680, end: 0x1F6FF, batchSize: 300 },
-                { name: "补充符号与象形", start: 0x1F900, end: 0x1FAFF, batchSize: 300 },
-                { name: "符号与象形扩展-A", start: 0x1FA70, end: 0x1FAFF, batchSize: 300 },
-                { name: "杂项符号", start: 0x2600, end: 0x26FF, batchSize: 300 },
-                { name: "装饰符号", start: 0x2700, end: 0x27BF, batchSize: 300 },
-                { name: "装饰丁巴特", start: 0x1F650, end: 0x1F67F, batchSize: 300 },
-                { name: "传统计算符号", start: 0x1D360, end: 0x1D37F, batchSize: 300 },
-                { name: "遗留计算符号", start: 0x1FB00, end: 0x1FBFF, batchSize: 300 }
-            ],
-            specials: [
-                { name: "私用区", start: 0xE000, end: 0xF8FF, batchSize: 300 },
-                { name: "补充私用区-A", start: 0xF0000, end: 0xFFFFF, batchSize: 300 },
-                { name: "补充私用区-B", start: 0x100000, end: 0x10FFFF, batchSize: 300 },
-                { name: "变体选择器", start: 0xFE00, end: 0xFE0F, batchSize: 300 },
-                { name: "变体选择器补充", start: 0xE0100, end: 0xE01EF, batchSize: 300 },
-                { name: "标签", start: 0xE0000, end: 0xE007F, batchSize: 300 },
-                { name: "特殊", start: 0xFFF0, end: 0xFFFF, batchSize: 300 }
-            ]
-        };
-
-        // ==========================================
-        // Emoji 区块定义
-        // ==========================================
-        const emojiRanges = [
-            { name: "表情符号", start: 0x1F600, end: 0x1F64F },
-            { name: "装饰与物品", start: 0x1F300, end: 0x1F5FF },
-            { name: "交通与地图", start: 0x1F680, end: 0x1F6FF },
-            { name: "补充符号与象形", start: 0x1F900, end: 0x1FAFF },
-            { name: "国旗", start: 0x1F1E0, end: 0x1F1FF }
-        ];
-
-        // ==========================================
-        // 完整颜文字列表（来自https://www.lddgo.net/common/emoticons）
-        // ==========================================
-        const kaomojis = [
-            "w(ﾟДﾟ)w", "(ノへ￣、)", "(￣_,￣ )", "ヽ(✿ﾟ▽ﾟ)ノ", "(๑•̀ㅂ•́)و✧",
-            "(￣ε(#￣)☆╰╮o(￣皿￣///)", "（づ￣3￣）づ╭❤～", "Σ( ° △ °|||)︴", "(～￣(OO)￣)ブ", "凸(艹皿艹 )",
-            "(* ￣3)(ε￣ *)", "(*￣rǒ￣)", "┗|｀O′|┛ 嗷~~", "φ(≧ω≦*)♪", "︿(￣︶￣)︿",
-            "(u‿ฺu✿ฺ)", "Hi~ o(*￣▽￣*)ブ", "♪(^∇^*)", "o(*≧▽≦)ツ┏━┓", "╰(*°▽°*)╯",
-            "（○｀ 3′○）", "o(*^＠^*)o", "(#`O′)", "(°ー°〃)", "○|￣|_ =3",
-            "o(￣ヘ￣o＃)", "（＝。＝）", "~~( ﹁ ﹁ ) ~~~", "(ーー゛)", "(ー`´ー)",
-            "o(一︿一+)o", "o(≧口≦)o", "ㄟ( ▔, ▔ )ㄏ", "(o_ _)ﾉ", "(⊙﹏⊙)",
-            "(ˉ▽￣～) 切~~", "（＊￣（エ）￣）", "┑(￣Д ￣)┍", "(＠_＠;)", "━┳━ ━┳━",
-            "(☆´益`)c", "（´Д`）", "┗( T﹏T )┛", "(。﹏。*)", "o( =•ω•= )m",
-            "≡ω≡", "(*￣(エ)￣)", "(✿◡‿◡)", "(*/ω＼*)", "┭┮﹏┭┮",
-            "ヾ(￣▽￣)Bye~Bye~", "( ﹁ ﹁ ) ~→", "Ψ(￣∀￣)Ψ", "✧(≖ ◡ ≖✿)", "━━(￣ー￣*|||━━",
-            "ヽ(*。>Д<)o゜", "┌(。Д。)┐", "○|￣|_", "o(￣▽￣)ｄ", "(；′⌒`)",
-            "X﹏X", "ヾ(≧▽≦*)o", "o(*≧▽≦)ツ", "(o゜▽゜)o☆[BINGO!]", "～(￣▽￣～)(～￣▽￣)～",
-            "o(*￣▽￣*)o", "(￣▽￣)～■干杯□～(￣▽￣)", "φ(゜▽゜*)♪", "╰(￣▽￣)╭", "*´∀`)´∀`)*´∀`)*´∀`)",
-            "(｡･∀･)ﾉﾞ", "ヾ(≧∇≦*)ゝ", "（゜▽＾*））", "(*^▽^*)", "(´▽`ʃ♡ƪ)",
-            "○( ＾皿＾)っHiahiahia…", "(( へ(へ´∀`)へ", "^O^", "( ＾∀＾）／欢迎＼( ＾∀＾）", "ヾ(￣ー￣)X(^▽^)ゞ",
-            "...φ(0￣*)啦啦啦_φ(*￣0￣)", "(๑´ㅂ`๑)", "(≧∀≦)ゞ", "(๑¯∀¯๑)", "o(*￣︶￣*)o",
-            "ε(*´･∀･｀)зﾞ", "( ﾟ∀ﾟ) ﾉ♡", "(^&^)/", "o(*≧▽≦)ツ┏━┓", "(～￣▽￣)～",
-            "(/≧▽≦)/", "(☆▽☆)", "*★,°*:.☆(￣▽￣)/$:*.°★*", "ㄟ(≧◇≦)ㄏ", "ヽ(ﾟ∀ﾟ*)ﾉ━━━ｩ♪",
-            "( *︾▽︾)", "☆⌒(*＾-゜)v THX!!", "♪(´∇`*)", "||ヽ(*￣▽￣*)ノミ|Ю", "~(～￣▽￣)～",
-            "(p≧w≦q)", "(＾－＾)V", "(＾Ｕ＾)ノ~ＹＯ", "(o゜▽゜)o☆", "(((o(*ﾟ▽ﾟ*)o)))",
-            "(￣︶￣)↗", "(o>ε(o>ｕ(≧∩≦)", "o(^▽^)o", "(>▽<)", "ヾ(≧O≦)〃嗷~",
-            "(っ*´Д`)っ", "ヾ(´∀`o)+", "不＞(￣ε￣ = ￣3￣)", "( *￣▽￣)((≧︶≦*)", "...(*￣０￣)ノ[等等我…]",
-            "o(￣ε￣*)", "(￣┰￣*)", "（*＾-＾*）", "(≧∇≦)ﾉ", "～( TロT)σ",
-            "(/0￣)o", "n(*≧▽≦*)n", "(～o￣▽￣)～o ~。。。", "=￣ω￣=", "（´v｀）",
-            "ο(=•ω＜=)ρ⌒☆", "ヾ(´･ω･｀)ﾉ", "ヾ(^▽^*)))", "ｍ(o・ω・o)ｍ", "ε = = (づ′▽`)づ",
-            "(～o￣3￣)～", "(。・・)ノ", "(ノω<。)ノ))☆.。", "(/ω＼*)……… (/ω•＼*)", "┬┴┤_•)",
-            "(ﾉ*･ω･)ﾉ", "（o´・ェ・｀o）", "谢啦!!☆⌒(*＾-゜)v", "( ╯▽╰)", "o(〃'▽'〃)o",
-            "^(*￣(oo)￣)^", "ZZzz…(。-ω-)..ooO", "Ｏ(≧口≦)Ｏ", "（*゜ー゜*）", "(￣△￣；)",
-            "(。_。)", "(⊙ˍ⊙)", "Σ(っ °Д °;)っ", "Σ(｀д′*ノ)ノ", "⊙▽⊙",
-            "_( ﾟДﾟ)ﾉ", "~(￣0￣)/", "(￣m￣）", "wow~ ⊙o⊙", "(*Φ皿Φ*)",
-            "(・∀・(・∀・(・∀・*)", "(○´･д･)ﾉ", "o((⊙﹏⊙))o.", "┏┛墓┗┓...", "┐(T.T ) ( T.T) ノ",
-            "||o(*°▽°*)o|Ю", "▄︻┻┳═一…… ☆（>○<）", "(⊙x⊙;)", "￣へ￣", "（＃￣～￣＃）",
-            "(*￣︿￣)", "ヽ（≧□≦）ノ", "___*( ￣皿￣)/#____", "→)╥﹏╥)", "(ﾟДﾟ*)ﾉ",
-            "┻━┻︵╰(‵□′)╯︵┻━┻", "(〃＞目＜)", "(///￣皿￣)○～", "───Ｃε(┬﹏┬)3", "怒ε=怒ε=( o｀ω′)ノ",
-            "(╬￣皿￣)＝○＃(￣＃)３￣)", "(-__-)=@))> o<)", "▄︻┻┳═一∵∴∷∶∵", "（｀へ´）", "( ｀д′)",
-            "z(-_-z)).....((s-_-)s", "(σ｀д′)σ", "～（□`）～", "＼(゜ロ＼)(／ロ゜)／", "( >ρ<)",
-            "ヽ(゜▽゜ )－C<(ˍ ˍ*)>", "(╯‵□′)╯炸弹！•••*～●", "ˋ( ° ▽、° ) (o(￣▽￣///(斩!!)", "W(￣_￣)W", "(╬▔皿▔)",
-            "（╯‵□′）╯︵┴─┴", "┴─┴︵╰（‵□′╰）", "（︶^︶）=凸", "（╯－_－）╯╧╧", "┴┴︵╰（‵□′）╯︵┴┴",
-            "(╬￣皿￣)凸", "-________-''", "╮（╯＿╰）╭", ".....((/- -)/", "╮(╯▽╰)╭",
-            "((*・∀・）ゞ→→", "( ＿ ＿)ノ｜", "╮（﹀_﹀）╭", "◐▽◑", "┌|*´∀｀|┘",
-            "(・-・*)", "(￣▽￣ = ￣︿￣)", "..( ＿ ＿)ノ｜壁", "o(′益`)o", "( -'`-; )",
-            "~%?…,# *'☆&℃?", "(-@y@)", "(((φ(◎ロ◎;)φ)))", "(=′ー`)", "o(￣┰￣*)ゞ",
-            "（。・＿・。）ﾉ", "（＞人＜；）", "( ￣ ￣)σ…( ＿ ＿)ノ｜壁", "…〒_〒…‵ｏ′-一┳═┻︻▄", "〈（_ _）〉",
-            "Orz", "囧rz", "（ﾉ´д｀）", "U•ェ•*U", "（￣。。￣）",
-            "(°°)～ (°°)～", "m( =∩王∩= )m", "o(=•ェ•=)m", "ヽ(=^･ω･^=)丿", "~o( =∩ω∩= )m",
-            "--(˙˙)--", "( ఠൠఠ )ﾉ", "_(:驴」∠)_", "_(:马」∠)_", "(+(工)+╬)",
-            "(￣(●●)￣)", "(:◎)≡", "(..)nnn", "≡[。。]≡", "(/▽＼)",
-            "(′▽`〃)", "o(*////▽////*)q", "つ﹏⊂", "◕ฺ‿◕ฺ✿ฺ)", "(#／。＼#)",
-            "(*/ω＼*))", "(￣ ‘i ￣;)", "||Φ|(|T|Д|T|)|Φ||", "(;´༎ຶД༎ຶ`)", "ε(┬┬﹏┬┬)3",
-            "〒▽〒", "o(TヘTo)", "╥﹏╥...", "(个_个)", "o(╥﹏╥)o",
-            "(*￣3￣)╭", "(ToT)/~~~", "!(*￣(￣ *) Kiss", "(*╯3╰) Mua", "o(*￣3￣)o",
-            "(っ´Ι`)っ", "(*￣;(￣ *)", "（*＾3＾）/～☆", "（＠ーεー＠）", "～(^з^)-☆",
-            "(+.+)(-.-)(_ _) ..zzZZ", "(_ _)( - . - )(~O~)( - . - )", "(￣o￣) . z Z", "(p.-)(p.-)(p.-)", "(o-ωｑ)).oO",
-            "(つω｀)～", "☆{{{Д}}} ☆!!", "※=○☆(＿＿*)Ｚｚｚ", "￣O￣)ノ", "(∪｡∪)｡｡｡zzz",
-            "（)´д`(）", "(。＿ ＿)。ZZzzzz…", "(ㄏ￣▽￣)ㄏbyeㄟ(￣▽￣ㄟ)", "₍₍ ◝( ﾟ∀ ﾟ )◟⁾⁾不送", "( ´･･)ﾉ(._.`)",
-            "『家』 ～o(▽｀ o) =3", "＼（＾∀＾）メ（＾∀＾）ノ", "（＾∀＾●）ﾉｼ", "(*￣▽￣)(￣▽:;.…::;", "(。・_・)/~~~",
-            "┏(＾0＾)┛", "( ﾟдﾟ)つBye", "(o´ω`o)ﾉ", "（ ゜ρ゜)ノ", "\@^０^@)/★",
-            "(o≖◡≖)", "(๐॔˃̶ᗜ˂̶๐॓)", "ʅ（´◔౪◔）ʃ", "(‾◡◝)", "( ͡° ͜ʖ ͡°)",
-            "┌( ´_ゝ` )┐", "(´ｰ∀ｰ`)", "(☆-ｖ-)", "(－∀＝)", "(◡ᴗ◡✿)",
-            "*(੭*ˊᵕˋ)੭*ଘ", "ψ(｀∇´)ψ", "(((((ヾ( o=^•ェ•)o ┏━┓", "(*￣ω￣)", "(╯▽╰ )好香~~",
-            "(￣～￣) 嚼！", "0＾）吞！", "( *^-^)ρ(^0^* )", "( *⊙~⊙)", "（￣ー￣（＿ ＿（￣ー￣",
-            "（￣ー￣）ノ~~", "( σ'ω')σ", "(＠￣ー￣＠)", "┗|*｀0′*|┛", "o(*^▽^*)┛",
-            "(oﾟvﾟ)ノ", "|(•_•) |•_•) |_•) |•) | )", "(ﾟｰﾟ)", "ヾ(＠⌒ー⌒＠)ノ", "´･∀･)乂(･∀･｀",
-            "(。・∀・)ノ", "↑↑↓↓←→←→ＢＡ...┗( -o-)┛", "┏┛墓┗┓...(((m -__-)m", "━((*′д｀)爻(′д｀*))━!!!!", "ヽ(￣︿￣ )—C<(ˍ ˍ*)>",
-            "||o(*°▽°*)o|Ю [有人吗?]", "……]((o_ _)'彡☆", "|(*′口`)", "(lll￢ω￢)", "_〆(´Д｀ )",
-            "ε=ε=ε=(~￣▽￣)~", "━━∑(￣□￣*|||━━", "…（⊙＿⊙；）…", "ε=ε=ε=┏(゜ロ゜;)┛", "d=====(￣▽￣*)b",
-            "＜（＾－＾）＞", "[]~(￣▽￣)~*", "(*￣▽)u┌┐ ｄ(▽￣*)", "(ง •_•)ง", "ヾ(●゜ⅴ゜)ﾉ",
-            "（。＾▽＾）", "ヽ(￣ω￣(￣ω￣〃)ゝ", "（；´д｀）ゞ", "(＞﹏＜)", "_____λ......___丬 ～～",
-            "( *^-^)ρ(*╯^╰)", "(┬＿┬)↘", "(#｀-_ゝ-)", "（。－_－。）", "(ρ_・).。",
-            "(′д｀ )…彡…彡", "( ′ 3`) sigh~", "[喝西北风]( ′Д`)彡", "(￫ܫ￩)", "(❤´艸｀❤)",
-            "（〃｀ 3′〃）", "ᕕ( ᐛ )ᕗ", "=└(┐卍^o^)卍", "ԅ(¯﹃¯ԅ)", "(☄⊙ω⊙)☄",
-            "( ‵▽′)ψ", "ლ(•̀ _ •́ ლ)", "(눈_눈)", "( *・ω・)✄╰ひ╯", "咳咳＞＜",
-            "(．． )…", "( ˘•ω•˘ )ง⁽˙³˙⁾", "（¯﹃¯）", "b（￣▽￣）d", "（～￣▽￣～）",
-            "（￣ c￣）y-～", "\"▔□▔)/\"▔□▔)/", "(✧◡✧)"
-        ];
-
-        // 全局状态：懒加载进度
-        let lazyLoadState = {
-            currentIndex: 0,
-            currentCategory: null,
-            isLoading: false
-        };
-
-        // 初始化
-        const classicDiv = document.getElementById('classic-categories');
-        const europeanDiv = document.getElementById('european-scripts');
-        const africanDiv = document.getElementById('african-scripts');
-        const westasianDiv = document.getElementById('westasian-scripts');
-        const centralasianDiv = document.getElementById('centralasian-scripts');
-        const southasianDiv = document.getElementById('southasian-scripts');
-        const southeastasianDiv = document.getElementById('southeastasian-scripts');
-        const eastasianDiv = document.getElementById('eastasian-scripts');
-        const americanDiv = document.getElementById('american-scripts');
-        const symbolsDiv = document.getElementById('symbols-punctuation');
-        const specialsDiv = document.getElementById('specials');
-        const displayDiv = document.getElementById('display');
-
-        // 渲染经典分类
-        classicCategories.forEach((cat, index) => {
-            const btn = document.createElement('button');
-            btn.className = 'category-btn';
-            btn.textContent = cat.name;
-            btn.onclick = () => displayClassic(cat);
-            classicDiv.appendChild(btn);
-        });
-
-        // 渲染Unicode官方分类
-        function renderCategory(container, blocks) {
-            blocks.forEach((block, index) => {
-                const btn = document.createElement('button');
-                btn.className = 'category-btn';
-                btn.textContent = block.name;
-                btn.onclick = () => displayLazyRange(block);
+        function $(id){return document.getElementById(id)}
+        function renderBtns(container,cats,handler){
+            cats.forEach(cat=>{
+                const btn=document.createElement('button');
+                btn.className='category-btn';
+                btn.textContent=cat.name||cat.n;
+                btn.title=cat.desc||'';
+                btn.onclick=()=>handler(cat);
                 container.appendChild(btn);
             });
         }
 
-        renderCategory(europeanDiv, unicodeBlocks.european);
-        renderCategory(africanDiv, unicodeBlocks.african);
-        renderCategory(westasianDiv, unicodeBlocks.westasian);
-        renderCategory(centralasianDiv, unicodeBlocks.centralasian);
-        renderCategory(southasianDiv, unicodeBlocks.southasian);
-        renderCategory(southeastasianDiv, unicodeBlocks.southeastasian);
-        renderCategory(eastasianDiv, unicodeBlocks.eastasian);
-        renderCategory(americanDiv, unicodeBlocks.american);
-        renderCategory(symbolsDiv, unicodeBlocks.symbols);
-        renderCategory(specialsDiv, unicodeBlocks.specials);
+        renderBtns($('classic'),C.classic,displayClassic);
+        renderBtns($('special'),C.special,cat=>cat.chars?displayClassic(cat):displayLazy(cat));
+        renderBtns($('plane'),C.plane,displayPlane);
+        renderBtns($('european'),C.blocks.european,displayLazy);
+        renderBtns($('african'),C.blocks.african,displayLazy);
+        renderBtns($('westasian'),C.blocks.westasian,displayLazy);
+        renderBtns($('centralasian'),C.blocks.centralasian,displayLazy);
+        renderBtns($('southasian'),C.blocks.southasian,displayLazy);
+        renderBtns($('southeastasian'),C.blocks.southeastasian,displayLazy);
+        renderBtns($('eastasian'),C.blocks.eastasian,displayLazy);
+        renderBtns($('american'),C.blocks.american,displayLazy);
+        renderBtns($('symbols'),C.blocks.symbols,displayLazy);
+        renderBtns($('specials'),C.blocks.specials,displayLazy);
 
-        // 编码切换函数
-        function updateEncoding() {
-            currentEncoding = document.getElementById('encoding-select').value;
-            if (currentChar) {
-                showEncodingInfo(currentChar);
-            }
+        function updateEncoding(){
+            currentEncoding=$('encoding-select').value;
+            if(currentChar)showEncoding(currentChar);
         }
 
-        // 显示编码信息
-        function showEncodingInfo(char) {
-            currentChar = char;
-            const resultDiv = document.getElementById('encoding-result');
-            const charInfoDiv = document.getElementById('char-info');
-            const encodingTitleDiv = document.getElementById('encoding-title');
-            const encodingBytesDiv = document.getElementById('encoding-bytes');
-            
-            resultDiv.classList.add('visible');
-            
-            // 获取字符的Unicode信息
-            const codePoint = char.codePointAt(0);
-            const codePointHex = codePoint.toString(16).toUpperCase().padStart(4, '0');
-            const codePointDec = codePoint;
-            
-            // 显示字符基本信息
-            charInfoDiv.innerHTML = `
-                <strong>字符：</strong>${char}<br>
-                <strong>Unicode：</strong>U+${codePointHex} (${codePointDec})<br>
-                <strong>UTF-16：</strong>${getUTF16Info(char)}
-            `;
-            
-            // 更新编码标题
-            encodingTitleDiv.textContent = `${currentEncoding} 编码：`;
-            
-            // 计算并显示编码字节
-            const encodedBytes = getEncodedBytes(char, currentEncoding);
-            encodingBytesDiv.textContent = encodedBytes;
+        function showEncoding(char){
+            currentChar=char;
+            const res=$('encoding-result'),info=$('char-info'),title=$('encoding-title'),bytes=$('encoding-bytes');
+            res.classList.add('visible');
+            const cp=char.codePointAt(0),hex=cp.toString(16).toUpperCase().padStart(4,'0');
+            info.innerHTML=`<strong>字符：</strong>${char}<br><strong>Unicode：</strong>U+${hex} (${cp})<br><strong>UTF-16：</strong>${getUTF16(char)}`;
+            title.textContent=`${currentEncoding}编码：`;
+            bytes.textContent=getEncodedBytes(char,currentEncoding);
         }
 
-        // 获取UTF-16信息
-        function getUTF16Info(char) {
-            const codeUnits = [];
-            for (let i = 0; i < char.length; i++) {
-                codeUnits.push('0x' + char.charCodeAt(i).toString(16).toUpperCase().padStart(4, '0'));
-            }
-            return codeUnits.join(' ');
+        function getUTF16(char){
+            const units=[];
+            for(let i=0;i<char.length;i++)units.push('0x'+char.charCodeAt(i).toString(16).toUpperCase().padStart(4,'0'));
+            return units.join(' ');
         }
 
-        // 获取编码字节（模拟实现）
-        function getEncodedBytes(char, encoding) {
-            const codePoint = char.codePointAt(0);
-            
-            try {
-                // 使用TextEncoder进行UTF-8编码
-                if (encoding === 'UTF-8') {
-                    const encoder = new TextEncoder();
-                    const bytes = encoder.encode(char);
-                    return Array.from(bytes).map(b => '0x' + b.toString(16).toUpperCase().padStart(2, '0')).join(' ');
-                }
-                
-                // UTF-8 BOM
-                if (encoding === 'UTF-8-BOM') {
-                    const encoder = new TextEncoder();
-                    const bytes = encoder.encode(char);
-                    return '0xEF 0xBB 0xBF ' + Array.from(bytes).map(b => '0x' + b.toString(16).toUpperCase().padStart(2, '0')).join(' ');
-                }
-                
-                // UTF-16系列
-                if (encoding === 'UTF-16' || encoding === 'UTF-16BE' || encoding === 'UTF-16LE') {
-                    const bytes = [];
-                    const isLE = encoding === 'UTF-16LE';
-                    
-                    // 添加BOM（如果是UTF-16）
-                    if (encoding === 'UTF-16') {
-                        bytes.push(0xFE, 0xFF); // BE BOM
+        function getEncodedBytes(char,enc){
+            const cp=char.codePointAt(0);
+            try{
+                if(enc==='UTF-8')return Array.from(new TextEncoder().encode(char)).map(b=>'0x'+b.toString(16).toUpperCase().padStart(2,'0')).join(' ');
+                if(enc==='UTF-8-BOM')return '0xEF 0xBB 0xBF '+Array.from(new TextEncoder().encode(char)).map(b=>'0x'+b.toString(16).toUpperCase().padStart(2,'0')).join(' ');
+                if(enc.startsWith('UTF-16')){
+                    const b=[],le=enc==='UTF-16LE';
+                    if(enc==='UTF-16')b.push(0xFE,0xFF);
+                    if(cp<=0xFFFF){
+                        const h=(cp>>8)&0xFF,l=cp&0xFF;
+                        le?b.push(l,h):b.push(h,l);
+                    }else{
+                        const lead=0xD800+((cp-0x10000)>>10),trail=0xDC00+((cp-0x10000)&0x3FF);
+                        const lh=(lead>>8)&0xFF,ll=lead&0xFF,th=(trail>>8)&0xFF,tl=trail&0xFF;
+                        le?b.push(ll,lh,tl,th):b.push(lh,ll,th,tl);
                     }
-                    
-                    if (codePoint <= 0xFFFF) {
-                        // BMP字符
-                        const high = (codePoint >> 8) & 0xFF;
-                        const low = codePoint & 0xFF;
-                        if (isLE) {
-                            bytes.push(low, high);
-                        } else {
-                            bytes.push(high, low);
-                        }
-                    } else {
-                        // 代理对
-                        const lead = 0xD800 + ((codePoint - 0x10000) >> 10);
-                        const trail = 0xDC00 + ((codePoint - 0x10000) & 0x3FF);
-                        
-                        const leadHigh = (lead >> 8) & 0xFF;
-                        const leadLow = lead & 0xFF;
-                        const trailHigh = (trail >> 8) & 0xFF;
-                        const trailLow = trail & 0xFF;
-                        
-                        if (isLE) {
-                            bytes.push(leadLow, leadHigh, trailLow, trailHigh);
-                        } else {
-                            bytes.push(leadHigh, leadLow, trailHigh, trailLow);
+                    return b.map(b=>'0x'+b.toString(16).toUpperCase().padStart(2,'0')).join(' ');
+                }
+                if(enc.startsWith('UTF-32')){
+                    const b=[],le=enc==='UTF-32LE';
+                    if(enc==='UTF-32')b.push(0x00,0x00,0xFE,0xFF);
+                    const b1=(cp>>24)&0xFF,b2=(cp>>16)&0xFF,b3=(cp>>8)&0xFF,b4=cp&0xFF;
+                    le?b.push(b4,b3,b2,b1):b.push(b1,b2,b3,b4);
+                    return b.map(b=>'0x'+b.toString(16).toUpperCase().padStart(2,'0')).join(' ');
+                }
+                if(enc==='US-ASCII')return cp<=0x7F?'0x'+cp.toString(16).toUpperCase().padStart(2,'0'):'（不支持）';
+                if(enc==='ISO-8859-1')return cp<=0xFF?'0x'+cp.toString(16).toUpperCase().padStart(2,'0'):'（不支持）';
+                if(enc==='GB18030'){
+                    if(cp<=0x7F)return '0x'+cp.toString(16).toUpperCase().padStart(2,'0');
+                    if(cp>=0x4E00&&cp<=0x9FFF){
+                        const off=cp-0x4E00,h=0x81+Math.floor(off/190),l=0x40+(off%190);
+                        if(l>=0x7F)l++;
+                        return '0x'+h.toString(16).toUpperCase().padStart(2,'0')+' 0x'+l.toString(16).toUpperCase().padStart(2,'0');
+                    }
+                    return '0x81 0x30 0x81 0x30';
+                }
+                if(enc==='GB2312'){
+                    if(cp<=0x7F)return '0x'+cp.toString(16).toUpperCase().padStart(2,'0');
+                    if(cp>=0x4E00&&cp<=0x9FA5){
+                        const off=cp-0x4E00;
+                        if(off<6763){
+                            const h=0xB0+Math.floor(off/94),l=0xA1+(off%94);
+                            return '0x'+h.toString(16).toUpperCase().padStart(2,'0')+' 0x'+l.toString(16).toUpperCase().padStart(2,'0');
                         }
                     }
-                    
-                    return bytes.map(b => '0x' + b.toString(16).toUpperCase().padStart(2, '0')).join(' ');
+                    return '（不支持）';
                 }
-                
-                // UTF-32系列
-                if (encoding === 'UTF-32' || encoding === 'UTF-32BE' || encoding === 'UTF-32LE') {
-                    const bytes = [];
-                    const isLE = encoding === 'UTF-32LE';
-                    
-                    // 添加BOM（如果是UTF-32）
-                    if (encoding === 'UTF-32') {
-                        bytes.push(0x00, 0x00, 0xFE, 0xFF); // BE BOM
+                if(enc==='KOI8-R'){
+                    if(cp<=0x7F)return '0x'+cp.toString(16).toUpperCase().padStart(2,'0');
+                    const m={0x0410:0xE1,0x0411:0xE2,0x0412:0xF7,0x0413:0xE7,0x0414:0xE4,0x0415:0xE5,0x0416:0xF6,0x0417:0xFA,0x0418:0xE9,0x0419:0xEA,0x041A:0xEB,0x041B:0xEC,0x041C:0xED,0x041D:0xEE,0x041E:0xEF,0x041F:0xF0,0x0420:0xF2,0x0421:0xF3,0x0422:0xF4,0x0423:0xF5,0x0424:0xE6,0x0425:0xE8,0x0426:0xE3,0x0427:0xFE,0x0428:0xFB,0x0429:0xFD,0x042A:0xFF,0x042B:0xF9,0x042C:0xF8,0x042D:0xFC,0x042E:0xE0,0x042F:0xF1,0x0430:0xC1,0x0431:0xC2,0x0432:0xD7,0x0433:0xC7,0x0434:0xC4,0x0435:0xC5,0x0436:0xD6,0x0437:0xDA,0x0438:0xC9,0x0439:0xCA,0x043A:0xCB,0x043B:0xCC,0x043C:0xCD,0x043D:0xCE,0x043E:0xCF,0x043F:0xD0,0x0440:0xD2,0x0441:0xD3,0x0442:0xD4,0x0443:0xD5,0x0444:0xC6,0x0445:0xC8,0x0446:0xC3,0x0447:0xDE,0x0448:0xDB,0x0449:0xDD,0x044A:0xDF,0x044B:0xD9,0x044C:0xD8,0x044D:0xDC,0x044E:0xC0,0x044F:0xD1};
+                    if(m[cp])return '0x'+m[cp].toString(16).toUpperCase().padStart(2,'0');
+                    return '（不支持）';
+                }
+                return '0x'+cp.toString(16).toUpperCase().padStart(2,'0');
+            }catch(e){return '编码失败: '+e.message}
+        }
+
+        function displayClassic(cat){
+            lazyState={index:0,cat:null,loading:false};
+            let html=`<h2>${cat.name}</h2>`;
+            if(cat.chars){
+                html+=`<div class="info">共${cat.chars.length}个字符，点击复制</div><div class="char-grid">`;
+                for(let i=0;i<cat.chars.length;i++){
+                    const c=cat.chars[i];
+                    html+=`<div class="char-item" onclick="handleClick('${c}')">${c}</div>`;
+                }
+                html+='</div>';
+            }else if(cat.type==='lazy'){
+                displayLazy(cat);return;
+            }else if(cat.type==='gb2312'||cat.type==='gbk'){
+                html+=`<div class="info">${cat.type==='gb2312'?'GB2312 6763字':'GBK 21003字'}（显示常用部分）</div><div class="char-grid">`;
+                let cnt=0;
+                for(let i=0x4E00;i<=0x9FFF&&cnt<2000;i++){
+                    try{
+                        const c=String.fromCodePoint(i);
+                        html+=`<div class="char-item" title="U+${i.toString(16).toUpperCase()}" onclick="handleClick('${c}')">${c}</div>`;
+                        cnt++;
+                    }catch(e){}
+                }
+                html+='</div><div class="info">更多请查看"CJK统一汉字"</div>';
+            }else if(cat.type==='emoji'){
+                html+='<div class="info">常用Emoji表情，点击复制</div>';
+                emojiRanges.forEach(r=>{
+                    html+=`<h3 style="color:white;margin:15px 0 5px 0;font-size:14px;">${r.n}</h3><div class="char-grid">`;
+                    for(let i=r.s;i<=r.e;i++){
+                        try{
+                            const c=String.fromCodePoint(i);
+                            html+=`<div class="char-item" title="U+${i.toString(16).toUpperCase()}" onclick="handleClick('${c}')">${c}</div>`;
+                        }catch(e){}
                     }
-                    
-                    const b1 = (codePoint >> 24) & 0xFF;
-                    const b2 = (codePoint >> 16) & 0xFF;
-                    const b3 = (codePoint >> 8) & 0xFF;
-                    const b4 = codePoint & 0xFF;
-                    
-                    if (isLE) {
-                        bytes.push(b4, b3, b2, b1);
-                    } else {
-                        bytes.push(b1, b2, b3, b4);
-                    }
-                    
-                    return bytes.map(b => '0x' + b.toString(16).toUpperCase().padStart(2, '0')).join(' ');
-                }
-                
-                // US-ASCII
-                if (encoding === 'US-ASCII') {
-                    if (codePoint <= 0x7F) {
-                        return '0x' + codePoint.toString(16).toUpperCase().padStart(2, '0');
-                    } else {
-                        return '（不支持此字符）';
-                    }
-                }
-                
-                // ISO-8859-1 (Latin-1)
-                if (encoding === 'ISO-8859-1') {
-                    if (codePoint <= 0xFF) {
-                        return '0x' + codePoint.toString(16).toUpperCase().padStart(2, '0');
-                    } else {
-                        return '（不支持此字符）';
-                    }
-                }
-                
-                // 其他编码的模拟实现
-                const encodings = {
-                    'GB18030': getGB18030Bytes,
-                    'GB2312': getGB2312Bytes,
-                    'Big5': getBig5Bytes,
-                    'Shift_JIS': getShiftJISBytes,
-                    'EUC-JP': getEUCJPBytes,
-                    'EUC-KR': getEUCKRBytes,
-                    'KOI8-R': getKOI8RBytes
-                };
-                
-                if (encodings[encoding]) {
-                    return encodings[encoding](codePoint, char);
-                }
-                
-                // 对于其他编码，显示通用信息
-                return `0x${codePoint.toString(16).toUpperCase().padStart(2, '0')} （${encoding}编码）`;
-                
-            } catch (e) {
-                return '编码转换失败: ' + e.message;
-            }
-        }
-
-        // GB18030编码（简化模拟）
-        function getGB18030Bytes(codePoint, char) {
-            if (codePoint <= 0x7F) {
-                return '0x' + codePoint.toString(16).toUpperCase().padStart(2, '0');
-            } else if (codePoint >= 0x4E00 && codePoint <= 0x9FFF) {
-                // CJK汉字 - 简化模拟
-                const offset = codePoint - 0x4E00;
-                const high = 0x81 + Math.floor(offset / 190);
-                const low = 0x40 + (offset % 190);
-                if (low >= 0x7F) low++;
-                return '0x' + high.toString(16).toUpperCase().padStart(2, '0') + ' 0x' + low.toString(16).toUpperCase().padStart(2, '0');
-            } else {
-                return '0x81 0x30 0x81 0x30 （四字节序列，简化表示）';
-            }
-        }
-
-        // GB2312编码（简化模拟）
-        function getGB2312Bytes(codePoint, char) {
-            if (codePoint <= 0x7F) {
-                return '0x' + codePoint.toString(16).toUpperCase().padStart(2, '0');
-            } else if (codePoint >= 0x4E00 && codePoint <= 0x9FA5) {
-                // GB2312汉字区 - 简化模拟
-                const offset = codePoint - 0x4E00;
-                if (offset < 6763) {
-                    const high = 0xB0 + Math.floor(offset / 94);
-                    const low = 0xA1 + (offset % 94);
-                    return '0x' + high.toString(16).toUpperCase().padStart(2, '0') + ' 0x' + low.toString(16).toUpperCase().padStart(2, '0');
-                }
-            }
-            return '（不支持此字符）';
-        }
-
-        // Big5编码（简化模拟）
-        function getBig5Bytes(codePoint, char) {
-            if (codePoint <= 0x7F) {
-                return '0x' + codePoint.toString(16).toUpperCase().padStart(2, '0');
-            } else if (codePoint >= 0x4E00 && codePoint <= 0x9FFF) {
-                // Big5汉字 - 简化模拟
-                return '0xA4 0x40 （Big5编码，简化表示）';
-            }
-            return '（不支持此字符）';
-        }
-
-        // Shift_JIS编码（简化模拟）
-        function getShiftJISBytes(codePoint, char) {
-            if (codePoint <= 0x7F) {
-                return '0x' + codePoint.toString(16).toUpperCase().padStart(2, '0');
-            } else if (codePoint >= 0xFF61 && codePoint <= 0xFF9F) {
-                // 半角片假名
-                return '0x' + (codePoint - 0xFF61 + 0xA1).toString(16).toUpperCase().padStart(2, '0');
-            } else if (codePoint >= 0x4E00 && codePoint <= 0x9FFF) {
-                return '0x88 0x9F （Shift_JIS编码，简化表示）';
-            }
-            return '（不支持此字符）';
-        }
-
-        // EUC-JP编码（简化模拟）
-        function getEUCJPBytes(codePoint, char) {
-            if (codePoint <= 0x7F) {
-                return '0x' + codePoint.toString(16).toUpperCase().padStart(2, '0');
-            } else if (codePoint >= 0xFF61 && codePoint <= 0xFF9F) {
-                return '0x8E 0x' + (codePoint - 0xFF61 + 0xA1).toString(16).toUpperCase().padStart(2, '0');
-            } else if (codePoint >= 0x4E00 && codePoint <= 0x9FFF) {
-                return '0xB0 0xA1 （EUC-JP编码，简化表示）';
-            }
-            return '（不支持此字符）';
-        }
-
-        // EUC-KR编码（简化模拟）
-        function getEUCKRBytes(codePoint, char) {
-            if (codePoint <= 0x7F) {
-                return '0x' + codePoint.toString(16).toUpperCase().padStart(2, '0');
-            } else if (codePoint >= 0xAC00 && codePoint <= 0xD7AF) {
-                return '0xB0 0xA1 （EUC-KR编码，简化表示）';
-            }
-            return '（不支持此字符）';
-        }
-
-        // KOI8-R编码（简化模拟）
-        function getKOI8RBytes(codePoint, char) {
-            if (codePoint <= 0x7F) {
-                return '0x' + codePoint.toString(16).toUpperCase().padStart(2, '0');
-            } else if (codePoint >= 0x0410 && codePoint <= 0x044F) {
-                // 西里尔字母
-                const koi8Map = {
-                    0x0410: 0xE1, 0x0411: 0xE2, 0x0412: 0xF7, 0x0413: 0xE7,
-                    0x0414: 0xE4, 0x0415: 0xE5, 0x0416: 0xF6, 0x0417: 0xFA,
-                    0x0418: 0xE9, 0x0419: 0xEA, 0x041A: 0xEB, 0x041B: 0xEC,
-                    0x041C: 0xED, 0x041D: 0xEE, 0x041E: 0xEF, 0x041F: 0xF0,
-                    0x0420: 0xF2, 0x0421: 0xF3, 0x0422: 0xF4, 0x0423: 0xF5,
-                    0x0424: 0xE6, 0x0425: 0xE8, 0x0426: 0xE3, 0x0427: 0xFE,
-                    0x0428: 0xFB, 0x0429: 0xFD, 0x042A: 0xFF, 0x042B: 0xF9,
-                    0x042C: 0xF8, 0x042D: 0xFC, 0x042E: 0xE0, 0x042F: 0xF1,
-                    0x0430: 0xC1, 0x0431: 0xC2, 0x0432: 0xD7, 0x0433: 0xC7,
-                    0x0434: 0xC4, 0x0435: 0xC5, 0x0436: 0xD6, 0x0437: 0xDA,
-                    0x0438: 0xC9, 0x0439: 0xCA, 0x043A: 0xCB, 0x043B: 0xCC,
-                    0x043C: 0xCD, 0x043D: 0xCE, 0x043E: 0xCF, 0x043F: 0xD0,
-                    0x0440: 0xD2, 0x0441: 0xD3, 0x0442: 0xD4, 0x0443: 0xD5,
-                    0x0444: 0xC6, 0x0445: 0xC8, 0x0446: 0xC3, 0x0447: 0xDE,
-                    0x0448: 0xDB, 0x0449: 0xDD, 0x044A: 0xDF, 0x044B: 0xD9,
-                    0x044C: 0xD8, 0x044D: 0xDC, 0x044E: 0xC0, 0x044F: 0xD1
-                };
-                if (koi8Map[codePoint]) {
-                    return '0x' + koi8Map[codePoint].toString(16).toUpperCase().padStart(2, '0');
-                }
-            }
-            return '（不支持此字符）';
-        }
-
-        // 显示经典分类
-        function displayClassic(cat) {
-            // 重置懒加载状态
-            lazyLoadState = {
-                currentIndex: cat.start || 0,
-                currentCategory: cat,
-                isLoading: false
-            };
-
-            let html = `<h2>${cat.name}</h2>`;
-            
-            if (cat.chars) {
-                // 预定义字符集
-                html += `<div class="info">共 ${cat.chars.length} 个字符，点击复制</div>`;
-                html += '<div class="char-grid" id="char-grid">';
-                for (let i = 0; i < cat.chars.length; i++) {
-                    const char = cat.chars[i];
-                    html += `<div class="char-item" onclick="handleCharClick('${char}')">${char}</div>`;
-                }
-                html += '</div>';
-            } else if (cat.type === 'lazy-range') {
-                // 懒加载范围（简体/繁体中文）
-                displayLazyRange(cat);
-                return;
-            } else if (cat.type === 'gb2312' || cat.type === 'gbk') {
-                // GB2312/GBK 模拟
-                html += `<div class="info">${cat.type === 'gb2312' ? 'GB2312 6763个常用字' : 'GBK 21003个汉字'}（显示常用部分）</div>`;
-                html += '<div class="char-grid" id="char-grid">';
-                let count = 0;
-                for (let i = 0x4E00; i <= 0x9FFF && count < 2000; i++) {
-                    try {
-                        const char = String.fromCodePoint(i);
-                        html += `<div class="char-item" title="U+${i.toString(16).toUpperCase()}" onclick="handleCharClick('${char}')">${char}</div>`;
-                        count++;
-                    } catch (e) {}
-                }
-                html += '</div>';
-                html += '<div class="info">...更多字符请查看"CJK统一汉字"区块</div>';
-            } else if (cat.type === 'emoji') {
-                // Emoji表情
-                html += '<div class="info">包含所有常用Emoji表情，点击复制</div>';
-                emojiRanges.forEach(range => {
-                    html += `<h3 style="color:white;margin:15px 0 5px 0;font-size:14px;">${range.name}</h3>`;
-                    html += '<div class="char-grid">';
-                    for (let i = range.start; i <= range.end; i++) {
-                        try {
-                            const char = String.fromCodePoint(i);
-                            html += `<div class="char-item" title="U+${i.toString(16).toUpperCase()}" onclick="handleCharClick('${char}')">${char}</div>`;
-                        } catch (e) {}
-                    }
-                    html += '</div>';
+                    html+='</div>';
                 });
-            } else if (cat.type === 'kaomoji') {
-                // 颜文字（2:3比例）
-                html += `<div class="info">共 ${kaomojis.length} 个颜文字（来自lddgo.net），点击复制</div>`;
-                html += '<div class="char-grid" style="grid-template-columns: repeat(auto-fill, 60px);">';
-                kaomojis.forEach(kaomoji => {
-                    // 转义单引号防止JS错误
-                    const escaped = kaomoji.replace(/'/g, "\\'");
-                    html += `<div class="char-item kaomoji-item" onclick="handleCharClick('${escaped}')">${kaomoji}</div>`;
+            }else if(cat.type==='kaomoji'){
+                html+=`<div class="info">共${kaomojis.length}个颜文字，点击复制</div><div class="char-grid" style="grid-template-columns: repeat(auto-fill, 60px);">`;
+                kaomojis.forEach(k=>{
+                    html+=`<div class="char-item kaomoji-item" onclick="handleClick('${k.replace(/'/g,"\\'")}')">${k}</div>`;
                 });
-                html += '</div>';
+                html+='</div>';
             }
-            
-            // 保留编码面板
-            const encodingPanel = document.querySelector('.encoding-panel');
-            displayDiv.innerHTML = '';
-            displayDiv.appendChild(encodingPanel.cloneNode(true));
-            displayDiv.insertAdjacentHTML('beforeend', html);
-            
-            // 重新绑定编码选择器事件
-            document.getElementById('encoding-select').value = currentEncoding;
-            document.getElementById('encoding-select').onchange = updateEncoding;
+            const panel=$('encoding-panel').cloneNode(true);
+            $('display').innerHTML='';
+            $('display').appendChild(panel);
+            $('display').insertAdjacentHTML('beforeend',html);
+            $('encoding-select').value=currentEncoding;
+            $('encoding-select').onchange=updateEncoding;
         }
 
-        // 处理字符点击
-        function handleCharClick(char) {
-            showEncodingInfo(char);
-            copyText(char);
+        function handleClick(char){
+            showEncoding(char);
+            copy(char);
         }
 
-        // 通用懒加载显示函数（支持所有Unicode区块）
-        function displayLazyRange(category) {
-            // 重置懒加载状态
-            lazyLoadState = {
-                currentIndex: category.start,
-                currentCategory: category,
-                isLoading: false
-            };
-
-            let html = `<h2>${category.name}</h2>`;
-            html += `<div class="info">U+${category.start.toString(16).toUpperCase().padStart(4, '0')} - U+${category.end.toString(16).toUpperCase().padStart(4, '0')}，每次加载${category.batchSize}个</div>`;
-            html += '<div class="char-grid" id="char-grid"></div>';
-            html += `<button class="load-more-btn" id="load-more-btn" onclick="loadMore()">加载更多 (每次${category.batchSize}个)</button>`;
-            
-            // 保留编码面板
-            const encodingPanel = document.querySelector('.encoding-panel');
-            displayDiv.innerHTML = '';
-            displayDiv.appendChild(encodingPanel.cloneNode(true));
-            displayDiv.insertAdjacentHTML('beforeend', html);
-            
-            // 重新绑定编码选择器事件
-            document.getElementById('encoding-select').value = currentEncoding;
-            document.getElementById('encoding-select').onchange = updateEncoding;
-            
-            // 立即加载第一批
+        function displayLazy(cat){
+            lazyState={index:cat.start||cat.s,cat:cat,loading:false};
+            const name=cat.name||cat.n,start=cat.start||cat.s,end=cat.end||cat.e,batch=cat.batch||cat.b;
+            let html=`<h2>${name}</h2>`;
+            html+=`<div class="info">U+${start.toString(16).toUpperCase().padStart(4,'0')} - U+${end.toString(16).toUpperCase().padStart(4,'0')}，每次加载${batch}个</div>`;
+            html+='<div class="char-grid" id="char-grid"></div>';
+            html+=`<button class="load-more-btn" id="load-more" onclick="loadMore()">加载更多 (每次${batch}个)</button>`;
+            const panel=$('encoding-panel').cloneNode(true);
+            $('display').innerHTML='';
+            $('display').appendChild(panel);
+            $('display').insertAdjacentHTML('beforeend',html);
+            $('encoding-select').value=currentEncoding;
+            $('encoding-select').onchange=updateEncoding;
             loadMore();
         }
 
-        // 懒加载更多字符
-        function loadMore() {
-            if (lazyLoadState.isLoading) return;
-            if (!lazyLoadState.currentCategory) return;
-            
-            const cat = lazyLoadState.currentCategory;
-            const grid = document.getElementById('char-grid');
-            const btn = document.getElementById('load-more-btn');
-            
-            if (!grid || !btn) return;
-            
-            lazyLoadState.isLoading = true;
-            btn.disabled = true;
-            btn.textContent = '加载中...';
-            
-            // 计算本次加载的结束位置
-            const endIndex = Math.min(lazyLoadState.currentIndex + cat.batchSize, cat.end + 1);
-            let loadedCount = 0;
-            
-            // 生成字符HTML
-            let html = '';
-            for (let i = lazyLoadState.currentIndex; i < endIndex; i++) {
-                // 跳过控制字符和代理对
-                if ((i >= 0x0000 && i <= 0x001F) || 
-                    (i >= 0x007F && i <= 0x009F) ||
-                    (i >= 0xD800 && i <= 0xDFFF)) {
-                    continue;
-                }
-                
-                try {
-                    const char = String.fromCodePoint(i);
-                    html += `<div class="char-item" title="U+${i.toString(16).toUpperCase()}" onclick="handleCharClick('${char}')">${char}</div>`;
-                    loadedCount++;
-                } catch (e) {}
+        function displayPlane(plane){
+            displayLazy({name:plane.name,start:plane.start,end:plane.end,batch:plane.batch});
+        }
+
+        function loadMore(){
+            if(lazyState.loading||!lazyState.cat)return;
+            const cat=lazyState.cat,grid=$('char-grid'),btn=$('load-more');
+            if(!grid||!btn)return;
+            lazyState.loading=true;
+            btn.disabled=true;
+            btn.textContent='加载中...';
+            const start=lazyState.index,end=Math.min(start+(cat.batch||cat.b),(cat.end||cat.e)+1);
+            let html='',cnt=0;
+            for(let i=start;i<end;i++){
+                if((i>=0&&i<=31)||(i>=127&&i<=159)||(i>=0xD800&&i<=0xDFFF))continue;
+                try{
+                    const c=String.fromCodePoint(i);
+                    const cls=cat.fancy?'char-item fancy-char-item':'char-item';
+                    html+=`<div class="${cls}" title="U+${i.toString(16).toUpperCase()}" onclick="handleClick('${c}')">${c}</div>`;
+                    cnt++;
+                }catch(e){}
             }
-            
-            // 添加到DOM
-            grid.insertAdjacentHTML('beforeend', html);
-            
-            // 更新状态
-            lazyLoadState.currentIndex = endIndex;
-            lazyLoadState.isLoading = false;
-            
-            // 检查是否还有更多
-            if (lazyLoadState.currentIndex > cat.end) {
-                btn.style.display = 'none';
-            } else {
-                btn.disabled = false;
-                const remaining = cat.end - lazyLoadState.currentIndex + 1;
-                btn.textContent = `加载更多 (剩余约${remaining}个)`;
+            grid.insertAdjacentHTML('beforeend',html);
+            lazyState.index=end;
+            lazyState.loading=false;
+            if(lazyState.index>(cat.end||cat.e)){
+                btn.style.display='none';
+            }else{
+                btn.disabled=false;
+                const rem=(cat.end||cat.e)-lazyState.index+1;
+                btn.textContent=`加载更多 (剩余约${rem}个)`;
             }
         }
 
-        // 复制文本（支持多字符颜文字）
-        function copyText(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                const temp = document.createElement('div');
-                temp.style.cssText = 'position:fixed;background:#222;color:white;padding:15px;border-radius:5px;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;';
-                temp.textContent = `已复制: ${text}`;
-                document.body.appendChild(temp);
-                setTimeout(() => temp.remove(), 800);
+        function copy(text){
+            navigator.clipboard.writeText(text).then(()=>{
+                const t=document.createElement('div');
+                t.style.cssText='position:fixed;background:#222;color:white;padding:15px;border-radius:5px;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;';
+                t.textContent=`已复制: ${text}`;
+                document.body.appendChild(t);
+                setTimeout(()=>t.remove(),800);
             });
         }
     </script>
