@@ -49,30 +49,15 @@
             <div class="section-title">⚙️ 特殊区域</div><div id="specials"></div>
         </div>
         <div id="display">
-            <div class="encoding-panel">
-                <label class="encoding-label">🔤 选择编码：</label>
-                <select class="encoding-select" id="encoding-select" onchange="updateEncoding()">
-                    <optgroup label="Unicode系列"><option value="UTF-8">UTF-8</option><option value="UTF-8-BOM">UTF-8 BOM</option><option value="UTF-16">UTF-16</option><option value="UTF-16BE">UTF-16BE</option><option value="UTF-16LE">UTF-16LE</option><option value="UTF-32">UTF-32</option><option value="UTF-7">UTF-7</option></optgroup>
-                    <optgroup label="中文编码"><option value="GB18030">GB18030</option><option value="GB2312">GB2312</option><option value="Big5">Big5</option></optgroup>
-                    <optgroup label="日文编码"><option value="Shift_JIS">Shift_JIS</option><option value="EUC-JP">EUC-JP</option><option value="ISO-2022-JP">ISO-2022-JP</option><option value="ISO-2022-JP-1">ISO-2022-JP-1</option><option value="ISO-2022-JP-2">ISO-2022-JP-2</option></optgroup>
-                    <optgroup label="韩文编码"><option value="EUC-KR">EUC-KR</option><option value="cp1363">cp1363</option><option value="KSC_5601">KSC_5601</option><option value="ISO-2022-KR">ISO-2022-KR</option></optgroup>
-                    <optgroup label="ISO-8859系列"><option value="ISO-8859-1">ISO-8859-1</option><option value="ISO-8859-2">ISO-8859-2</option><option value="ISO-8859-3">ISO-8859-3</option><option value="ISO-8859-4">ISO-8859-4</option><option value="ISO-8859-5">ISO-8859-5</option><option value="ISO-8859-6">ISO-8859-6</option><option value="ISO-8859-7">ISO-8859-7</option><option value="ISO-8859-8">ISO-8859-8</option><option value="ISO-8859-9">ISO-8859-9</option><option value="ISO-8859-10">ISO-8859-10</option><option value="ISO-8859-13">ISO-8859-13</option><option value="ISO-8859-15">ISO-8859-15</option></optgroup>
-                    <optgroup label="IBM/DOS编码"><option value="IBM850">IBM850</option><option value="cp851">cp851</option><option value="IBM857">IBM857</option><option value="IBM00858">IBM00858</option><option value="IBM860">IBM860</option><option value="IBM861">IBM861</option><option value="IBM862">IBM862</option><option value="IBM863">IBM863</option><option value="IBM864">IBM864</option><option value="IBM865">IBM865</option><option value="IBM866">IBM866</option><option value="IBM868">IBM868</option><option value="IBM869">IBM869</option></optgroup>
-                    <optgroup label="其他编码"><option value="US-ASCII">US-ASCII</option><option value="KOI8-R">KOI8-R</option><option value="macintosh">macintosh</option><option value="x-mac-greek">x-mac-greek</option><option value="x-mac-cyrillic">x-mac-cyrillic</option><option value="x-mac-centraleurroman">x-mac-centraleurroman</option><option value="x-mac-turkish">x-mac-turkish</option></optgroup>
-                </select>
-                <div class="encoding-result" id="encoding-result">
-                    <div class="encoding-result-title">字符信息：</div>
-                    <div class="char-info" id="char-info"></div>
-                    <div class="encoding-result-title" id="encoding-title">UTF-8编码：</div>
-                    <div id="encoding-bytes"></div>
-                </div>
-            </div>
             <h2>点击左侧分类查看字符</h2>
         </div>
     </div>
 
     <script>
+        // 全局变量
         let currentChar=null,currentEncoding='UTF-8',lazyState={index:0,cat:null,loading:false};
+        
+        // 数据定义
         const C={classic:[
             {name:"常用符号",chars:"、。·ˉˇ¨〃々—～‖…‘’“”〔〕〈〉《》「」『』〖〗【】±×÷∶∧∨∑∏∪∩∈∷√⊥∥∠⌒⊙∫∮≡≌≈∽∝≠≮≯≤≥∞∵∴♂♀°′″℃＄¤￠￡‰§№☆★○●◎◇◆□■△▲※→←↑↓〓"},
             {name:"标点符号",chars:"，。、；：？！…—·ˉˇ¨‘’“”々～‖∶＂＇｀｜〔〕〈〉《》「」『』〖〗【】（）［］｛｝"},
@@ -158,34 +143,87 @@
             specials:[{n:"私用区PUA",s:57344,e:63743,b:300},{n:"PUA-A",s:983040,e:1048575,b:300},{n:"PUA-B",s:1048576,e:1114111,b:300},{n:"变体选择器",s:65024,e:65039,b:300},{n:"变体选择器补充",s:917760,e:917999,b:300},{n:"标签",s:917504,e:917631,b:300},{n:"特殊",s:65520,e:65535,b:300}]
         }};
         const emojiRanges=[{n:"表情",s:128512,e:128591},{n:"物品",s:127744,e:128511},{n:"交通",s:128640,e:128767},{n:"补充",s:129280,e:129791},{n:"国旗",s:127488,e:127743}];
-        const kaomojis=["w(ﾟДﾟ)w","(ノへ￣、)","(￣_,￣ )","ヽ(✿ﾟ▽ﾟ)ノ","(๑•̀ㅂ•́)و✧","(￣ε(#￣)☆╰╮o(￣皿￣///)","（づ￣3￣）づ╭❤～","Σ( ° △ °|||)︴","(～￣(OO)￣)ブ","凸(艹皿艹 )","(* ￣3)(ε￣ *)","(*￣rǒ￣)","┗|｀O′|┛ 嗷~~","φ(≧ω≦*)♪","︿(￣︶￣)︿","(u‿ฺu✿ฺ)","Hi~ o(*￣▽￣*)ブ","♪(^∇^*)","o(*≧▽≦)ツ┏━┓","╰(*°▽°*)╯","（○｀ 3′○）","o(*^＠^*)o","(#`O′)","(°ー°〃)","○|￣|_ =3","o(￣ヘ￣o＃)","（＝。＝）","~~( ﹁ ﹁ ) ~~~","(ーー゛)","(ー`´ー)","o(一︿一+)o","o(≧口≦)o","ㄟ( ▔, ▔ )ㄏ","(o_ _)ﾉ","(⊙﹏⊙)","(ˉ▽￣～) 切~~","（＊￣（エ）￣）","┑(￣Д ￣)┍","(＠_＠;)","━┳━ ━┳━","(☆´益`)c","（´Д`）","┗( T﹏T )┛","(。﹏。*)","o( =•ω•= )m","≡ω≡","(*￣(エ)￣)","(✿◡‿◡)","(*/ω＼*)","┭┮﹏┭┮","ヾ(￣▽￣)Bye~Bye~","( ﹁ ﹁ ) ~→","Ψ(￣∀￣)Ψ","✧(≖ ◡ ≖✿)","━━(￣ー￣*|||━━","ヽ(*。>Д<)o゜","┌(。Д。)┐","○|￣|_","o(￣▽￣)ｄ","(；′⌒`)","X﹏X","ヾ(≧▽≦*)o","o(*≧▽≦)ツ","(o゜▽゜)o☆[BINGO!]","～(￣▽￣～)(～￣▽￣)～","o(*￣▽￣*)o","(￣▽￣)～■干杯□～(￣▽￣)","φ(゜▽゜*)♪","╰(￣▽￣)╭","*´∀`)´∀`)*´∀`)*´∀`)","(｡･∀･)ﾉﾞ","ヾ(≧∇≦*)ゝ","（゜▽＾*））","(*^▽^*)","(´▽`ʃ♡ƪ)","○( ＾皿＾)っHiahiahia…","(( へ(へ´∀`)へ","^O^","( ＾∀＾）／欢迎＼( ＾∀＾）","ヾ(￣ー￣)X(^▽^)ゞ","...φ(0￣*)啦啦啦_φ(*￣0￣)","(๑´ㅂ`๑)","(≧∀≦)ゞ","(๑¯∀¯๑)","o(*￣︶￣*)o","ε(*´･∀･｀)зﾞ","( ﾟ∀ﾟ) ﾉ♡","(^&^)/","o(*≧▽≦)ツ┏━┓","(～￣▽￣)～","(/≧▽≦)/","(☆▽☆)","*★,°*:.☆(￣▽￣)/$:*.°★*","ㄟ(≧◇≦)ㄏ","ヽ(ﾟ∀ﾟ*)ﾉ━━━ｩ♪","( *︾▽︾)","☆⌒(*＾-゜)v THX!!","♪(´∇`*)","||ヽ(*￣▽￣*)ノミ|Ю","~(～￣▽￣)～","(p≧w≦q)","(＾－＾)V","(＾Ｕ＾)ノ~ＹＯ","(o゜▽゜)o☆","(((o(*ﾟ▽ﾟ*)o)))","(￣︶￣)↗","(o>ε(o>ｕ(≧∩≦)","o(^▽^)o","(>▽<)","ヾ(≧O≦)〃嗷~","(っ*´Д`)っ","ヾ(´∀`o)+","不＞(￣ε￣ = ￣3￣)","( *￣▽￣)((≧︶≦*)","...(*￣０￣)ノ[等等我…]","o(￣ε￣*)","(￣┰￣*)","（*＾-＾*）","(≧∇≦)ﾉ","～( TロT)σ","(/0￣)o","n(*≧▽≦*)n","(～o￣▽￣)～o ~。。。","=￣ω￣=","（´v｀）","ο(=•ω＜=)ρ⌒☆","ヾ(´･ω･｀)ﾉ","ヾ(^▽^*)))","ｍ(o・ω・o)ｍ","ε = = (づ′▽`)づ","(～o￣3￣)～","(。・・)ノ","(ノω<。)ノ))☆.。","(/ω＼*)……… (/ω•＼*)","┬┴┤_•)","(ﾉ*･ω･)ﾉ","（o´・ェ・｀o）","谢啦!!☆⌒(*＾-゜)v","( ╯▽╰)","o(〃'▽'〃)o","^(*￣(oo)￣)^","ZZzz…(。-ω-)..ooO","Ｏ(≧口≦)Ｏ","（*゜ー゜*）","(￣△￣；)","(。_。)","(⊙ˍ⊙)","Σ(っ °Д °;)っ","Σ(｀д′*ノ)ノ","⊙▽⊙","_( ﾟДﾟ)ﾉ","~(￣0￣)/","(￣m￣）","wow~ ⊙o⊙","(*Φ皿Φ*)","(・∀・(・∀・(・∀・*)","(○´･д･)ﾉ","o((⊙﹏⊙))o.","┏┛墓┗┓...","┐(T.T ) ( T.T) ノ","||o(*°▽°*)o|Ю","▄︻┻┳═一…… ☆（>○<）","(⊙x⊙;)","￣へ￣","（＃￣～￣＃）","(*￣︿￣)","ヽ（≧□≦）ノ","___*( ￣皿￣)/#____","→)╥﹏╥)","(ﾟДﾟ*)ﾉ","┻━┻︵╰(‵□′)╯︵┻━┻","(〃＞目＜)","(///￣皿￣)○～","───Ｃε(┬﹏┬)3","怒ε=怒ε=( o｀ω′)ノ","(╬￣皿￣)＝○＃(￣＃)３￣)","(-__-)=@))> o<)","▄︻┻┳═一∵∴∷∶∵","（｀へ´）","( ｀д′)","z(-_-z)).....((s-_-)s","(σ｀д′)σ","～（□`）～","＼(゜ロ＼)(／ロ゜)／","( >ρ<)","ヽ(゜▽゜ )－C<(ˍ ˍ*)>","(╯‵□′)╯炸弹！•••*～●","ˋ( ° ▽、° ) (o(￣▽￣///(斩!!)","W(￣_￣)W","(╬▔皿▔)","（╯‵□′）╯︵┴─┴","┴─┴︵╰（‵□′╰）","（︶^︶）=凸","（╯－_－）╯╧╧","┴┴︵╰（‵□′）╯︵┴┴","(╬￣皿￣)凸","-________-''","╮（╯＿╰）╭",".....((/- -)/","╮(╯▽╰)╭","((*・∀・）ゞ→→","( ＿ ＿)ノ｜","╮（﹀_﹀）╭","◐▽◑","┌|*´∀｀|┘","(・-・*)","(￣▽￣ = ￣︿￣)","..( ＿ ＿)ノ｜壁","o(′益`)o","( -'`-; )","~%?…,# *'☆&℃?","(-@y@)","(((φ(◎ロ◎;)φ)))","(=′ー`)","o(￣┰￣*)ゞ","（。・＿・。）ﾉ","（＞人＜；）","( ￣ ￣)σ…( ＿ ＿)ノ｜壁","…〒_〒…‵ｏ′-一┳═┻︻▄","〈（_ _）〉","Orz","囧rz","（ﾉ´д｀）","U•ェ•*U","（￣。。￣）","(°°)～ (°°)～","m( =∩王∩= )m","o(=•ェ•=)m","ヽ(=^･ω･^=)丿","~o( =∩ω∩= )m","--(˙˙)--","( ఠൠఠ )ﾉ","_(:驴」∠)_","_(:马」∠)_","(+(工)+╬)","(￣(●●)￣)","(:◎)≡","(..)nnn","≡[。。]≡","(/▽＼)","(′▽`〃)","o(*////▽////*)q","つ﹏⊂","◕ฺ‿◕ฺ✿ฺ)","(#／。＼#)","(*/ω＼*))","(￣ ‘i ￣;)","||Φ|(|T|Д|T|)|Φ||","(;´༎ຶД༎ຶ`)","ε(┬┬﹏┬┬)3","〒▽〒","o(TヘTo)","╥﹏╥...","(个_个)","o(╥﹏╥)o","(*￣3￣)╭","(ToT)/~~~","!(*￣(￣ *) Kiss","(*╯3╰) Mua","o(*￣3￣)o","(っ´Ι`)っ","(*￣;(￣ *)","（*＾3＾）/～☆","（＠ーεー＠）","～(^з^)-☆","(+.+)(-.-)(_ _) ..zzZZ","(_ _)( - . - )(~O~)( - . - )","(￣o￣) . z Z","(p.-)(p.-)(p.-)","(o-ωｑ)).oO","(つω｀)～","☆{{{Д}}} ☆!!","※=○☆(＿＿*)Ｚｚｚ","￣O￣)ノ","(∪｡∪)｡｡｡zzz","（)´д`(）","(。＿ ＿)。ZZzzzz…","(ㄏ￣▽￣)ㄏbyeㄟ(￣▽￣ㄟ)","₍₍ ◝( ﾟ∀ ﾟ )◟⁾⁾不送","( ´･･)ﾉ(._.`)","『家』 ～o(▽｀ o) =3","＼（＾∀＾）メ（＾∀＾）ノ","（＾∀＾●）ﾉｼ","(*￣▽￣)(￣▽:;.…::;","(。・_・)/~~~","┏(＾0＾)┛","( ﾟдﾟ)つBye","(o´ω`o)ﾉ","（ ゜ρ゜)ノ","\@^０^@)/★","(o≖◡≖)","(๐॔˃̶ᗜ˂̶๐॓)","ʅ（´◔౪◔）ʃ","(‾◡◝)","( ͡° ͜ʖ ͡°)","┌( ´_ゝ` )┐","(´ｰ∀ｰ`)","(☆-ｖ-)","(－∀＝)","(◡ᴗ◡✿)","*(੭*ˊᵕˋ)੭*ଘ","ψ(｀∇´)ψ","(((((ヾ( o=^•ェ•)o ┏━┓","(*￣ω￣)","(╯▽╰ )好香~~","(￣～￣) 嚼！","0＾）吞！","( *^-^)ρ(^0^* )","( *⊙~⊙)","（￣ー￣（＿ ＿（￣ー￣","（￣ー￣）ノ~~","( σ'ω')σ","(＠￣ー￣＠)","┗|*｀0′*|┛","o(*^▽^*)┛","(oﾟvﾟ)ノ","|(•_•) |•_•) |_•) |•) | )","(ﾟｰﾟ)","ヾ(＠⌒ー⌒＠)ノ","´･∀･)乂(･∀･｀","(。・∀・)ノ","↑↑↓↓←→←→ＢＡ...┗( -o-)┛","┏┛墓┗┓...(((m -__-)m","━((*′д｀)爻(′д｀*))━!!!!","ヽ(￣︿￣ )—C<(ˍ ˍ*)>","||o(*°▽°*)o|Ю [有人吗?]","……]((o_ _)'彡☆","|(*′口`)","(lll￢ω￢)","_〆(´Д｀ )","ε=ε=ε=(~￣▽￣)~","━━∑(￣□￣*|||━━","…（⊙＿⊙；）…","ε=ε=ε=┏(゜ロ゜;)┛","d=====(￣▽￣*)b","＜（＾－＾）＞","[]~(￣▽￣)~*","(*￣▽)u┌┐ ｄ(▽￣*)","(ง •_•)ง","ヾ(●゜ⅴ゜)ﾉ","（。＾▽＾）","ヽ(￣ω￣(￣ω￣〃)ゝ","（；´д｀）ゞ","(＞﹏＜)","_____λ......___丬 ～～","( *^-^)ρ(*╯^╰)","(┬＿┬)↘","(#｀-_ゝ-)","（。－_－。）","(ρ_・).。","(′д｀ )…彡…彡","( ′ 3`) sigh~","[喝西北风]( ′Д`)彡","(￫ܫ￩)","(❤´艸｀❤)","（〃｀ 3′〃）","ᕕ( ᐛ )ᕗ","=└(┐卍^o^)卍","ԅ(¯﹃¯ԅ)","(☄⊙ω⊙)☄","( ‵▽′)ψ","ლ(•̀ _ •́ ლ)","(눈_눈)","( *・ω・)✄╰ひ╯","咳咳＞＜","(．． )…","( ˘•ω•˘ )ง⁽˙³˙⁾","（¯﹃¯）","b（￣▽￣）d","（～￣▽￣～）","（￣ c￣）y-～","\"▔□▔)/\"▔□▔)/","(✧◡✧)"];
+        const kaomojis=["w(ﾟДﾟ)w","(ノへ￣、)","(￣_,￣ )","ヽ(✿ﾟ▽ﾟ)ノ","(๑•̀ㅂ•́)و✧","(￣ε(#￣)☆╰╮o(￣皿￣///)","（づ￣3￣）づ╭❤～","Σ( ° △ °|||)︴","(～￣(OO)￣)ブ","凸(艹皿艹 )","(* ￣3)(ε￣ *)","(*￣rǒ￣)","┗|｀O′|┛ 嗷~~","φ(≧ω≦*)♪","︿(￣︶￣)︿","(u‿ฺu✿ฺ)","Hi~ o(*￣▽￣*)ブ","♪(^∇^*)","o(*≧▽≦)ツ┏━┓","╰(*°▽°*)╯","（○｀ 3′○）","o(*^＠^*)o","(#`O′)","(°ー°〃)","○|￣|_ =3","o(￣ヘ￣o＃)","（＝。＝）","~~( ﹁ ﹁ ) ~~~","(ーー゛)","(ー`´ー)","o(一︿一+)o","o(≧口≦)o","ㄟ( ▔, ▔ )ㄏ","(o_ _)ﾉ","(⊙﹏⊙)","(ˉ▽￣～) 切~~","（＊￣（エ）￣）","┑(￣Д ￣)┍","(＠_＠;)","━┳━ ━┳━","(☆´益`)c","（´Д`）","┗( T﹏T )┛","(。﹏。*)","o( =•ω•= )m","≡ω≡","(*￣(エ)￣)","(✿◡‿◡)","(*/ω＼*)","┭┮﹏┭┮","ヾ(￣▽￣)Bye~Bye~","( ﹁ ﹁ ) ~→","Ψ(￣∀￣)Ψ","✧(≖ ◡ ≖✿)","━━(￣ー￣*|||━━","ヽ(*。>Д<)o゜","┌(。Д。)┐","○|￣|_","o(￣▽￣)ｄ","(；′⌒`)","X﹏X","ヾ(≧▽≦*)o","o(*≧▽≦)ツ","(o゜▽゜)o☆[BINGO!]","～(￣▽￣～)(～￣▽￣)～","o(*￣▽￣*)o","(￣▽￣)～■干杯□～(￣▽￣)","φ(゜▽゜*)♪","╰(￣▽￣)╭","*´∀`)´∀`)*´∀`)*´∀`)","(｡･∀･)ﾉﾞ","ヾ(≧∇≦*)ゝ","（゜▽＾*））","(*^▽^*)","(´▽`ʃ♡ƪ)","○( ＾皿＾)っHiahiahia…","(( へ(へ´∀`)へ","^O^","( ＾∀＾）／欢迎＼( ＾∀＾）","ヾ(￣ー￣)X(^▽^)ゞ","...φ(0￣*)啦啦啦_φ(*￣0￣)","(๑´ㅂ`๑)","(≧∀≦)ゞ","(๑¯∀¯๑)","o(*￣︶￣*)o","ε(*´･∀･｀)зﾞ","( ﾟ∀ﾟ) ﾉ♡","(^&^)/","o(*≧▽≦)ツ┏━┓","(～￣▽￣)～","(/≧▽≦)/","(☆▽☆)","*★,°*:.☆(￣▽￣)/$:*.°★*","ㄟ(≧◇≦)ㄏ","ヽ(ﾟ∀ﾟ*)ﾉ━━━ｩ♪","( *︾▽︾)","☆⌒(*＾-゜)v THX!!","♪(´∇`*)","||ヽ(*￣▽￣*)ノミ|Ю","~(～￣▽￣)～","(p≧w≦q)","(＾－＾)V","(＾Ｕ＾)ノ~ＹＯ","(o゜▽゜)o☆","(((o(*ﾟ▽ﾟ*)o)))","(￣︶￣)↗","(o>ε(o>ｕ(≧∩≦)","o(^▽^)o","(>▽<)","ヾ(≧O≦)〃嗷~","(っ*´Д`)っ","ヾ(´∀`o)+","不＞(￣ε￣ = ￣3￣)","( *￣▽￣)((≧︶≦*)","...(*￣０￣)ノ[等等我…]","o(￣ε￣*)","(￣┰￣*)","（*＾-＾*）","(≧∇≦)ﾉ","～( TロT)σ","(/0￣)o","n(*≧▽≦*)n","(～o￣▽￣)～o ~。。。","=￣ω￣=","（´v｀）","ο(=•ω＜=)ρ⌒☆","ヾ(´･ω･｀)ﾉ","ヾ(^▽^*)))","ｍ(o・ω・o)ｍ","ε = = (づ′▽`)づ","(～o￣3￣)～","(。・・)ノ","(ノω<。)ノ))☆.。","(/ω＼*)……… (/ω•＼*)","┬┴┤_•)","(ﾉ*･ω･)ﾉ","（o´・ェ・｀o）","谢啦!!☆⌒(*＾-゜)v","( ╯▽╰)","o(〃'▽'〃)o","^(*￣(oo)￣)^","ZZzz…(。-ω-)..ooO","Ｏ(≧口≦)Ｏ","（*゜ー゜*）","(￣△￣；)","(。_。)","(⊙ˍ⊙)","Σ(っ °Д °;)っ","Σ(｀д′*ノ)ノ","⊙▽⊙","_( ﾟДﾟ)ﾉ","~(￣0￣)/","(￣m￣）","wow~ ⊙o⊙","(*Φ皿Φ*)","(・∀・(・∀・(・∀・*)","(○´･д･)ﾉ","o((⊙﹏⊙))o.","┏┛墓┗┓...","┐(T.T ) ( T.T) ノ","||o(*°▽°*)o|Ю","▄︻┻┳═一…… ☆（>○<）","(⊙x⊙;)","￣へ￣","（＃￣～￣＃）","(*￣︿￣)","ヽ（≧□≦）ノ","___*( ￣皿￣)/#____","→)╥﹏╥)","(ﾟДﾟ*)ﾉ","┻━┻︵╰(‵□′)╯︵┻━┻","(〃＞目＜)","(///￣皿￣)○～","───Ｃε(┬﹏┬)3","怒ε=怒ε=( o｀ω′)ノ","(╬￣皿￣)＝○＃(￣＃)３￣)","(-__-)=@))> o<)","▄︻┻┳═一∵∴∷∶∵","（｀へ´）","( ｀д′)","z(-_-z)).....((s-_-)s","(σ｀д′)σ","～（□`）～","＼(゜ロ＼)(／ロ゜)／","( >ρ<)","ヽ(゜▽゜ )－C<(ˍ ˍ*)>","(╯‵□′)╯炸弹！•••*～●","ˋ( ° ▽、° ) (o(￣▽￣///(斩!!)","W(￣_￣)W","(╬▔皿▔)","（╯‵□′）╯︵┴─┴","┴─┴︵╰（‵□′╰）","（︶^︶）=凸","（╯－_－）╯╧╧","┴┴︵╰（‵□′）╯︵┴┴","(╬￣皿￣)凸","-________-''","╮（╯＿╰）╭",".....((/- -)/","╮(╯▽╰)╭","((*・∀・）ゞ→→","( ＿ ＿)ノ｜","╮（﹀_﹀）╭","◐▽◑","┌|*´∀｀|┘","(・-・*)","(￣▽￣ = ￣︿￣)","..( ＿ ＿)ノ｜壁","o(′益`)o","( -'`-; )","~%?…,# *'☆&℃?","(-@y@)","(((φ(◎ロ◎;)φ)))","(=′ー`)","o(￣┰￣*)ゞ","（。・＿・。）ﾉ","（＞人＜；）","( ￣ ￣)σ…( ＿ ＿)ノ｜壁","…〒_〒…‵ｏ′-一┳═┻︻▄","〈（_ _）〉","Orz","囧rz","（ﾉ´д｀）","U•ェ•*U","（￣。。￣）","(°°)～ (°°)～","m( =∩王∩= )m","o(=•ェ•=)m","ヽ(=^･ω･^=)丿","~o( =∩ω∩= )m","--(˙˙)--","( ఠൠఠ )ﾉ","_(:驴」∠)_","_(:马」∠)_","(+(工)+╬)","(￣(●●)￣)","(:◎)≡","(..)nnn","≡[。。]≡","(/▽＼)","(′▽`〃)","o(*////▽////*)q","つ﹏⊂","◕ฺ‿◕ฺ✿ฺ)","(#／。＼#)","(*/ω＼*))","(￣ ‘i ￣;)","||Φ|(|T|Д|T|)|Φ||","(;´༎ຶД༎ຶ`)","ε(┬┬﹏┬┬)3","〒▽〒","o(TヘTo)","╥﹏╥...","(个_个)","o(╥﹏╥)o","(*￣3￣)╭","(ToT)/~~~","!(*￣(￣ *) Kiss","(*╯3╰) Mua","o(*￣3￣)o","(っ´Ι`)っ","(*￣;(￣ *)","（*＾3＾）/～☆","（＠ーεー＠）","～(^з^)-☆","(+.+)(-.-)(_ _) ..zzZZ","(_ _)( - . - )(~O~)( - . - )","(￣o￣) . z Z","(p.-)(p.-)(p.-)","(o-ωｑ)).oO","(つω｀)～","☆{{{Д}}} ☆!!","※=○☆(＿＿*)Ｚｚｚ","￣O￣)ノ","(∪｡∪)｡｡｡zzz","（)´д`(）","(。＿ ＿)。ZZzzzz…","(ㄏ￣▽￣)ㄏbyeㄟ(￣▽￣ㄟ)","₍₍ ◝( ﾟ∀ ﾟ )◟⁾⁾不送","( ´･･)ﾉ(._.`)","『家』 ～o(▽｀ o) =3","＼（＾∀＾）メ（＾∀＾）ノ","（＾∀＾●）ﾉｼ","(*￣▽￣)(￣▽:;.…::;","(。・_・)/~~~","┏(＾0＾)┛","( ﾟдﾟ)つBye","(o´ω`o)ﾉ","（ ゜ρ゜)ノ","\\@^０^@)/★","(o≖◡≖)","(๐॔˃̶ᗜ˂̶๐॓)","ʅ（´◔౪◔）ʃ","(‾◡◝)","( ͡° ͜ʖ ͡°)","┌( ´_ゝ` )┐","(´ｰ∀ｰ`)","(☆-ｖ-)","(－∀＝)","(◡ᴗ◡✿)","*(੭*ˊᵕˋ)੭*ଘ","ψ(｀∇´)ψ","(((((ヾ( o=^•ェ•)o ┏━┓","(*￣ω￣)","(╯▽╰ )好香~~","(￣～￣) 嚼！","0＾）吞！","( *^-^)ρ(^0^* )","( *⊙~⊙)","（￣ー￣（＿ ＿（￣ー￣","（￣ー￣）ノ~~","( σ'ω')σ","(＠￣ー￣＠)","┗|*｀0′*|┛","o(*^▽^*)┛","(oﾟvﾟ)ノ","|(•_•) |•_•) |_•) |•) | )","(ﾟｰﾟ)","ヾ(＠⌒ー⌒＠)ノ","´･∀･)乂(･∀･｀","(。・∀・)ノ","↑↑↓↓←→←→ＢＡ...┗( -o-)┛","┏┛墓┗┓...(((m -__-)m","━((*′д｀)爻(′д｀*))━!!!!","ヽ(￣︿￣ )—C<(ˍ ˍ*)>","||o(*°▽°*)o|Ю [有人吗?]","……]((o_ _)'彡☆","|(*′口`)","(lll￢ω￢)","_〆(´Д｀ )","ε=ε=ε=(~￣▽￣)~","━━∑(￣□￣*|||━━","…（⊙＿⊙；）…","ε=ε=ε=┏(゜ロ゜;)┛","d=====(￣▽￣*)b","＜（＾－＾）＞","[]~(￣▽￣)~*","(*￣▽)u┌┐ ｄ(▽￣*)","(ง •_•)ง","ヾ(●゜ⅴ゜)ﾉ","（。＾▽＾）","ヽ(￣ω￣(￣ω￣〃)ゝ","（；´д｀）ゞ","(＞﹏＜)","_____λ......___丬 ～～","( *^-^)ρ(*╯^╰)","(┬＿┬)↘","(#｀-_ゝ-)","（。－_－。）","(ρ_・).。","(′д｀ )…彡…彡","( ′ 3`) sigh~","[喝西北风]( ′Д`)彡","(￫ܫ￩)","(❤´艸｀❤)","（〃｀ 3′〃）","ᕕ( ᐛ )ᕗ","=└(┐卍^o^)卍","ԅ(¯﹃¯ԅ)","(☄⊙ω⊙)☄","( ‵▽′)ψ","ლ(•̀ _ •́ ლ)","(눈_눈)","( *・ω・)✄╰ひ╯","咳咳＞＜","(．． )…","( ˘•ω•˘ )ง⁽˙³˙⁾","（¯﹃¯）","b（￣▽￣）d","（～￣▽￣～）","（￣ c￣）y-～","\"▔□▔)/\"▔□▔)/","(✧◡✧)"];
 
+        // 工具函数
         function $(id){return document.getElementById(id)}
-        function renderBtns(container,cats,handler){
-            cats.forEach(cat=>{
-                const btn=document.createElement('button');
-                btn.className='category-btn';
-                btn.textContent=cat.name||cat.n;
-                btn.title=cat.desc||'';
-                btn.onclick=()=>handler(cat);
-                container.appendChild(btn);
-            });
+        
+        // 生成编码面板HTML
+        function getEncodingPanelHTML(){
+            return `<div class="encoding-panel">
+                <label class="encoding-label">🔤 选择编码：</label>
+                <select class="encoding-select" id="encoding-select">
+                    <optgroup label="Unicode系列"><option value="UTF-8">UTF-8</option><option value="UTF-8-BOM">UTF-8 BOM</option><option value="UTF-16">UTF-16</option><option value="UTF-16BE">UTF-16BE</option><option value="UTF-16LE">UTF-16LE</option><option value="UTF-32">UTF-32</option><option value="UTF-7">UTF-7</option></optgroup>
+                    <optgroup label="中文编码"><option value="GB18030">GB18030</option><option value="GB2312">GB2312</option><option value="Big5">Big5</option></optgroup>
+                    <optgroup label="日文编码"><option value="Shift_JIS">Shift_JIS</option><option value="EUC-JP">EUC-JP</option><option value="ISO-2022-JP">ISO-2022-JP</option><option value="ISO-2022-JP-1">ISO-2022-JP-1</option><option value="ISO-2022-JP-2">ISO-2022-JP-2</option></optgroup>
+                    <optgroup label="韩文编码"><option value="EUC-KR">EUC-KR</option><option value="cp1363">cp1363</option><option value="KSC_5601">KSC_5601</option><option value="ISO-2022-KR">ISO-2022-KR</option></optgroup>
+                    <optgroup label="ISO-8859系列"><option value="ISO-8859-1">ISO-8859-1</option><option value="ISO-8859-2">ISO-8859-2</option><option value="ISO-8859-3">ISO-8859-3</option><option value="ISO-8859-4">ISO-8859-4</option><option value="ISO-8859-5">ISO-8859-5</option><option value="ISO-8859-6">ISO-8859-6</option><option value="ISO-8859-7">ISO-8859-7</option><option value="ISO-8859-8">ISO-8859-8</option><option value="ISO-8859-9">ISO-8859-9</option><option value="ISO-8859-10">ISO-8859-10</option><option value="ISO-8859-13">ISO-8859-13</option><option value="ISO-8859-15">ISO-8859-15</option></optgroup>
+                    <optgroup label="IBM/DOS编码"><option value="IBM850">IBM850</option><option value="cp851">cp851</option><option value="IBM857">IBM857</option><option value="IBM00858">IBM00858</option><option value="IBM860">IBM860</option><option value="IBM861">IBM861</option><option value="IBM862">IBM862</option><option value="IBM863">IBM863</option><option value="IBM864">IBM864</option><option value="IBM865">IBM865</option><option value="IBM866">IBM866</option><option value="IBM868">IBM868</option><option value="IBM869">IBM869</option></optgroup>
+                    <optgroup label="其他编码"><option value="US-ASCII">US-ASCII</option><option value="KOI8-R">KOI8-R</option><option value="macintosh">macintosh</option><option value="x-mac-greek">x-mac-greek</option><option value="x-mac-cyrillic">x-mac-cyrillic</option><option value="x-mac-centraleurroman">x-mac-centraleurroman</option><option value="x-mac-turkish">x-mac-turkish</option></optgroup>
+                </select>
+                <div class="encoding-result" id="encoding-result">
+                    <div class="encoding-result-title">字符信息：</div>
+                    <div class="char-info" id="char-info"></div>
+                    <div class="encoding-result-title" id="encoding-title">UTF-8编码：</div>
+                    <div id="encoding-bytes"></div>
+                </div>
+            </div>`;
         }
 
-        renderBtns($('classic'),C.classic,displayClassic);
-        renderBtns($('special'),C.special,cat=>cat.chars?displayClassic(cat):displayLazy(cat));
-        renderBtns($('plane'),C.plane,displayPlane);
-        renderBtns($('european'),C.blocks.european,displayLazy);
-        renderBtns($('african'),C.blocks.african,displayLazy);
-        renderBtns($('westasian'),C.blocks.westasian,displayLazy);
-        renderBtns($('centralasian'),C.blocks.centralasian,displayLazy);
-        renderBtns($('southasian'),C.blocks.southasian,displayLazy);
-        renderBtns($('southeastasian'),C.blocks.southeastasian,displayLazy);
-        renderBtns($('eastasian'),C.blocks.eastasian,displayLazy);
-        renderBtns($('american'),C.blocks.american,displayLazy);
-        renderBtns($('symbols'),C.blocks.symbols,displayLazy);
-        renderBtns($('specials'),C.blocks.specials,displayLazy);
+        // 渲染按钮
+        function renderButtons(){
+            // 经典分类
+            C.classic.forEach(cat=>{
+                const btn=document.createElement('button');
+                btn.className='category-btn';
+                btn.textContent=cat.name;
+                btn.onclick=()=>displayClassic(cat);
+                $('classic').appendChild(btn);
+            });
+            
+            // 特色符号
+            C.special.forEach(cat=>{
+                const btn=document.createElement('button');
+                btn.className='category-btn';
+                btn.textContent=cat.name;
+                btn.onclick=()=>cat.chars?displayClassic(cat):displayLazy(cat);
+                $('special').appendChild(btn);
+            });
+            
+            // Unicode平面
+            C.plane.forEach(plane=>{
+                const btn=document.createElement('button');
+                btn.className='category-btn';
+                btn.textContent=plane.name;
+                btn.title=plane.desc||'';
+                btn.onclick=()=>displayPlane(plane);
+                $('plane').appendChild(btn);
+            });
+            
+            // Unicode区块
+            function renderBlocks(container,blocks){
+                blocks.forEach(block=>{
+                    const btn=document.createElement('button');
+                    btn.className='category-btn';
+                    btn.textContent=block.n;
+                    btn.onclick=()=>displayLazy({name:block.n,start:block.s,end:block.e,batch:block.b});
+                    container.appendChild(btn);
+                });
+            }
+            
+            renderBlocks($('european'),C.blocks.european);
+            renderBlocks($('african'),C.blocks.african);
+            renderBlocks($('westasian'),C.blocks.westasian);
+            renderBlocks($('centralasian'),C.blocks.centralasian);
+            renderBlocks($('southasian'),C.blocks.southasian);
+            renderBlocks($('southeastasian'),C.blocks.southeastasian);
+            renderBlocks($('eastasian'),C.blocks.eastasian);
+            renderBlocks($('american'),C.blocks.american);
+            renderBlocks($('symbols'),C.blocks.symbols);
+            renderBlocks($('specials'),C.blocks.specials);
+        }
 
+        // 编码相关函数
         function updateEncoding(){
             currentEncoding=$('encoding-select').value;
             if(currentChar)showEncoding(currentChar);
@@ -264,18 +302,25 @@
             }catch(e){return '编码失败: '+e.message}
         }
 
+        // 显示函数
         function displayClassic(cat){
             lazyState={index:0,cat:null,loading:false};
-            let html=`<h2>${cat.name}</h2>`;
+            let html=getEncodingPanelHTML();
+            html+=`<h2>${cat.name}</h2>`;
+            
             if(cat.chars){
                 html+=`<div class="info">共${cat.chars.length}个字符，点击复制</div><div class="char-grid">`;
                 for(let i=0;i<cat.chars.length;i++){
                     const c=cat.chars[i];
-                    html+=`<div class="char-item" onclick="handleClick('${c}')">${c}</div>`;
+                    html+=`<div class="char-item" onclick="handleClick('${c.replace(/'/g,"\\'")}')">${c}</div>`;
                 }
                 html+='</div>';
             }else if(cat.type==='lazy'){
-                displayLazy(cat);return;
+                $('display').innerHTML=html;
+                $('encoding-select').value=currentEncoding;
+                $('encoding-select').onchange=updateEncoding;
+                displayLazy(cat);
+                return;
             }else if(cat.type==='gb2312'||cat.type==='gbk'){
                 html+=`<div class="info">${cat.type==='gb2312'?'GB2312 6763字':'GBK 21003字'}（显示常用部分）</div><div class="char-grid">`;
                 let cnt=0;
@@ -306,10 +351,8 @@
                 });
                 html+='</div>';
             }
-            const panel=$('encoding-panel').cloneNode(true);
-            $('display').innerHTML='';
-            $('display').appendChild(panel);
-            $('display').insertAdjacentHTML('beforeend',html);
+            
+            $('display').innerHTML=html;
             $('encoding-select').value=currentEncoding;
             $('encoding-select').onchange=updateEncoding;
         }
@@ -320,16 +363,15 @@
         }
 
         function displayLazy(cat){
-            lazyState={index:cat.start||cat.s,cat:cat,loading:false};
-            const name=cat.name||cat.n,start=cat.start||cat.s,end=cat.end||cat.e,batch=cat.batch||cat.b;
-            let html=`<h2>${name}</h2>`;
+            lazyState={index:cat.start,cat:cat,loading:false};
+            const name=cat.name,start=cat.start,end=cat.end,batch=cat.batch;
+            let html=getEncodingPanelHTML();
+            html+=`<h2>${name}</h2>`;
             html+=`<div class="info">U+${start.toString(16).toUpperCase().padStart(4,'0')} - U+${end.toString(16).toUpperCase().padStart(4,'0')}，每次加载${batch}个</div>`;
             html+='<div class="char-grid" id="char-grid"></div>';
             html+=`<button class="load-more-btn" id="load-more" onclick="loadMore()">加载更多 (每次${batch}个)</button>`;
-            const panel=$('encoding-panel').cloneNode(true);
-            $('display').innerHTML='';
-            $('display').appendChild(panel);
-            $('display').insertAdjacentHTML('beforeend',html);
+            
+            $('display').innerHTML=html;
             $('encoding-select').value=currentEncoding;
             $('encoding-select').onchange=updateEncoding;
             loadMore();
@@ -346,7 +388,7 @@
             lazyState.loading=true;
             btn.disabled=true;
             btn.textContent='加载中...';
-            const start=lazyState.index,end=Math.min(start+(cat.batch||cat.b),(cat.end||cat.e)+1);
+            const start=lazyState.index,end=Math.min(start+cat.batch,cat.end+1);
             let html='',cnt=0;
             for(let i=start;i<end;i++){
                 if((i>=0&&i<=31)||(i>=127&&i<=159)||(i>=0xD800&&i<=0xDFFF))continue;
@@ -360,11 +402,11 @@
             grid.insertAdjacentHTML('beforeend',html);
             lazyState.index=end;
             lazyState.loading=false;
-            if(lazyState.index>(cat.end||cat.e)){
+            if(lazyState.index>cat.end){
                 btn.style.display='none';
             }else{
                 btn.disabled=false;
-                const rem=(cat.end||cat.e)-lazyState.index+1;
+                const rem=cat.end-lazyState.index+1;
                 btn.textContent=`加载更多 (剩余约${rem}个)`;
             }
         }
@@ -378,6 +420,11 @@
                 setTimeout(()=>t.remove(),800);
             });
         }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded',()=>{
+            renderButtons();
+        });
     </script>
 </body>
 </html>
