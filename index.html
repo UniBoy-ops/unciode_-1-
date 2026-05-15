@@ -5,7 +5,51 @@
     <title>Unicode字符浏览器</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+Mono:wght@400&family=Noto+Sans+JP:wght@400&family=Noto+Sans+Emoji:wght@400&display=swap" rel="stylesheet">
     <style>
-        body{background:#888;font-family:"Microsoft YaHei","微软雅黑","SimSun","宋体",'Courier New',monospace,'Noto Sans Mono','Noto Sans SC','Noto Sans JP','Noto Sans Emoji',sans-serif;margin:0;padding:20px}
+        /* 全局字体栈：覆盖所有平台和字符集 */
+        body{
+            background:#888;
+            font-family:
+                /* 西文字体优先 */
+                -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+                /* 中文字体 */
+                "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "SimSun", "宋体",
+                /* 日文/韩文 */
+                "Noto Sans JP", "Noto Sans KR",
+                /* 特殊符号和Emoji */
+                "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji",
+                /* 终极兜底：覆盖所有Unicode字符 */
+                "Noto Sans", "Arial Unicode MS", "Code2000", "Unifont",
+                /* 通用字体族 */
+                sans-serif;
+            margin:0;padding:20px;
+        }
+        
+        /* 等宽字体栈：专门用于编码显示 */
+        .encoding-result, .encoding-select{
+            font-family:
+                /* 等宽西文字体 */
+                "Noto Sans Mono", "SF Mono", "Monaco", "Cascadia Code", "Consolas", "Courier New",
+                /* 中文字体 */
+                "PingFang SC", "Microsoft YaHei",
+                /* 符号和Emoji */
+                "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji",
+                /* 终极兜底 */
+                "Noto Sans", monospace;
+        }
+        
+        /* 花体字专用字体栈：确保数学字母数字符号正确显示 */
+        .fancy-char-item{
+            font-family:
+                /* 优先使用系统数学字体 */
+                "STIXGeneral", "Cambria Math", "Latin Modern Math",
+                /* 然后是通用字体 */
+                "Noto Sans", "Segoe UI Symbol", "Apple Symbols",
+                /* 最后是全局字体栈 */
+                -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei",
+                "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+            font-size:28px;
+        }
+        
         #container{display:flex;gap:20px}
         #sidebar{width:280px;height:85vh;overflow-y:auto;background:#555;padding:10px}
         .section-title{color:#fff;font-weight:bold;margin:15px 0 5px;padding:5px;background:#444;position:sticky;top:0;z-index:10}
@@ -13,9 +57,13 @@
         .category-btn:hover{background:#444}
         #display{flex:1;background:#555;padding:20px;min-height:85vh;overflow-y:auto}
         .char-grid{display:grid;grid-template-columns:repeat(auto-fill,50px);gap:5px}
-        .char-item{width:50px;height:50px;background:#666;display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;color:white;border:1px solid #777}
+        .char-item{
+            width:50px;height:50px;background:#666;display:flex;align-items:center;justify-content:center;
+            font-size:24px;cursor:pointer;color:white;border:1px solid #777;
+            /* 确保字符居中显示 */
+            line-height:1;
+        }
         .char-item:hover{background:#777}
-        .fancy-char-item{font-size:28px}
         .kaomoji-item{aspect-ratio:2/3;min-width:60px;padding:8px;font-size:14px;white-space:normal;text-align:center;line-height:1.4}
         .load-more-btn{display:block;width:100%;max-width:300px;margin:20px auto;padding:12px;background:#444;color:white;border:1px solid #666;cursor:pointer;font-size:14px}
         .load-more-btn:hover{background:#555}
@@ -24,8 +72,8 @@
         .info{color:#ccc;font-size:12px;margin-bottom:15px}
         .encoding-panel{background:#444;padding:15px;margin-bottom:15px;border-radius:5px}
         .encoding-label{color:white;font-size:14px;margin-bottom:8px;display:block}
-        .encoding-select{width:100%;padding:8px;background:#333;color:white;border:1px solid #666;font-family:'Noto Sans Mono',monospace;font-size:13px}
-        .encoding-result{background:#222;padding:12px;margin-top:10px;border-radius:3px;font-family:'Courier New',monospace;color:#0f0;font-size:13px;word-break:break-all;display:none}
+        .encoding-select{width:100%;padding:8px;background:#333;color:white;border:1px solid #666;font-size:13px}
+        .encoding-result{background:#222;padding:12px;margin-top:10px;border-radius:3px;color:#0f0;font-size:13px;word-break:break-all;display:none}
         .encoding-result.visible{display:block}
         .encoding-result-title{color:#aaa;font-size:12px;margin-bottom:5px}
         .char-info{color:#fff;margin-bottom:10px;font-size:14px}
