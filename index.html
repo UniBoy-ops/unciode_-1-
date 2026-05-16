@@ -3,21 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Unicode字符浏览器</title>
-<link href="https://fonts.loli.net/css2?family=Noto+Sans+Math&family=Noto+Sans+Symbols&family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+Mono&family=Noto+Sans+JP&family=Noto+Sans+Emoji&display=swap" rel="stylesheet">  <style>
+
+<style>
+
     /* 全局字体栈：覆盖所有平台和字符集 */
     body {
-      background: #888;
-      margin: 0;
-      padding: 20px;
+      <link href="https://fonts.loli.net/css2?family=Noto+Sans+Math&family=Noto+Sans+Symbols&family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+Mono&family=Noto+Sans+JP&family=Noto+Sans+Emoji&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="http://www.hnxaw.com/template/syzoj/css/katex.min.css">
+      <link href="http://www.hnxaw.com/template/syzoj/css/FiraMono.css" rel="stylesheet">
+      <link href="http://hnxaw.top/site/login/js/katex/katex.css?v=1751295643" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet">
+      <link href="http://hnxaw.top/css/font-awesome.min.css?v=1751295618" rel="stylesheet">      
       /* 把字体栈写在这里，!important放在最后 */
       font-family: 
-        "Noto Sans Math", 
-        "Noto Sans Symbols", 
-        "Segoe UI Symbol", 
+	    "Segoe UI Symbol","Microsoft YaHei UI","monospace","SimSun",
+        "KaTeX","Fira Code","Inter",
+        "Noto Sans Symbols","Noto Sans Math","MS Sans Serif",
         "Apple Symbols", 
-        "Symbola", 
+        "Symbola","Symbol","System", 
         "Arial Unicode MS", 
         sans-serif !important;
+        background: #888;
+        margin: 0;
+        padding: 20px;
     }
         
         /* 等宽字体栈：专门用于编码显示 */
@@ -127,25 +135,31 @@
             {name:"上标和下标",start:0x2070,end:0x209F,batch:300},
             {name:"Emoji",start:0x1F000,end:0x1FBFA,batch:300},
             {name:"楔形文字符号区",start:0x12000,end:0x12686,batch:300},
-	    {name:"符号的组合变音符号",start:0x20D0,end:0x20FF,batch:300},
-	    {name:"复杂的阿拉伯语",start:0x10ED1,end:0x10ED8,batch:300},
-	    {name:"箭头",start:0x2190,end:0x21FF,batch:300},
-	    {name:"类字母符号",start:0x2100,end:0x214F,batch:300},
-	    {name:"哥特体(常规)",start:0x1D504,end:0x1D537,batch:300,fancy:true},
+	        {name:"符号的组合变音符号",start:0x20D0,end:0x20FF,batch:300},
+	        {name:"复杂的阿拉伯语",start:0x10ED1,end:0x10ED8,batch:300},
+	        {name:"箭头1",start:0x2190,end:0x21FF,batch:300},
+            {name:"箭头2",start:0x27F0,end:0x27FF,batch:300},
+            {name:"箭头3",start:0x2900,end:0x297F,batch:300},
+            {name:"箭头4",start:0x1F800,end:0x1F8D3,batch:300},
+            {name:"箭头5",start:0x2B00,end:0x2BFF,batch:300},
+	        {name:"类字母符号",start:0x2100,end:0x214F,batch:300},
+	        {name:"哥特体(常规)",start:0x1D504,end:0x1D537,batch:300,fancy:true},
+            {name:"杂类符号",start:0x2000,end:0x2BFF,batch:300},
             {name:"哥特体(粗体)",start:0x1D56C,end:0x1D59F,batch:300,fancy:true},
             {name:"手写体(常规)",start:0x1D49C,end:0x1D4CF,batch:300,fancy:true},
             {name:"手写体(粗体)",start:0x1D4D0,end:0x1D503,batch:300,fancy:true},
             {name:"黑体(常规)",start:0x1D5A0,end:0x1D5D3,batch:300,fancy:true},
-	    {name:"黑体(粗体)",start:0x1D5D4,end:0x1D607,batch:300,fancy:true},
+	        {name:"黑体(粗体)",start:0x1D5D4,end:0x1D607,batch:300,fancy:true},
             {name:"古希腊文1",start:0x1D6A8,end:0x1D6E1,batch:300,fancy:true},
-	    {name:"古希腊文2",start:0x1D6E2,end:0x1D718,batch:300,fancy:true},
-	    {name:"古希腊文3",start:0x1D71C,end:0x1D755,batch:300,fancy:true},
-	    {name:"古希腊文4",start:0x1D756,end:0x1D78F,batch:300,fancy:true},
-	    {name:"其它花体符号",start:0x1D7C3,end:0x1D7FF	,batch:300,fancy:true},
+	        {name:"古希腊文2",start:0x1D6E2,end:0x1D718,batch:300,fancy:true},
+	        {name:"古希腊文3",start:0x1D71C,end:0x1D755,batch:300,fancy:true},
+	        {name:"古希腊文4",start:0x1D756,end:0x1D78F,batch:300,fancy:true},
+	        {name:"其它花体符号",start:0x1D7C3,end:0x1D7FF	,batch:300,fancy:true},
             {name:"双线体",start:0x1D538,end:0x1D56B,batch:300,fancy:true},
             {name:"单线条",start:0x1D670,end:0x1D6A3,batch:300,fancy:true},
             {name:"圆体",start:0x1D608,end:0x1D63B,batch:300,fancy:true},
             {name:"十二星座",chars:"♈♉♊♋♌♍♎♏♐♑♒♓"},
+	        {name:"中国算筹",start:0x1D360,end:0x1D378,batch:300},
             {name:"行星占星",chars:"☉☽☾★☆☿♀♂♃♄♅♆♇⚳⚴⚵⚶⚷⚸⚹⚺⚻⚼"},
             {name:"动物Emoji",type:"lazy",start:0x1F400,end:0x1F43F,batch:300},
             {name:"海洋生物",type:"lazy",start:0x1F980,end:0x1F99F,batch:300},
@@ -165,15 +179,15 @@
             {name:"古代符号",start:0x10190,end:0x101CF,batch:300},
             {name:"阿拉伯数字",chars:"0123456789٠١٢٣٤٥٦٧٨٩۰۱۲۳۴۵۶۷۸۹"},
             {name:"罗马数字",chars:"ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫⅬⅭⅮⅯⅰⅱⅲⅳⅴⅵⅶⅷⅸⅹⅺⅻⅼⅽⅾⅿ"},
-	    {name:"艺术字1",chars:"₳฿₵ĐɆ₣₲ⱧŁJ₭Ⱡ₥₦Ø₱QⱤ₴₮Ʉ₵₩ӾɎⱫꁲꋰꀯꂠꈼꄞꁅꍩꂑ꒻ꀗ꒒ꂵꋊꂦꉣꁷꌅꌚꋖꐇꀯꅏꇒꐞꁴⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⒸⓌⓍⓎⓏᏗᏰፈᎴᏋᎦᎶᏂᎥᏠᏦᏝᎷᏁᎧᎮᎤᏒᏕᏖᏬፈᏇጀᎩፚ卂乃匚ᗪ乇千Ꮆ卄丨ﾌҜㄥ爪几ㄖ卩Ɋ尺丂ㄒㄩ匚山乂ㄚ乙"},
+	        {name:"艺术字1",chars:"₳฿₵ĐɆ₣₲ⱧŁJ₭Ⱡ₥₦Ø₱QⱤ₴₮Ʉ₵₩ӾɎⱫꁲꋰꀯꂠꈼꄞꁅꍩꂑ꒻ꀗ꒒ꂵꋊꂦꉣꁷꌅꌚꋖꐇꀯꅏꇒꐞꁴⒶⒷⒸⒹⒺⒻⒼⒽⒾⒿⓀⓁⓂⓃⓄⓅⓆⓇⓈⓉⓊⒸⓌⓍⓎⓏᏗᏰፈᎴᏋᎦᎶᏂᎥᏠᏦᏝᎷᏁᎧᎮᎤᏒᏕᏖᏬፈᏇጀᎩፚ卂乃匚ᗪ乇千Ꮆ卄丨ﾌҜㄥ爪几ㄖ卩Ɋ尺丂ㄒㄩ匚山乂ㄚ乙"},
             {name:"艺术字2",start:0x1F170,end:0x1F189,batch:300},
             {name:"艺术字3",start:0x0370,end:0x03FF,batch:300},
-	    {name:"希伯来字母",start:0x0590,end:0x05FF,batch:300},
+	        {name:"希伯来字母",start:0x0590,end:0x05FF,batch:300},
             {name:"阿拉伯字母",start:0x0600,end:0x06FF,batch:300},
             {name:"西里尔字母",start:0x0400,end:0x04FF,batch:300}
         ],plane:[
             {name:"整个Unicode平面",start:0x0000,end:0x10FFFF,batch:900},
-	    {name:"平面0: BMP",start:0x0000,end:0xFFFF,batch:500,desc:"U+0000-U+FFFF，最常用字符"},
+	        {name:"平面0: BMP",start:0x0000,end:0xFFFF,batch:500,desc:"U+0000-U+FFFF，最常用字符"},
             {name:"平面1: SMP",start:0x10000,end:0x1FFFF,batch:500,desc:"U+10000-U+1FFFF，Emoji、古文字"},
             {name:"平面2: SIP",start:0x20000,end:0x2FFFF,batch:500,desc:"U+20000-U+2FFFF，CJK扩展B-F"},
             {name:"平面3: TIP",start:0x30000,end:0x3FFFF,batch:500,desc:"U+30000-U+3FFFF，CJK扩展G-H"},
@@ -294,7 +308,7 @@
             const res=$('encoding-result'),info=$('char-info'),title=$('encoding-title'),bytes=$('encoding-bytes');
             res.classList.add('visible');
             const cp=char.codePointAt(0),hex=cp.toString(16).toUpperCase().padStart(4,'0');
-            info.innerHTML=`<strong>字符：</strong>${char}<br><strong>Unicode：</strong>U+${hex} (${cp})<br><strong>UTF-16：</strong>${getUTF16(char)}`;
+            info.innerHTML=`<strong>字符： </strong>${char}<br><strong>Unicode：</strong>U+${hex} (${cp})<br><strong>UTF-16：</strong>${getUTF16(char)}`;
             title.textContent=`${currentEncoding}编码：`;
             bytes.textContent=getEncodedBytes(char,currentEncoding);
         }
