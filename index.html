@@ -64,7 +64,7 @@
         .char-item{
             width:60px;height:60px;background:#666;display:flex;align-items:center;justify-content:center;
             /*这是字符区*/
-            font-size:25px;font-family:'Noto Sans Mono','KaTeX','monospace','Consolas','NSimSun';font-variant-ligatures: common-ligatures;cursor:pointer;color:white;border:1px solid #777;
+            font-size:25px;font-family:'Segoe Fluent Icons','Segoe MDL2 Assets','Noto Sans Mono','KaTeX','monospace','Consolas','NSimSun';font-variant-ligatures: common-ligatures;cursor:pointer;color:white;border:1px solid #777;
             
             /* 确保字符居中显示 */
             line-height:1
@@ -123,7 +123,7 @@
             {name:"数字序号",chars:"⒈⒉⒊⒋⒌⒍⒎⒏⒐⒑⒒⒓⒔⒕⒖⒗⒘⒙⒚⒛⑴⑵⑶⑷⑸⑹⑺⑻⑼⑽⑾⑿⒀⒁⒂⒃⒄⒅⒆⒇①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳㈠㈡㈢㈣㈤㈥㈦㈧㈨㈩ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫ一二三四五六七八九十百千万亿零壹贰叁肆伍陆柒捌玖拾佰仟万亿吉太拍艾分厘毫微"},
             {name:"数学符号",chars:"±×÷∶∧∨∑∏∪∩∈∷√⊥∥∠⌒⊙∫∮≡≌≈∽∝≠≮≯≤≥∞∵∴∀∃∂∅∆∇∈∉∊∋∌∍∎∏∐∑−∓∔∕∖∗∘∙√∛∜∝∞∟∠∡∢∣∤∥∦∧∨∩∪∫∬∭∮∯∰∱∲∳∴∵∶∷∸∹∺∻∼∽∾∿≀≁≂≃≄≅≆≇≈≉≊≋≌≍≎≏≐≑≒≓≔≕≖≗≘≙≚≛≜≝≞≟≠≡≢≣≤≥≦≧≨≩≪≫≬≭≮≯≰≱≲≳≴≵≶≷≸≹≺≻≼≽≾≿⊀⊁⊂⊃⊄⊅⊆⊇⊈⊉⊊⊋⊌⊍⊎⊏⊐⊑⊒⊓⊔⊕⊖⊗⊘⊙⊚⊛⊜⊝⊞⊟⊠⊡⊢⊣⊤⊥⊦⊧⊨⊩⊪⊫⊬⊭⊮⊯⊰⊱⊲⊳⊴⊵⊶⊷⊸⊹⊺⊻⊼⊽⊾⊿⋀⋁⋂⋃⋄⋅⋆⋇⋈⋉⋊⋋⋌⋍⋎⋏⋐⋑⋒⋓⋔⋕⋖⋗⋘⋙⋚⋛⋜⋝⋞⋟⋠⋡⋢⋣⋤⋥⋦⋧⋨⋩⋪⋫⋬⋭⋮⋯⋰⋱⋲⋳⋴⋵⋶⋷⋸⋹⋺⋻⋼⋽⋾⋿"},
             {name:"单位符号",chars:"°′″℃℉＄¤￠￡‰℅§№㎎㎏㎜㎝㎞㎡㏄㏎㏑㏒㏕"},
-            {name:"拼音符号",chars:"āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜüêɑńň"},
+            {name:"拼音符号",chars:"āáǎàōóǒòēéěèīíǐìūúǔùǖǘǚǜüêɑńň"},
             {name:"注音符号",chars:"ㄅㄆㄇㄈㄉㄊㄋㄌㄍㄎㄏㄐㄑㄒㄓㄔㄕㄖㄗㄘㄙㄧㄨㄩㄚㄛㄜㄝㄞㄟㄠㄡㄢㄣㄤㄥㄦ"},
             {name:"日文平假名",chars:"あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽゃゅょっ"},
             {name:"日文片假名",chars:"アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲンガギグゲゴザジズゼゾダヂヅデドバビブベボパピプペポャュョッ"},
@@ -140,6 +140,17 @@
             {name:"GBK大字符集",type:"gbk"},
             {name:"分数符号",chars:"½⅓⅔¼¾⅕⅖⅗⅘⅙⅚⅐⅛⅜⅝⅞⅑⅒",batch:10},
         ],special:[
+            {name:"微软图标区1", start:0xE700, end:0xE9F9, batch:300},
+            {name:"微软图标区2", start:0xEA0C, end:0xECF3, batch:300},
+            {name:"微软图标区3", start:0xED0C, end:0xF9FF, batch:300},
+            {name:"微软图标区4", start:0xF000, end:0xF5FF, batch:300},
+            {name:"微软图标区5", start:0xF600, end:0xF8CC, batch:300},
+            {name:"微软图标区6", start:0xE700, end:0xE900, batch:300},
+            {name:"微软图标区7", start:0xEA00, end:0xEC00, batch:300},
+            {name:"微软图标区8", start:0xED00, end:0xEF00, batch:300},
+            {name:"微软图标区9", start:0xF000, end:0xF200, batch:300},
+            {name:"微软图标区10", start:0xF300, end:0xF500, batch:300},
+            {name:"微软图标区11", start:0xF600, end:0xF800, batch:300},
             {name:"汉字偏旁", start:0x2E80, end:0x2EFF, batch:300},
             {name:"上标和下标",start:0x2070,end:0x209F,batch:300},
             {name:"Emoji",start:0x1F000,end:0x1FBFA,batch:300},
