@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Unicode字符浏览器</title>
-      <link href="https://fonts.loli.net/css2?family=Noto+Sans+Math&family=Noto+Sans+Symbols&family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+Mono&family=Noto+Sans+JP&family=Noto+Sans+Emoji&display=swap" rel="stylesheet">
+      <link href="https://fonts.loli.net/css2?family=Noto+Sans+Math&family=Noto+Sans+Symbols&family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+Mono&family=Noto+Serif+CJK&family=Noto+Sans+Emoji&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="http://www.hnxaw.com/template/syzoj/css/katex.min.css">
       <link href="http://www.hnxaw.com/template/syzoj/css/FiraMono.css" rel="stylesheet">
       <link href="http://hnxaw.top/site/login/js/katex/katex.css?v=1751295643" rel="stylesheet">
@@ -32,7 +33,7 @@
         .encoding-result, .encoding-select{
             font-family:
                 /* 等宽西文字体 */
-                "Noto Sans Mono", "SF Mono", "Monaco", "Cascadia Code", "Consolas", "Courier New",
+                "Segoe Fluent Icons","Segoe MDL2 Assets","Noto Sans Mono","SF Mono", "Monaco", "Cascadia Code", "Consolas", "Courier New",
                 /* 中文字体 */
                 "PingFang SC", "Microsoft YaHei",
                 /* 符号和Emoji */
@@ -64,7 +65,7 @@
         .char-item{
             width:60px;height:60px;background:#666;display:flex;align-items:center;justify-content:center;
             /*这是字符区*/
-            font-size:25px;font-family:'Segoe Fluent Icons','Segoe MDL2 Assets','Noto Sans Mono','KaTeX','monospace','Consolas','NSimSun';font-variant-ligatures: common-ligatures;cursor:pointer;color:white;border:1px solid #777;
+            font-size:25px;font-family:'Noto Sans Mono','monospace','Consolas','Cambria Math','Segoe Fluent Icons','Segoe MDL2 Assets','Noto Serif CJK','华文行楷','华文新魏','华文隶书','方正舒体','隶书','楷体','NSimSun';font-variant-ligatures: common-ligatures;cursor:pointer;color:white;border:1px solid #777;
             
             /* 确保字符居中显示 */
             line-height:1
@@ -166,6 +167,7 @@
 	        {name:"哥特体(常规)",start:0x1D504,end:0x1D537,batch:300,fancy:true},
             {name:"杂类符号",start:0x2000,end:0x2BFF,batch:300},
             {name:"神秘符号", start:0x16A0, end:0x16FF, batch:300},
+            {name:"数学粗体大写", start:0x1D400, end:0x1D49B,batch:300},
             {name:"哥特体(粗体)",start:0x1D56C,end:0x1D59F,batch:300,fancy:true},
             {name:"手写体(常规)",start:0x1D49C,end:0x1D4CF,batch:300,fancy:true},
             {name:"手写体(粗体)",start:0x1D4D0,end:0x1D503,batch:300,fancy:true},
