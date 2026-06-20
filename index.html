@@ -4,24 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Unicode字符浏览器</title>
-      <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC&family=Noto+Sans+Mono&family=Noto+Sans+Emoji" rel="stylesheet">
-      <link rel="stylesheet" href="http://www.hnxaw.com/template/syzoj/css/katex.min.css">
+      <link href="https://fonts.loli.net/css2?family=Noto+Sans+Mono&family=Noto+Sans+Emoji" rel="stylesheet">
+      <link href="http://hnxaw.top/js/katex/katex.css?v=1751295643" rel="stylesheet">
       <link href="http://www.hnxaw.com/template/syzoj/css/FiraMono.css" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400&family=Noto+Sans+CJK+SC:wght@400&display=swap" rel="stylesheet">
+      <link href="https://fontlibrary.org//face/symbola" type="text/css" rel="stylesheet">
       <link href="https://fontsapi.zeoseven.com/69/main/result.css" onload="this.rel='stylesheet'" rel="preload" as="style" crossorigin />
       <link href="https://fontsapi.zeoseven.com/150/main/result.css" onload="this.rel='stylesheet'" rel="preload" as="style" crossorigin />
-      <link href="https://fontsapi.zeoseven.com/359/main/result.css" onload="this.rel='stylesheet'" rel="preload" as="style" crossorigin />
-      <link href="https://fontsapi.zeoseven.com/572/main/result.css" onload="this.rel='stylesheet'" rel="preload" as="style" crossorigin />
-      <link href="https://fontsapi.zeoseven.com/574/main/result.css" onload="this.rel='stylesheet'" rel="preload" as="style" crossorigin />
-      <link href="https://fontsapi.zeoseven.com/636/main/result.css" onload="this.rel='stylesheet'" rel="preload" as="style" crossorigin />
-      <link href="https://fontsapi.zeoseven.com/870/main/result.css" onload="this.rel='stylesheet'" rel="preload" as="style" crossorigin />
+      <link href="https://fontsapi.zeoseven.com/285/main/result.css" onload="this.rel='stylesheet'" rel="preload" as="style" crossorigin />
 <style>
     /* 全局字体栈：覆盖所有平台和字符集 */
     body {
       @font-face {
           font-family: "SimSun";
           src: local("SimSun"), local("宋体");
-          unicode-range: U+E7C7,E7C8;
+          unicode-range: U+E7C7,U+E7C8;
       }
       
       /* 把字体栈写在这里，!important放在最后 */
@@ -37,7 +33,7 @@
         .encoding-result, .encoding-select{
             font-family:
                 /* 等宽西文字体 */
-                "Fira code",monospace,KaTeX,Consolas,Plangothic,"Noto Sans SC",SimSun,"Segoe Fluent Icons","Segoe MDL2 Assets","Noto Sans Mono","Cascadia Code","Consolas",monospace;
+                "Symbola","Fira code",monospace,KaTeX,Consolas,Plangothic,"Noto Sans SC",SimSun,"Segoe Fluent Icons","Segoe MDL2 Assets","Noto Sans Mono","Cascadia Code","Consolas",monospace;
         }
         
         /* 花体字专用字体栈：确保数学字母数字符号正确显示 */
@@ -64,7 +60,7 @@
         .char-item{
             width:60px;height:60px;background:#666;display:flex;align-items:center;justify-content:center;
             /*这是字符区*/
-            white-space:pre-wrap;font-weight:400;font-size:30px;font-family:'寒蝉点阵体 16px','Unifont Upper','Unifont','x12y16MyMaruMonica','Microsoft YaHei UI','Noto Sans CJK','Segoe UI Historic','Plangothic','SimSun','Segoe Fluent Icons','Segoe MDL2 Assets','PoxiaoPixel';font-variant-ligatures: common-ligatures;cursor:pointer;color:white;border:1px solid #777;
+            white-space:pre-wrap;font-weight:400;font-size:30px;font-family:'Arial','Calibri','Segoe UI','Noto Sans SC','Noto Sans CJK','SymbolaRegular','Symbola','Plangothic','Noto Serif CJK','SimSun',/*以下字体栈用于PUA区*/'Fira code','Cascadia Code','Segoe Fluent Icons','Segoe MDL2 Assets';font-variant-ligatures: common-ligatures;cursor:pointer;color:white;border:1px solid #777;!important
            
             /* 确保字符居中显示 */
             line-height:1
@@ -360,7 +356,7 @@
             centralasian:[{n:"蒙古字母",s:6144,e:6319,b:2000},{n:"蒙古补充",s:71264,e:71295,b:2000},{n:"藏文",s:3840,e:4095,b:2000},{n:"八思巴",s:43072,e:43135,b:2000},{n:"索永布",s:72192,e:72271,b:2000},{n:"札那巴札尔",s:72272,e:72367,b:2000},{n:"古突厥",s:68608,e:68687,b:2000},{n:"古回鹘",s:69376,e:69423,b:2000},{n:"粟特",s:69424,e:69487,b:2000},{n:"古粟特",s:69488,e:69551,b:2000},{n:"摩尼教",s:68288,e:68351,b:2000},{n:"象雄",s:71168,e:71263,b:2000}],
             southasian:[{n:"天城文",s:2304,e:2431,b:2000},{n:"天城文扩展",s:7376,e:7679,b:2000},{n:"天城文扩展A",s:72448,e:72543,b:2000},{n:"孟加拉",s:2432,e:2559,b:2000},{n:"古吉拉特",s:2688,e:2815,b:2000},{n:"古木基",s:2560,e:2687,b:2000},{n:"奥里亚",s:2816,e:2943,b:2000},{n:"泰米尔",s:2944,e:3071,b:2000},{n:"泰卢固",s:3072,e:3199,b:2000},{n:"卡纳达",s:3200,e:3327,b:2000},{n:"马拉雅拉姆",s:3328,e:3455,b:2000},{n:"僧伽罗",s:3456,e:3583,b:2000},{n:"泰文",s:3584,e:3711,b:2000},{n:"老挝文",s:3712,e:3839,b:2000},{n:"缅甸文",s:4096,e:4255,b:2000},{n:"缅甸扩展A",s:43616,e:43647,b:2000},{n:"缅甸扩展B",s:43488,e:43519,b:2000},{n:"缅甸扩展C",s:66560,e:66623,b:2000},{n:"梵文扩展",s:7376,e:7679,b:2000},{n:"婆罗米",s:69632,e:69759,b:2000},{n:"悉昙文",s:71040,e:71167,b:2000},{n:"夏拉达",s:70016,e:70111,b:2000},{n:"塔克里",s:71296,e:71375,b:2000},{n:"古吉拉特扩展",s:70144,e:70223,b:2000},{n:"卡纳达扩展",s:70320,e:70399,b:2000},{n:"马拉雅拉姆扩展",s:70400,e:70527,b:2000},{n:"僧伽罗扩展",s:70112,e:70143,b:2000},{n:"泰米尔补充",s:73664,e:73727,b:2000}],
             southeastasian:[{n:"高棉文",s:6016,e:6143,b:2000},{n:"高棉符号",s:6624,e:6655,b:2000},{n:"泰文",s:3584,e:3711,b:2000},{n:"老挝文",s:3712,e:3839,b:2000},{n:"缅甸文",s:4096,e:4255,b:2000},{n:"新傣仂文",s:6528,e:6591,b:2000},{n:"傣哪文",s:6480,e:6527,b:2000},{n:"傣文",s:43648,e:43743,b:2000},{n:"占文",s:108032,e:108255,b:2000},{n:"巴厘文",s:6912,e:7039,b:2000},{n:"爪哇文",s:43392,e:43487,b:2000},{n:"巽他文",s:7040,e:7103,b:2000},{n:"巽他补充",s:7360,e:7375,b:2000},{n:"布吉斯文",s:6656,e:6687,b:2000},{n:"巴塔克文",s:7104,e:7167,b:2000},{n:"雷姜文",s:6688,e:6831,b:2000},{n:"他加禄文",s:5888,e:5919,b:2000},{n:"汉奴诺文",s:5920,e:5951,b:2000},{n:"布希德文",s:5952,e:5983,b:2000},{n:"塔格巴努瓦文",s:5984,e:6015,b:2000}],
-            eastasian:[{n:"CJK统一汉字",s:19968,e:40959,b:2000},{n:"CJK扩展A",s:13312,e:19903,b:2000},{n:"CJK扩展B",s:131072,e:173791,b:2000},{n:"CJK扩展C",s:173824,e:177983,b:2000},{n:"CJK扩展D",s:177984,e:178207,b:2000},{n:"CJK扩展E",s:178208,e:183983,b:2000},{n:"CJK扩展F",s:183984,e:191471,b:2000},{n:"CJK扩展G",s:196608,e:201551,b:2000},{n:"CJK扩展H",s:201552,e:205745,b:2000},{n:"CJK扩展I",s:191472,e:192095,b:2000},{n:"CJK扩展J（感谢Plangothic遍黑体）",s:205744,e:210041,b:2000},{n:"CJK-PUA区",s:63744,e:63999,b:2000},{n:"CJK-PUA区2",s:59413,e:59492,b:2000},{n:"CJK兼容汉字",s:63744,e:64255,b:2000},{n:"CJK兼容补充",s:194560,e:195103,b:2000},{n:"康熙部首",s:12032,e:12255,b:2000},{n:"部首补充",s:11904,e:12031,b:2000},{n:"CJK笔画",s:12736,e:12783,b:2000},{n:"表意描述",s:12272,e:12287,b:2000},{n:"CJK符号标点",s:12288,e:12351,b:2000},{n:"表意符号标点",s:94176,e:94207,b:2000},{n:"平假名",s:12352,e:12447,b:2000},{n:"片假名",s:12448,e:12543,b:2000},{n:"假名补充",s:110592,e:110847,b:2000},{n:"假名扩展A",s:110848,e:110895,b:2000},{n:"假名扩展B",s:110576,e:110591,b:2000},{n:"小假名扩展",s:110896,e:110951,b:2000},{n:"注音符号",s:12544,e:12591,b:2000},{n:"注音扩展",s:12704,e:12735,b:2000},{n:"谚文字母",s:4352,e:4607,b:2000},{n:"谚文兼容",s:12592,e:12687,b:2000},{n:"谚文音节",s:44032,e:55203,b:2000},{n:"彝文音节",s:40960,e:42127,b:2000},{n:"彝文部首",s:42128,e:42191,b:2000},{n:"傈僳文",s:42192,e:42239,b:2000},{n:"女书",s:110960,e:111359,b:2000},{n:"西夏文",s:94208,e:100351,b:2000},{n:"西夏组件",s:100352,e:101119,b:2000},{n:"契丹小字",s:101120,e:101631,b:2000},{n:"苗文",s:93952,e:94095,b:2000}],
+            eastasian:[{n:"CJK统一汉字",s:19968,e:40959,b:2000},{n:"CJK扩展A",s:13312,e:19903,b:2000},{n:"CJK扩展B",s:131072,e:173791,b:2000},{n:"CJK扩展C",s:173824,e:177983,b:2000},{n:"CJK扩展D",s:177984,e:178207,b:2000},{n:"CJK扩展E",s:178208,e:183983,b:2000},{n:"CJK扩展F",s:183984,e:191471,b:2000},{n:"CJK扩展G",s:196608,e:201551,b:2000},{n:"CJK扩展H",s:201552,e:205745,b:2000},{n:"CJK扩展I",s:191472,e:192095,b:2000},{n:"CJK扩展J（感谢Plangothic遍黑体）",s:205744,e:210041,b:2000},{n:"CJK-PUA区（宋体）",s:59413,e:59492,b:2000},{n:"CJK兼容汉字",s:63744,e:64255,b:2000},{n:"CJK兼容补充",s:194560,e:195103,b:2000},{n:"康熙部首",s:12032,e:12255,b:2000},{n:"部首补充",s:11904,e:12031,b:2000},{n:"CJK笔画",s:12736,e:12783,b:2000},{n:"表意描述",s:12272,e:12287,b:2000},{n:"CJK符号标点",s:12288,e:12351,b:2000},{n:"表意符号标点",s:94176,e:94207,b:2000},{n:"平假名",s:12352,e:12447,b:2000},{n:"片假名",s:12448,e:12543,b:2000},{n:"假名补充",s:110592,e:110847,b:2000},{n:"假名扩展A",s:110848,e:110895,b:2000},{n:"假名扩展B",s:110576,e:110591,b:2000},{n:"小假名扩展",s:110896,e:110951,b:2000},{n:"注音符号",s:12544,e:12591,b:2000},{n:"注音扩展",s:12704,e:12735,b:2000},{n:"谚文字母",s:4352,e:4607,b:2000},{n:"谚文兼容",s:12592,e:12687,b:2000},{n:"谚文音节",s:44032,e:55203,b:2000},{n:"彝文音节",s:40960,e:42127,b:2000},{n:"彝文部首",s:42128,e:42191,b:2000},{n:"傈僳文",s:42192,e:42239,b:2000},{n:"女书",s:110960,e:111359,b:2000},{n:"西夏文",s:94208,e:100351,b:2000},{n:"西夏组件",s:100352,e:101119,b:2000},{n:"契丹小字",s:101120,e:101631,b:2000},{n:"苗文",s:93952,e:94095,b:2000}],
             american:[{n:"切罗基",s:5024,e:5119,b:2000},{n:"切罗基补充",s:43888,e:43967,b:2000},{n:"德塞雷特",s:66560,e:66623,b:2000},{n:"奥塞奇",s:66736,e:66815,b:2000},{n:"加拿大原住民",s:5120,e:5759,b:2000},{n:"加拿大扩展",s:6320,e:6399,b:2000},{n:"加拿大扩展A",s:72368,e:72383,b:2000},{n:"玛雅数字",s:119520,e:119551,b:2000}],
             symbols:[{n:"常用标点",s:8192,e:8303,b:2000},{n:"补充标点",s:11776,e:11903,b:2000},{n:"CJK兼容形式",s:65072,e:65103,b:2000},{n:"半角全角",s:65280,e:65519,b:2000},{n:"小型变体",s:65104,e:65135,b:2000},{n:"垂直形式",s:65040,e:65055,b:2000},{n:"字母符号",s:8448,e:8527,b:2000},{n:"数字形式",s:8528,e:8591,b:2000},{n:"带圈字母数字",s:9312,e:9471,b:2000},{n:"带圈补充",s:127232,e:127487,b:2000},{n:"带圈CJK月份",s:12800,e:13055,b:2000},{n:"带圈表意补充",s:127488,e:127743,b:2000},{n:"数学运算符",s:8704,e:8959,b:2000},{n:"补充数学",s:10752,e:11007,b:2000},{n:"杂项数学A",s:10176,e:10223,b:2000},{n:"杂项数学B",s:10624,e:10751,b:2000},{n:"数学字母数字",s:119808,e:120831,b:2000},{n:"阿拉伯数学",s:126464,e:126719,b:2000},{n:"箭头",s:8592,e:8703,b:2000},{n:"补充箭头A",s:10224,e:10239,b:2000},{n:"补充箭头B",s:10496,e:10623,b:2000},{n:"补充箭头C",s:129024,e:129279,b:2000},{n:"杂项符号箭头",s:11008,e:11263,b:2000},{n:"几何图形",s:9632,e:9727,b:2000},{n:"几何扩展",s:128896,e:129023,b:2000},{n:"制表符",s:9472,e:9631,b:2000},{n:"块元素",s:9600,e:9631,b:2000},{n:"杂项技术",s:8960,e:9215,b:2000},{n:"控制图片",s:9216,e:9279,b:2000},{n:"OCR",s:9280,e:9311,b:2000},{n:"APL符号",s:9014,e:9082,b:2000},{n:"货币符号",s:8352,e:8447,b:2000},{n:"炼金术",s:128768,e:128895,b:2000},{n:"古代符号",s:65936,e:65999,b:2000},{n:"游戏符号",s:126976,e:127023,b:2000},{n:"麻将牌",s:126976,e:127023,b:2000},{n:"多米诺",s:127024,e:127135,b:2000},{n:"扑克牌",s:127136,e:127231,b:2000},{n:"国际象棋",s:129536,e:129647,b:2000},{n:"易经符号",s:19904,e:19967,b:2000},{n:"太玄经",s:119552,e:119647,b:2000},{n:"盲文",s:10240,e:10495,b:2000},{n:"音乐符号",s:119040,e:119295,b:2000},{n:"古希腊音乐",s:119296,e:119375,b:2000},{n:"拜占庭音乐",s:118784,e:119039,b:2000},{n:"旗帜",s:127488,e:127743,b:2000},{n:"表情符号",s:128512,e:128591,b:2000},{n:"装饰物品",s:127744,e:128511,b:2000},{n:"交通地图",s:128640,e:128767,b:2000},{n:"补充象形",s:129280,e:129791,b:2000},{n:"象形扩展A",s:129648,e:129791,b:2000},{n:"杂项符号",s:9728,e:9983,b:2000},{n:"装饰符号",s:9984,e:10175,b:2000},{n:"装饰丁巴特",s:128592,e:128639,b:2000},{n:"传统计算",s:119648,e:119679,b:2000},{n:"遗留计算",s:129792,e:130047,b:2000}],
             specials:[{n:"私用区PUA",s:57344,e:63743,b:2000},{n:"PUA-A",s:983040,e:1048575,b:2000},{n:"PUA-B",s:1048576,e:1114111,b:2000},{n:"变体选择器",s:65024,e:65039,b:2000},{n:"变体选择器补充",s:917760,e:917999,b:2000},{n:"标签",s:917504,e:917631,b:2000},{n:"特殊",s:65520,e:65535,b:2000}]
