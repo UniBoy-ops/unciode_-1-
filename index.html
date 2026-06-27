@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +6,10 @@
       <link href="https://fonts.loli.net/css2?family=Noto+Sans+Mono&family=Noto+Sans+Emoji" rel="stylesheet">
       <link href="http://hnxaw.top/js/katex/katex.css?v=1751295643" rel="stylesheet">
       <link href="http://www.hnxaw.com/template/syzoj/css/FiraMono.css" rel="stylesheet">
-      <link href="https://fontlibrary.org//face/symbola" type="text/css" rel="stylesheet">
       <link href="https://fontsapi.zeoseven.com/69/main/result.css" onload="this.rel='stylesheet'" rel="preload" as="style" crossorigin />
       <link href="https://fontsapi.zeoseven.com/150/main/result.css" onload="this.rel='stylesheet'" rel="preload" as="style" crossorigin />
       <link href="https://fontsapi.zeoseven.com/285/main/result.css" onload="this.rel='stylesheet'" rel="preload" as="style" crossorigin />
+      <link href="https://fontsapi.zeoseven.com/809/main/result.css" onload="this.rel='stylesheet'" rel="preload" as="style" crossorigin />
 <style>
     /* 全局字体栈：覆盖所有平台和字符集 */
     body {
@@ -22,7 +21,7 @@
       
       /* 把字体栈写在这里，!important放在最后 */
       font-family: 
-	    "Plangothic","KaTeX","Microsoft YaHei UI","monospace",'Segoe UI',"SimSun","Segoe Fluent Icons","Segoe MDL2 Assets", 
+	    "Arial","Noto Sans CJK","Noto Unicode","Plangothic","KaTeX","Microsoft YaHei UI","monospace",'Segoe UI',"SimSun","Segoe Fluent Icons","Segoe MDL2 Assets", 
         sans-serif;
         background:#888;
         margin: 0;
@@ -33,7 +32,7 @@
         .encoding-result, .encoding-select{
             font-family:
                 /* 等宽西文字体 */
-                "Symbola","Fira code",monospace,KaTeX,Consolas,Plangothic,"Noto Sans SC",SimSun,"Segoe Fluent Icons","Segoe MDL2 Assets","Noto Sans Mono","Cascadia Code","Consolas",monospace;
+                "Arial","Fira code",monospace,KaTeX,Consolas,Plangothic,"Noto Sans SC",SimSun,"Segoe Fluent Icons","Segoe MDL2 Assets","Noto Sans Mono","Cascadia Code","Consolas",monospace;
         }
         
         /* 花体字专用字体栈：确保数学字母数字符号正确显示 */
@@ -44,35 +43,39 @@
                 /* 然后是通用字体 */
                 "Noto Sans", "Segoe UI", "Apple Symbols",
                 /* 最后是全局字体栈 */
-                -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei",
-                "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+                ,"Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei",
+                ,"Segoe UI Emoji", "Noto Color Emoji", sans-serif;
             font-size:28px;
         }
         
         #container{display:flex;gap:20px}
         #sidebar{width:280px;height:85vh;overflow-y:auto;background:#555;padding:10px}
-        .section-title{color:#fff;font-weight:bold;margin:15px 0 5px;padding:5px;background:#444;position:sticky;top:0;z-index:10}
+        .section-title{user-select: none;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;color:#fff;font-weight:bold;margin:0px 0 0px;padding:5px;background:#444;position:sticky;top:0;z-index:10;font-family:"Noto Sans CJK"}
         .category-btn{display:block;width:100%;padding:6px 8px;margin:2px 0;background:#333;color:white;border:none;cursor:pointer;text-align:left;font-size:12px}
         .category-btn:hover{background:#444}
         #display{flex:1;background:#555;padding:20px;min-height:85vh;overflow-y:auto}
         .char-grid{display:grid;grid-template-columns:repeat(auto-fill,60px);gap:5px}
         .kaomojis-char-grid{display:grid;grid-template-columns:repeat(auto-fill,120px);gap:50px}
         .char-item{
-            width:60px;height:60px;background:#666;display:flex;align-items:center;justify-content:center;
+            user-select: none;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;width:60px;height:60px;background:#666;display:flex;align-items:center;justify-content:center;
             /*这是字符区*/
-            white-space:pre-wrap;font-weight:400;font-size:30px;font-family:'Arial','Calibri','Segoe UI','Noto Sans SC','Noto Sans CJK','SymbolaRegular','Symbola','Plangothic','Noto Serif CJK','SimSun',/*以下字体栈用于PUA区*/'Fira code','Cascadia Code','Segoe Fluent Icons','Segoe MDL2 Assets';font-variant-ligatures: common-ligatures;cursor:pointer;color:white;border:1px solid #777;!important
+            white-space:pre-wrap;font-weight:400;font-size:30px;font-family:'Arial','Microsoft YaHei UI','Noto Sans CJK','Noto Unicode','Plangothic','Noto Serif CJK','SimSun',/*以下字体栈用于PUA区*/,'Fira code','Cascadia Code','Segoe Fluent Icons','Segoe MDL2 Assets','';font-variant-ligatures: common-ligatures;cursor:pointer;color:white;border:1px solid #777;!important
            
             /* 确保字符居中显示 */
             line-height:1
         }
+        
         .char-item:hover{background:#777}
         .kaomoji-item{width:120px;height:60px;padding:10px;font-size:20px;white-space:normal;text-align:center;line-height:1}
         .load-more-btn{display:block;width:100%;max-width:300px;margin:20px auto;padding:12px;background:#444;color:white;border:1px solid #666;cursor:pointer;font-size:14px}
         .load-more-btn:hover{background:#555}
         .load-more-btn:disabled{background:#333;color:#666;cursor:not-allowed}
-        h6{color:white;margin-top:0;font-size:15px;font-family:'Microsoft YaHei UI','Segoe Fluent Icons','Segoe MDL2 Assets','Segoe UI Symbol';white-space: pre-line;}
+        h6{color:white;margin-top:0;font-weight:800;font-size:15px;font-family:'Noto Sans CJK','Segoe Fluent Icons','Segoe MDL2 Assets','Segoe UI Symbol';white-space: pre-line;}
         h2{color:white;margin-top:0;font-size:18px;font-family:'Segoe UI','Consolas','Micrsoft YaHei UI','Segoe UI Symbol';white-space: pre-line;}
-        .info{color:#ccc;font-size:12px;margin-bottom:15px}
+        h1{color:gold;margin-top:0;font-weight:800;font-size:50px;font-family:'Noto Sans CJK';white-space: pre-line;text-shadow: 0 0 5px #fff,0 0 10px gold,0 0 20px gold,0 0 40px #ffd700;animation: weightChange 1s infinite alternate ease-in-out;}
+        @keyframes weightChange {0.0% { font-weight: 100; }100.0% { font-weight: 900; }}
+        .no-select {/* 标准 */user-select: none;/* webkit内核：Chrome、Edge、Safari、手机浏览器 */-webkit-user-select: none;/* Firefox */-moz-user-select: none;/* IE旧版 */-ms-user-select: none;}
+        .info{color:#ccc;font-size:12px;margin-bottom:15px;font-family:"Consolas"}
         .encoding-panel{background:#444;padding:15px;margin-bottom:15px;border-radius:5px}
         .encoding-label{color:white;font-size:14px;margin-bottom:8px;display:block}
         .encoding-select{width:100%;padding:8px;background:#333;color:white;border:1px solid #666;font-size:13px}
@@ -86,22 +89,23 @@
     <div id="container">
         <div id="sidebar">
             <div class="section-title">★ 经典分类</div><div id="classic"></div>
-            <div class="section-title">✨ 特色符号</div><div id="special"></div>
-            <div class="section-title">📐 Unicode平面</div><div id="plane"></div>
-            <div class="section-title">📜 欧洲文字</div><div id="european"></div>
-            <div class="section-title">🌍 非洲文字</div><div id="african"></div>
-            <div class="section-title">🏛️ 西亚文字</div><div id="westasian"></div>
-            <div class="section-title">🐎 中亚文字</div><div id="centralasian"></div>
-            <div class="section-title">🪷 南亚文字</div><div id="southasian"></div>
-            <div class="section-title">🌴 东南亚文字</div><div id="southeastasian"></div>
-            <div class="section-title">🏯 东亚文字</div><div id="eastasian"></div>
-            <div class="section-title">🦅 美洲文字</div><div id="american"></div>
+            <div class="section-title">⟴特色符号</div><div id="special"></div>
+            <div class="section-title">䷀Unicode平面</div><div id="plane"></div>
+            <div class="section-title">ƀ欧洲文字</div><div id="european"></div>
+            <div class="section-title">ⶸ非洲文字</div><div id="african"></div>
+            <div class="section-title">ࢢ 西亚文字</div><div id="westasian"></div>
+            <div class="section-title">᠑中亚文字</div><div id="centralasian"></div>
+            <div class="section-title">ঔ 南亚文字</div><div id="southasian"></div>
+            <div class="section-title">ဪ 东南亚文字</div><div id="southeastasian"></div>
+            <div class="section-title"> 东亚文字</div><div id="eastasian"></div>
+            <div class="section-title">Ꮺ 美洲文字</div><div id="american"></div>
             <div class="section-title">✦ 符号标点</div><div id="symbols"></div>
             <div class="section-title">⚙️ 特殊区域</div><div id="specials"></div>
         </div>
         <div id="display">
-            <h6>点击左侧分类查看字符，由hnxaw用户zyw1，Bilibili用户“你好coding”，QQ用户450287694@qq.com，GitHub用户Uniboy-ops，HP官方网站用户YUWEI ZHU出品。致谢豆包AI修BUG，作者收集字符不易(/▽＼)，如有遗漏，请在QQ邮箱里写信，每周秒回。&#13;&#10;♔◣我是古希腊掌管符号的神♍☠…… &#13;&#10; 手写体字：𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ𝒩𝒪𝒫𝒬ℛ𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵𝒶𝒷𝒸𝒹ℯ𝒻ℊ𝒽𝒾𝒿𝓀ℓ𝓂𝓃ℴ𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏 𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃&#13;&#10;哥特式体：𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔘𝔙𝔚𝔛𝔜ℨ𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷 𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟 &#13;&#10;黑体：𝖠𝖡𝖢𝖣𝖤𝖥𝖦𝖧𝖨𝖩𝖪𝖫𝖬𝖭𝖮𝖯𝖰𝖱𝖲𝖳𝖴𝖵𝖶𝖷𝖸𝖹𝖺𝖻𝖼𝖽𝖾𝖿𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓 &#13;&#10;𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇&#13;&#10;确保你的电脑/浏览器有安装<span style="color:black;font-family:'Noto Sans SC Black';">Segoe Fluent Icons</span>或<span style="color:Gray;font-famliy:'宋体';">Segoe MDL2 Assets</span>（不建议也不强制，如果你用的是Windows系统，&#13;&#10;那么请查看“”和“”的字形，如果都是乱码/空白，那么你可能没有安装Segoe Fluent Icons和Segoe MDL2 Assets字体）字体。&#13;&#10;颜文字的调整不太理想，实际效果请自己粘贴。&#13;&#10;部分SimSun（宋体或其它中文字体）与微软的字体（只有安装Segoe Fluent Icons或Segoe MDL2 Assets字体的）的私人使用区有冲突，字体栈只有一个，请原谅。感谢Plangothic字体对CJK-J区的支持🎉&#13;&#10;该网站提供的所有的<span style="color:#5D57FF;font-family:'monospace';">Unicode</span>字符，<strong><span style="color:blue;"><em>不予用于商业用途。</em></span>&#13;&#10;The quick brown fox jumps over the lazy dog.</strong></h6>
-            <h2>本网站已尽最大努力消灭Tofu□▯�了。</h2>
+            <h1 class="no-select"><em>让字符充实你的剪贴板吧！</em></h1>
+            <h6>点击左侧分类查看字符，由hnxaw用户zyw1，Bilibili用户“你好coding”，QQ用户450287694@qq.com，GitHub用户Uniboy-ops，HP官方网站用户YUWEI ZHU出品。致谢豆包AI修BUG，作者收集字符不易(/▽＼)，如有遗漏，请在QQ邮箱里写信，每周秒回。&#13;&#10;♔◣我是古希腊掌管符号的神♍☠…… &#13;&#10; 手写体字：𝒜ℬ𝒞𝒟ℰℱ𝒢ℋℐ𝒥𝒦ℒℳ𝒩𝒪𝒫𝒬ℛ𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵𝒶𝒷𝒸𝒹ℯ𝒻ℊ𝒽𝒾𝒿𝓀ℓ𝓂𝓃ℴ𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏 𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃&#13;&#10;哥特式体：𝔄𝔅ℭ𝔇𝔈𝔉𝔊ℌℑ𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔ℜ𝔖𝔗𝔘𝔙𝔚𝔛𝔜ℨ𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷 𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟 &#13;&#10;黑体：𝖠𝖡𝖢𝖣𝖤𝖥𝖦𝖧𝖨𝖩𝖪𝖫𝖬𝖭𝖮𝖯𝖰𝖱𝖲𝖳𝖴𝖵𝖶𝖷𝖸𝖹𝖺𝖻𝖼𝖽𝖾𝖿𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓 &#13;&#10;𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇&#13;&#10;确保你的电脑/浏览器有安装<span style="color:black;font-family:'Noto Sans SC Black';">Segoe Fluent Icons</span>或<span style="color:Gray;font-famliy:'宋体';">Segoe MDL2 Assets</span>（不建议也不强制，如果你用的是Windows系统，&#13;&#10;那么请查看“”和“”的字形，如果都是乱码/空白，那么你可能没有安装Segoe Fluent Icons和Segoe MDL2 Assets字体）字体。&#13;&#10;颜文字的调整不太理想，实际效果请自己粘贴。&#13;&#10;部分SimSun（宋体或其它中文字体）与微软的字体（只有安装Segoe Fluent Icons或Segoe MDL2 Assets字体的）的私人使用区有冲突，字体栈只有一个，请原谅。感谢Plangothic字体对CJK-J区的支持，部分字体有甲骨文或小篆字形&#13;&#10;该网站提供的所有的<span style="color:#5D57FF;font-family:'monospace';">Unicode</span>字符，<strong><span style="color:blue;"><em>不予用于商业用途。</em></span>&#13;&#10;The quick brown fox jumps over the lazy dog.</strong></h6>
+            <h2 class="no-select">本网站已尽最大努力消灭Tofu□▯�了。</h2>
        </div>
     </div>
 
@@ -655,7 +659,7 @@
             navigator.clipboard.writeText(text).then(()=>{
                 const t=document.createElement('div');
                 t.style.cssText='position:fixed;background:#222;color:white;padding:15px;border-radius:5px;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;';
-                t.textContent=`已复制: ${text}`;
+                t.textContent=`已复制: “${text}”`;
                 document.body.appendChild(t);
                 setTimeout(()=>t.remove(),800);
             });
